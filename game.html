@@ -28,7 +28,7 @@
       </header>
 
       <!-- メインコンテンツ -->
-      <main>
+      <main class="relative w-full" id="gameArea" style="height: calc(100vh - 60px - 60px); margin-top: 0px;">
         <!-- 串 -->
         <img id="skewer" src="image/skewer.png" alt="skewer" class="w-24 h-24">
         <!-- ボタン -->
@@ -45,9 +45,10 @@
       const wordElements = [];
       const results = [];
 
-      const gameArea = document.body;
+      const gameArea = document.getElementById("gameArea");
       const skewer = document.getElementById("skewer");
-      let skewerLeft = parseInt(window.innerWidth - 100); // 初期位置
+      // let skewerLeft = parseInt(window.innerWidth - 100); // 初期位置
+      let skewerLeft = gameArea.clientWidth - 100; // 初期位置（main幅に依存）
 
       // 単語生成
       function createWord() {
@@ -55,9 +56,9 @@
         word.classList.add("word");
         word.textContent = words[Math.floor(Math.random() * words.length)];
 
-        const leftMargin = 50;   // 左の余白
-        const rightMargin = 220; // 右の余白
-        const maxLeft = window.innerWidth - leftMargin - rightMargin - 50; // 50は単語幅想定
+        const leftMargin = 50;   
+        const rightMargin = 220; 
+        const maxLeft = gameArea.clientWidth - leftMargin - rightMargin - 50; // 50は単語幅想定
         word.style.left = leftMargin + Math.random() * maxLeft + "px";
 
         word.style.top = "0px";
@@ -67,70 +68,88 @@
       }
 
       // 単語を落とす
+      // function updateWords() {
+      //   wordElements.forEach((word, index) => {
+      //     const speed = parseFloat(word.dataset.speed);
+      //     word.style.top = parseFloat(word.style.top) + speed + "px";
+
+      //     const wordRect = word.getBoundingClientRect();
+      //     const skewerRect = skewer.getBoundingClientRect();
+
+      //     // 衝突判定
+      //     if (
+      //       wordRect.right > skewerRect.left &&
+      //       wordRect.left < skewerRect.right &&
+      //       wordRect.bottom > skewerRect.top &&
+      //       wordRect.top < skewerRect.bottom
+      //     ) {
+      //       results.push({ word: word.textContent, position: wordRect.top });
+      //       word.remove();
+      //       wordElements.splice(index, 1);
+      //     }
+
+      //     // 画面下に到達したら削除
+      //     if (parseFloat(word.style.top) > window.innerHeight) {
+      //       word.remove();
+      //       wordElements.splice(index, 1);
+      //     }
+      //   });
+      // }
       function updateWords() {
-        wordElements.forEach((word, index) => {
-          const speed = parseFloat(word.dataset.speed);
-          word.style.top = parseFloat(word.style.top) + speed + "px";
+      wordElements.forEach((word, index) => {
+        const speed = parseFloat(word.dataset.speed);
+        word.style.top = parseFloat(word.style.top) + speed + "px";
 
-          const wordRect = word.getBoundingClientRect();
-          const skewerRect = skewer.getBoundingClientRect();
+        const wordRect = word.getBoundingClientRect();
+        const skewerRect = skewer.getBoundingClientRect();
 
-          // 衝突判定
-          if (
-            wordRect.right > skewerRect.left &&
-            wordRect.left < skewerRect.right &&
-            wordRect.bottom > skewerRect.top &&
-            wordRect.top < skewerRect.bottom
-          ) {
-            results.push({ word: word.textContent, position: wordRect.top });
-            word.remove();
-            wordElements.splice(index, 1);
-          }
+        // 衝突判定（右側から）
+        if (
+          wordRect.right > skewerRect.left &&
+          wordRect.left < skewerRect.right &&
+          wordRect.bottom > skewerRect.top &&
+          wordRect.top < skewerRect.bottom
+        ) {
+          // 串の左端が文字列のどこにあたったか（0〜100%）
+          const hitY = skewerRect.top; // 串の上端（右側から入るので左端でも良い）
+          const positionPercent = ((hitY - wordRect.top) / wordRect.height) * 100;
 
-          // 画面下に到達したら削除
-          if (parseFloat(word.style.top) > window.innerHeight) {
-            word.remove();
-            wordElements.splice(index, 1);
-          }
-        });
-      }
+          results.push({
+            word: word.textContent,
+            hitPercent: Math.min(Math.max(positionPercent, 0), 100).toFixed(1) // 0〜100%に制限
+          });
+
+          word.remove();
+          wordElements.splice(index, 1);
+        }
+
+        // 画面下に到達したら削除
+        if (parseFloat(word.style.top) > window.innerHeight) {
+          word.remove();
+          wordElements.splice(index, 1);
+        }
+      });
+    }
 
       // 串移動
-      // document.getElementById("moveButton").addEventListener("click", () => {
-      //   skewerLeft -= 50; // 左に50px移動
-      //   skewer.style.left = skewerLeft + "px";
-      // });
-
-      // document.getElementById("moveButton").addEventListener("click", () => {
-      //   const speed = 20; // 1フレームあたりの移動量（大きいほど速い）
-      //   const interval = setInterval(() => {
-      //     skewerLeft -= speed;
-      //     skewer.style.left = skewerLeft + "px";
-
-      //     // 画面左に完全に消えたら停止
-      //     if (skewerLeft + skewer.offsetWidth < 0) {
-      //       clearInterval(interval);
-      //       skewer.style.left = "-200px"; // 完全に画面外に
-      //     }
-      //   }, 16); // 60fps
-      // });
-
-      const initialLeft = window.innerWidth - 100; // 初期位置
       let flying = false; // 飛行中フラグ
+      skewer.style.left = skewerLeft + "px";
 
+      // 串ボタン押下時
       document.getElementById("moveButton").addEventListener("click", () => {
         if (flying) return; // 既に飛んでいる間は無効
         flying = true;
         const speed = 30; // 1フレームあたりの移動量（px）
 
         function fly() {
-          skewerLeft -= speed;
+          skewerLeft -= speed; // 左に30px移動
           skewer.style.left = skewerLeft + "px";
+
           if (skewerLeft + skewer.offsetWidth > 0) {
             requestAnimationFrame(fly); // 左端に到達するまで移動
           } else {
-            // 左端到達で即座に初期位置にリセット
-            skewerLeft = initialLeft;
+            // 完全に画面外に出たらリセット
+            skewerLeft = gameArea.clientWidth - skewer.offsetWidth;
             skewer.style.left = skewerLeft + "px";
             flying = false;
           }
@@ -139,14 +158,20 @@
         requestAnimationFrame(fly); // 押した瞬間に動かす
       });
 
+      // ウィンドウリサイズ時に初期位置を更新
+      window.addEventListener('resize', () => {
+        if (!flying) {
+          skewerLeft = gameArea.clientWidth - 100;
+          skewer.style.left = skewerLeft + "px";
+        }
+      });
+
       // ゲームループ
       setInterval(() => {
         if (Math.random() < 0.03) createWord(); // ランダム生成
         updateWords();
       }, 16); // 60fps
       </script>
-
-
 
   </body>
 </html>
