@@ -4,9 +4,149 @@
     <title>ケバブケースをつくろう</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { overflow: hidden; }
+    .word {
+      position: absolute;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    #skewer {
+      position: absolute;
+      right: 50px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: left 0.2s;
+    }
+  </style>
   </head>
-  <body>
+    <body class="relative h-screen bg-gray-100">
+      <!-- ヘッダー -->
+      <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0">
+        <h1 class="text-center text-lg m-2">Noa's App：kabab-case</h1>
+      </header>
 
-    
+      <!-- メインコンテンツ -->
+      <main>
+        <!-- 串 -->
+        <img id="skewer" src="image/skewer.png" alt="skewer" class="w-24 h-24">
+        <!-- ボタン -->
+        <button id="moveButton" class="fixed bottom-[70px] right-5 px-4 py-2 bg-blue-500 text-white rounded">串を刺す</button>
+      </main>
+      
+      <!-- フッター -->
+      <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0">
+        <p class="text-center m-2">@NOA</p>
+      </footer>
+
+      <script>
+      const words = ["apple ringo", "banana.test", "sakuraCherry", "date", "fig", "grape"]; // 落ちる単語
+      const wordElements = [];
+      const results = [];
+
+      const gameArea = document.body;
+      const skewer = document.getElementById("skewer");
+      let skewerLeft = parseInt(window.innerWidth - 100); // 初期位置
+
+      // 単語生成
+      function createWord() {
+        const word = document.createElement("div");
+        word.classList.add("word");
+        word.textContent = words[Math.floor(Math.random() * words.length)];
+
+        const leftMargin = 50;   // 左の余白
+        const rightMargin = 220; // 右の余白
+        const maxLeft = window.innerWidth - leftMargin - rightMargin - 50; // 50は単語幅想定
+        word.style.left = leftMargin + Math.random() * maxLeft + "px";
+
+        word.style.top = "0px";
+        word.dataset.speed = 1 + Math.random() * 3;
+        gameArea.appendChild(word);
+        wordElements.push(word);
+      }
+
+      // 単語を落とす
+      function updateWords() {
+        wordElements.forEach((word, index) => {
+          const speed = parseFloat(word.dataset.speed);
+          word.style.top = parseFloat(word.style.top) + speed + "px";
+
+          const wordRect = word.getBoundingClientRect();
+          const skewerRect = skewer.getBoundingClientRect();
+
+          // 衝突判定
+          if (
+            wordRect.right > skewerRect.left &&
+            wordRect.left < skewerRect.right &&
+            wordRect.bottom > skewerRect.top &&
+            wordRect.top < skewerRect.bottom
+          ) {
+            results.push({ word: word.textContent, position: wordRect.top });
+            word.remove();
+            wordElements.splice(index, 1);
+          }
+
+          // 画面下に到達したら削除
+          if (parseFloat(word.style.top) > window.innerHeight) {
+            word.remove();
+            wordElements.splice(index, 1);
+          }
+        });
+      }
+
+      // 串移動
+      // document.getElementById("moveButton").addEventListener("click", () => {
+      //   skewerLeft -= 50; // 左に50px移動
+      //   skewer.style.left = skewerLeft + "px";
+      // });
+
+      // document.getElementById("moveButton").addEventListener("click", () => {
+      //   const speed = 20; // 1フレームあたりの移動量（大きいほど速い）
+      //   const interval = setInterval(() => {
+      //     skewerLeft -= speed;
+      //     skewer.style.left = skewerLeft + "px";
+
+      //     // 画面左に完全に消えたら停止
+      //     if (skewerLeft + skewer.offsetWidth < 0) {
+      //       clearInterval(interval);
+      //       skewer.style.left = "-200px"; // 完全に画面外に
+      //     }
+      //   }, 16); // 60fps
+      // });
+
+      const initialLeft = window.innerWidth - 100; // 初期位置
+      let flying = false; // 飛行中フラグ
+
+      document.getElementById("moveButton").addEventListener("click", () => {
+        if (flying) return; // 既に飛んでいる間は無効
+        flying = true;
+        const speed = 30; // 1フレームあたりの移動量（px）
+
+        function fly() {
+          skewerLeft -= speed;
+          skewer.style.left = skewerLeft + "px";
+          if (skewerLeft + skewer.offsetWidth > 0) {
+            requestAnimationFrame(fly); // 左端に到達するまで移動
+          } else {
+            // 左端到達で即座に初期位置にリセット
+            skewerLeft = initialLeft;
+            skewer.style.left = skewerLeft + "px";
+            flying = false;
+          }
+        }
+
+        requestAnimationFrame(fly); // 押した瞬間に動かす
+      });
+
+      // ゲームループ
+      setInterval(() => {
+        if (Math.random() < 0.03) createWord(); // ランダム生成
+        updateWords();
+      }, 16); // 60fps
+      </script>
+
+
+
   </body>
 </html>
