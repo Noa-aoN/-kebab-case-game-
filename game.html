@@ -12,15 +12,14 @@
     }
     .word {
       position: absolute;
-      font-size: 2.5rem; /* デフォルトはPC用 */
       font-weight: bold;
       user-select: none;
+      font-family: 'Zen Maru Gothic', 'Meiryo', sans-serif;
     }
-
     /* スマホ用（画面幅 640px 以下） */
     @media screen and (max-width: 640px) {
       .word {
-        font-size: 1.5rem; /* 小さめに変更 */
+        font-size: 1.5rem !important; /* 強制的に小さめに */
       }
     }
     #skewer {
@@ -44,7 +43,8 @@
 
   <!-- メインコンテンツ -->
   <main id="gameArea" class="relative w-full" style="height: calc(100vh - 60px - 60px);">
-    <p class="text-center text-lg">ウィンドウをリサイズしたらページを再読み込みしてね</p>
+    <!-- 説明 -->
+    <p class="text-center text-lg leading-8 p-1">ウィンドウをリサイズしたらページを再読み込みしてね</p>
     <!-- 串 -->
     <img id="skewer" src="image/skewer.png" alt="skewer">
     <!-- 共通ボタンテンプレート（フッター上固定＋レスポンシブ） -->
@@ -75,7 +75,7 @@
       </button>
 
     </div>
-    </main>
+  </main>
 
   <!-- フッター -->
   <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0">
@@ -96,8 +96,7 @@
     // 串の初期位置設定（右端がウィンドウ右端に接触）
     // ---------------------------
     function setSkewerInitialPosition() {
-      // 画像ロード済みで width が取得できる場合
-      const skewerWidth = skewer.offsetWidth || 150; // fallback
+      const skewerWidth = skewer.offsetWidth || 150;
       skewerLeft = window.innerWidth - skewerWidth;
       skewer.style.left = skewerLeft + "px";
       skewer.style.display = "block";
@@ -106,29 +105,29 @@
     setSkewerInitialPosition();
 
     // ---------------------------
-    // 単語生成
+    // 単語生成（ランダムサイズ）
     // ---------------------------
     function createWord() {
-    const word = document.createElement("div");
-    word.classList.add("word");
-    word.textContent = words[Math.floor(Math.random() * words.length)];
-    gameArea.appendChild(word);
+      const word = document.createElement("div");
+      word.classList.add("word");
+      word.textContent = words[Math.floor(Math.random() * words.length)];
 
-    // 単語の幅を取得
-    const wordWidth = word.offsetWidth;
+      // ランダムサイズ（2rem～3rem）
+      const fontSize = 2 + Math.random(); // 2～3rem
+      word.style.fontSize = fontSize + "rem";
 
-    // 単語の左端を決める範囲
-    const margin = 10; // 余裕（px）
-    const minLeft = 10; // 左端マージン
-    const maxLeft = skewerLeft - wordWidth - margin; // 右端を串左端より余裕を持たせる
-    word.style.left = minLeft + Math.random() * (maxLeft - minLeft) + "px";
+      gameArea.appendChild(word);
 
-    // 上から落下
-    word.style.top = "0px";
-    word.dataset.speed = 0.5 + Math.random() * 1.5;
+      const wordWidth = word.offsetWidth;
+      const margin = 10;
+      const minLeft = 10;
+      const maxLeft = skewerLeft - wordWidth - margin;
+      word.style.left = minLeft + Math.random() * (maxLeft - minLeft) + "px";
+      word.style.top = "0px";
+      word.dataset.speed = 0.5 + Math.random() * 1.5;
 
-    wordElements.push(word);
-  }
+      wordElements.push(word);
+    }
 
     // ---------------------------
     // 衝突判定
@@ -191,16 +190,15 @@
 
       function fly() {
         skewerLeft -= speed;
-        if (skewerLeft < 0) skewerLeft = 0; // 左端で止める
+        if (skewerLeft < 0) skewerLeft = 0;
         skewer.style.left = skewerLeft + "px";
 
         if (skewerLeft > 0) {
           requestAnimationFrame(fly);
         } else {
-          // 左端に完全到達したら消して再出現
           skewer.style.display = "none";
           setTimeout(() => {
-            setSkewerInitialPosition(); // 右端に接触する位置から再スタート
+            setSkewerInitialPosition();
             flying = false;
           }, 300);
         }
@@ -228,3 +226,4 @@
 
   </script>
 </body>
+</html>
