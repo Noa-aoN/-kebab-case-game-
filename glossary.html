@@ -1,12 +1,68 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>ケバブケースをつくろう</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ケバブケースゲーム</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'メイリオ', 'Meiryo', 'Hiragino Kaku Gothic ProN', sans-serif;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="relative h-screen bg-gray-100 bg-[url('image/many_kabab5_cut.png')] bg-center bg-cover">
 
-    
-  </body>
-</html>
+  <!-- ヘッダー -->
+  <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0">
+    <h1 class="text-center text-lg m-2">
+      用語解説・遊び方
+    </h1>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main>
+    <main class="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] w-full px-4 sm:px-8 lg:px-16">
+      <div class="w-full max-w-3xl bg-amber-300/100 rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+        <p>用語解説</p>
+        <p>○キャメルケース</p>
+        <p>├・ローワーキャメルケース：最初の単語の頭文字が小文字で、あとは大文字</p>
+        <p>│　用例：camelCase</p>
+        <p>│　由来：頭を下げたラクダみたいだから</p>
+        <p>└・アッパーキャメルケース：すべての単語の頭文字が大文字</p>
+        <p>　　用例：CamelCase</p>
+        <p>　　由来：頭を上げたラクダみたいだから</p>
+        <p>○スネークケース：すべての単語が小文字で、単語間を_で区切る</p>
+        <p>　用例：snake_case</p>
+        <p>　由来：蛇みたいだから</p>
+        <p>○ケバブケース：すべての単語は小文字、単語感を-で区切る</p>
+        <p>　用例：kebab-case</p>
+        <p>　由来：串刺しみたいだから</p>
+        <p>○ハンガリアン記法：</p>
+        <p>　用例：strText</p>
+        <p>　由来：</p>
+        <p>○ドットケース：</p>
+        <p>　用例：kusama.yayoi</p>
+        <p>　由来：</p>
+      </div>
+      <div class="w-full max-w-3xl bg-amber-300/100 rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+        <p>遊び方</p>
+        <p></p>
+      </div>
+    </main>
+
+    <!-- ボタン -->
+    <div class="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] w-full px-4 sm:px-8 lg:px-16">
+      <button id="backButton" class="fixed bottom-[70px] left-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='index.html'">ホームへ</button>
+      <button id="backButton" class="fixed bottom-[70px] center-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='game.html'">ゲームへ</button>
+    </div>
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0">
+    <p class="text-center m-2">@NOA</p>
+  </footer>
+
+  </script>
+</body>

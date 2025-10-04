@@ -12,9 +12,16 @@
     }
     .word {
       position: absolute;
-      font-size: 2.5rem;
+      font-size: 2.5rem; /* デフォルトはPC用 */
       font-weight: bold;
       user-select: none;
+    }
+
+    /* スマホ用（画面幅 640px 以下） */
+    @media screen and (max-width: 640px) {
+      .word {
+        font-size: 1.5rem; /* 小さめに変更 */
+      }
     }
     #skewer {
       position: absolute;
@@ -31,19 +38,20 @@
   <!-- ヘッダー -->
   <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0">
     <h1 class="text-center text-lg m-2">
-      ゲーム画面：落ちてくる言葉に串をさしてケバブケース作れ！
+      ゲーム：落ちてくる言葉に串をさしてケバブケース作れ！
     </h1>
   </header>
 
   <!-- メインコンテンツ -->
   <main id="gameArea" class="relative w-full" style="height: calc(100vh - 60px - 60px);">
+    <p class="text-center text-lg">画面をリサイズしたら、再読み込みしてね</p>
     <!-- 串 -->
     <img id="skewer" src="image/skewer.png" alt="skewer">
     <!-- ボタン -->
     <div class="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] w-full px-4 sm:px-8 lg:px-16">
-      <button id="backButton" class="fixed bottom-[70px] left-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='index.html'">戻る</button>
-      <button id="backButton" class="fixed bottom-[70px] center-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='glossary.html'">用語解説</button>
-      <button id="moveButton" class="fixed bottom-[70px] right-5 px-4 py-2 bg-blue-500 text-white rounded">串を刺す</button>
+      <button id="backButton" class="fixed bottom-[70px] left-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='index.html'">ホームへ</button>
+      <button id="backButton" class="fixed bottom-[70px] center-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='glossary.html'">用語解説へ</button>
+      <button id="moveButton" class="fixed bottom-[70px] right-5 px-4 py-2 bg-red-500 text-white rounded">串を刺す</button>
     </div>
     </main>
 
@@ -79,20 +87,25 @@
     // 単語生成
     // ---------------------------
     function createWord() {
-      const word = document.createElement("div");
-      word.classList.add("word");
-      word.textContent = words[Math.floor(Math.random() * words.length)];
+    const word = document.createElement("div");
+    word.classList.add("word");
+    word.textContent = words[Math.floor(Math.random() * words.length)];
+    gameArea.appendChild(word);
 
-      // 落下範囲を串初期位置より左側に限定
-      const leftMargin = 10;
-      const maxLeft = skewerLeft - 50; // 串右端より左側まで
-      word.style.left = leftMargin + Math.random() * (maxLeft - leftMargin) + "px";
+    // 単語の幅を取得
+    const wordWidth = word.offsetWidth;
 
-      word.style.top = "0px";
-      word.dataset.speed = 0.5 + Math.random() * 1.5;
-      gameArea.appendChild(word);
-      wordElements.push(word);
-    }
+    // 単語の左端を決める範囲
+    const minLeft = 10; // 左端マージン
+    const maxLeft = skewerLeft - wordWidth; // 右端を串左端より左にする
+    word.style.left = minLeft + Math.random() * (maxLeft - minLeft) + "px";
+
+    // 上から落下
+    word.style.top = "0px";
+    word.dataset.speed = 0.5 + Math.random() * 1.5;
+
+    wordElements.push(word);
+  }
 
     // ---------------------------
     // 衝突判定
