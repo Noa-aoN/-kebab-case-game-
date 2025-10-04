@@ -1,48 +1,61 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>ケバブケースをつくろう</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-    .body{
-      font-family:'メイリオ', 'Meiryo', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noa's App：kabab-case-game ホーム</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'メイリオ', 'Meiryo', 'Hiragino Kaku Gothic ProN', sans-serif;
     }
-    </style>
-    <!-- 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="images/favicon.png" type="image/png">
-    -->
-  </head>
-  <body class="bg-[url('image/many_kabab5_cut.png')] bg-repeat bg-center bg-fixed min-h-screen">
-    <!-- ヘッダー -->
-    <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0">
-      <h1 class="text-center text-lg m-2">Noa's App：kabab-case-game ホーム</h1>
-    </header>
-    <!-- メインコンテンツ -->
-    <main class="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] w-full px-4 sm:px-8 lg:px-16">
-      <div class="w-full max-w-3xl bg-amber-300/100 rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-center text-lg leading-8">
-        <p>みなさんは<b>「ケバブケース」</b>をしっていますか？</p>
-        <p>↓このように↓</p>
-        <div class="text-center bg-gray-100 rounded-3xl m-2 w-auto">hoge<b>-</b>fuga<b>-</b>piyo</div>
-        <p>各単語を<b>-(ハイフン)</b>で繋げる記法です</p>
-        <p><b>串刺しにしたケバブ</b>みたいなので、そう呼ばれるそうです</p>
+  </style>
+</head>
+<body class="bg-[url('image/many_kabab5_cut.png')] bg-repeat bg-center bg-fixed min-h-screen">
+
+  <!-- ヘッダー -->
+  <header class="bg-amber-300/80 w-full shadow-md p-2 sticky top-0 z-20 backdrop-blur-sm">
+    <h1 class="text-center text-xl font-bold">Noa's App：kabab-case-game ホーム</h1>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] w-full px-4 sm:px-8 lg:px-16 space-y-6 mt-4">
+
+    <!-- ケバブケース紹介カード -->
+    <div class="w-full max-w-3xl bg-amber-300/90 rounded-3xl shadow-xl p-6 sm:p-12 text-center text-lg leading-8 backdrop-blur-sm">
+      <p class="mb-2">みなさんは <b>「ケバブケース」</b> を知っていますか？</p>
+      <p class="mb-2">↓このように↓</p>
+      <div class="inline-block bg-gray-100/90 rounded-3xl px-4 py-2 m-2 text-lg font-mono">
+        hoge<b>-</b>fuga<b>-</b>piyo
       </div>
-      <div class="w-full max-w-3xl bg-amber-300/100 rounded-3xl shadow-md p-8 sm:p-12 text-center text-2xl leading-8">
-        <p class="m-1"><b>さっそくケバブケースをつくってみましょう</b></p>
-        <p class="m-1">↓↓↓</p>
-        <button onclick="location.href='game.html'" class="text-xl m-1 mt-2 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">ゲームスタート</button>
-        <br>
-        <button onclick="location.href='glossary.html'" class="text-xl mx-1 mt-1 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">用語解説をみる</button>
+      <p class="mt-3">各単語を <b>-(ハイフン)</b> でつなぐ記法です</p>
+      <p>まるで <b>串刺しにしたケバブ</b> のように見えることから、この名前がつきました</p>
+    </div>
+
+    <!-- ゲーム案内カード -->
+    <div class="w-full max-w-3xl bg-amber-300/90 rounded-3xl shadow-xl p-6 sm:p-12 text-center text-lg sm:text-xl leading-8 backdrop-blur-sm">
+      <p class="mb-4 font-bold text-2xl">さっそくケバブケースを作ってみましょう！</p>
+      <p class="mb-4 text-xl">↓↓↓</p>
+      
+      <!-- ボタン群（縦並び・文字幅に合わせる） -->
+      <div class="flex flex-col justify-center gap-4 mt-2 items-center w-full">
+        <button onclick="location.href='game.html'" 
+          class="w-auto px-6 py-3 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm">
+          ゲームスタート
+        </button>
+        <button onclick="location.href='glossary.html'" 
+          class="w-auto px-6 py-3 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600/80 transition duration-200 backdrop-blur-sm">
+          用語解説を見る
+        </button>
       </div>
-    </main>
-    <!-- フッター -->
-    <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0">
-      <p class="text-center m-2">@NOA</p>
-    </footer>
-  </body>
+    </div>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-amber-300/80 w-full shadow-inner p-2 fixed bottom-0 z-20 backdrop-blur-sm">
+    <p class="text-center m-1 text-sm sm:text-base">@NOA</p>
+  </footer>
+
+</body>
 </html>

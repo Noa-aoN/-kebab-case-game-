@@ -44,14 +44,36 @@
 
   <!-- メインコンテンツ -->
   <main id="gameArea" class="relative w-full" style="height: calc(100vh - 60px - 60px);">
-    <p class="text-center text-lg">画面をリサイズしたら、再読み込みしてね</p>
+    <p class="text-center text-lg">ウィンドウをリサイズしたらページを再読み込みしてね</p>
     <!-- 串 -->
     <img id="skewer" src="image/skewer.png" alt="skewer">
-    <!-- ボタン -->
-    <div class="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] w-full px-4 sm:px-8 lg:px-16">
-      <button id="backButton" class="fixed bottom-[70px] left-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='index.html'">ホームへ</button>
-      <button id="backButton" class="fixed bottom-[70px] center-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='glossary.html'">用語解説へ</button>
-      <button id="moveButton" class="fixed bottom-[70px] right-5 px-4 py-2 bg-red-500 text-white rounded">串を刺す</button>
+    <!-- 共通ボタンテンプレート（フッター上固定＋レスポンシブ） -->
+    <div class="fixed bottom-20 left-1/2 transform -translate-x-1/2 flex flex-col sm:flex-row gap-3 z-30">
+      
+      <!-- ホームボタン -->
+      <button
+        class="w-40 sm:w-auto px-4 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm"
+        onclick="location.href='index.html'"
+      >
+        ホームへ
+      </button>
+
+      <!-- 用語解説へ -->
+      <button
+        class="w-40 sm:w-auto px-4 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600/80 transition duration-200 backdrop-blur-sm"
+        onclick="location.href='glossary.html'"
+      >
+        用語解説へ
+      </button>
+
+      <!-- 串を飛ばすボタン -->
+      <button
+        class="w-40 sm:w-auto px-4 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-red-600/80 transition duration-200 backdrop-blur-sm"
+        id="moveButton"
+      >
+        串を飛ばす
+      </button>
+
     </div>
     </main>
 
@@ -96,8 +118,9 @@
     const wordWidth = word.offsetWidth;
 
     // 単語の左端を決める範囲
+    const margin = 10; // 余裕（px）
     const minLeft = 10; // 左端マージン
-    const maxLeft = skewerLeft - wordWidth; // 右端を串左端より左にする
+    const maxLeft = skewerLeft - wordWidth - margin; // 右端を串左端より余裕を持たせる
     word.style.left = minLeft + Math.random() * (maxLeft - minLeft) + "px";
 
     // 上から落下
