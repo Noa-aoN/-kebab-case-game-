@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ケバブケースをつくろう</title>
+    <title>ケバブケースゲーム</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    .body{
+      font-family:'メイリオ', 'Meiryo', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
+    }
     body { overflow: hidden; }
     .word {
       position: absolute;
@@ -21,10 +24,10 @@
     }
   </style>
   </head>
-    <body class="relative h-screen bg-gray-100">
+    <body class="relative h-screen bg-gray-100 bg-[url('image/target_cut.png')] bg-no-repeat bg-center bg-fixed min-h-screen">
       <!-- ヘッダー -->
       <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0">
-        <h1 class="text-center text-lg m-2">Noa's App：kabab-case</h1>
+        <h1 class="text-center text-lg m-2">ゲーム画面：落ちてくる言葉に串をさしてケバブケース作れ！</h1>
       </header>
 
       <!-- メインコンテンツ -->
@@ -33,6 +36,7 @@
         <img id="skewer" src="image/skewer.png" alt="skewer" class="w-24 h-24">
         <!-- ボタン -->
         <button id="moveButton" class="fixed bottom-[70px] right-5 px-4 py-2 bg-blue-500 text-white rounded">串を刺す</button>
+        <button id="backButton" class="fixed bottom-[70px] left-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='index.html'">戻る</button>
       </main>
       
       <!-- フッター -->
@@ -68,33 +72,6 @@
       }
 
       // 単語を落とす
-      // function updateWords() {
-      //   wordElements.forEach((word, index) => {
-      //     const speed = parseFloat(word.dataset.speed);
-      //     word.style.top = parseFloat(word.style.top) + speed + "px";
-
-      //     const wordRect = word.getBoundingClientRect();
-      //     const skewerRect = skewer.getBoundingClientRect();
-
-      //     // 衝突判定
-      //     if (
-      //       wordRect.right > skewerRect.left &&
-      //       wordRect.left < skewerRect.right &&
-      //       wordRect.bottom > skewerRect.top &&
-      //       wordRect.top < skewerRect.bottom
-      //     ) {
-      //       results.push({ word: word.textContent, position: wordRect.top });
-      //       word.remove();
-      //       wordElements.splice(index, 1);
-      //     }
-
-      //     // 画面下に到達したら削除
-      //     if (parseFloat(word.style.top) > window.innerHeight) {
-      //       word.remove();
-      //       wordElements.splice(index, 1);
-      //     }
-      //   });
-      // }
       function updateWords() {
       wordElements.forEach((word, index) => {
         const speed = parseFloat(word.dataset.speed);
@@ -110,17 +87,24 @@
           wordRect.bottom > skewerRect.top &&
           wordRect.top < skewerRect.bottom
         ) {
-          // 串の左端が文字列のどこにあたったか（0〜100%）
-          const hitY = skewerRect.top; // 串の上端（右側から入るので左端でも良い）
+          const wordText = word?.textContent || "";
+
+          // 串が単語のどの高さに当たったかを計算
+          const hitY = skewerRect.top;
           const positionPercent = ((hitY - wordRect.top) / wordRect.height) * 100;
+          const hitPercent = Math.min(Math.max(positionPercent, 0), 100).toFixed(1);
 
-          results.push({
-            word: word.textContent,
-            hitPercent: Math.min(Math.max(positionPercent, 0), 100).toFixed(1) // 0〜100%に制限
-          });
+          results.push({ word: wordText, hitPercent });
+          console.log("衝突しました:", wordText, hitPercent);
 
+          // 先にテキストを保存してから remove()
           word.remove();
           wordElements.splice(index, 1);
+
+          // ページ遷移
+          setTimeout(() => {
+            window.location.href = `result.html?word=${encodeURIComponent(wordText)}&hitPercent=${hitPercent}`;
+          }, 100);
         }
 
         // 画面下に到達したら削除
@@ -139,7 +123,7 @@
       document.getElementById("moveButton").addEventListener("click", () => {
         if (flying) return; // 既に飛んでいる間は無効
         flying = true;
-        const speed = 30; // 1フレームあたりの移動量（px）
+        const speed = 40; // 1フレームあたりの移動量（px）
 
         function fly() {
           skewerLeft -= speed; // 左に30px移動

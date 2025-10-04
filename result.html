@@ -1,12 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ケバブケースをつくろう</title>
+    <title>ゲーム結果</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+    .body{
+      font-family:'メイリオ', 'Meiryo', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
+    }
+    </style>
   </head>
-  <body>
+  <body class="bg-[url('image/many_kabab5.jpg')] bg-repeat bg-center bg-fixed min-h-screen">
+    <!-- ヘッダー -->
+    <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0">
+      <h1 class="text-center text-lg m-2">ゲーム結果</h1>
+    </header>
+    <!-- メインコンテンツ -->
+    <main class="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] w-full px-4 sm:px-8 lg:px-16">
+      <div id="resultBox" class="bg-white/80 p-4 rounded shadow-md text-center">
+        <!-- ここに結果を入れる -->
+      </div>
+      <button id="backButton" class="fixed bottom-[70px] left-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='index.html'">戻る</button>    
+      <button id="backButton" class="fixed bottom-[70px] center-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='game.html'">再挑戦</button>
+      <button id="backButton" class="fixed bottom-[70px] right-5 px-4 py-2 bg-blue-500 text-white rounded">結果をシェア</button>
+    </main>
+    <!-- フッター -->
+    <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0">
+      <p class="text-center m-2">@NOA</p>
+    </footer>
 
-    
+    <script>
+      // 画面に表示してみる
+      const params = new URLSearchParams(window.location.search);
+      const word = params.get("word");
+      const hitPercent = params.get("hitPercent");
+
+      const resultBox = document.getElementById("resultBox");
+      resultBox.innerHTML = `
+        <h2 class="text-xl font-bold mb-2">衝突結果</h2>
+        <p>Word: ${word ?? "不明"}</p>
+        <p>Hit Percent: ${hitPercent ?? "0"}%</p>
+      `;
+
+    </script>
   </body>
 </html>
