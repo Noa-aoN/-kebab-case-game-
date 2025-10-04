@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ケバブケースゲーム</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'メイリオ', 'Meiryo', 'Hiragino Kaku Gothic ProN', sans-serif;
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="relative h-screen bg-gray-100 bg-[url('image/many_kabab5_cut.png')] bg-center bg-cover">
+
+  <!-- ヘッダー -->
+  <header class="bg-amber-300/90 w-full shadow-md p-1 fixed top-0 z-20 backdrop-blur-sm">
+    <h1 class="text-center text-lg m-2">
+      ルール・操作説明
+    </h1>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="pt-16 pb-32 overflow-y-auto max-h-[calc(100vh-4rem)]">
+    <div class="flex flex-col items-center justify-start w-full px-4 sm:px-8 lg:px-16">
+      
+      <!-- 用語解説 -->
+      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8 text-center">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-amber-900">
+          🎯 ルール
+        </h2>
+        <ul class="text-base sm:text-lg space-y-2 mb-6">
+          <li>・上から単語が落ちてきます。</li>
+          <li>・右端の <b>串</b> を飛ばして、単語の <b>右側面の中央</b> に当てよう！</li>
+          <li>・ちょうど中央に当たると、<b>ケバブケース完成！</b></li>
+          <li class="text-sm text-gray-700 mt-2">（例）apple ringo → <b>apple-ringo</b></li>
+        </ul>
+
+        <div class="mt-4 text-sm sm:text-base text-gray-800">
+          <p class="mt-2">💡 ケバブケースになりそうな単語か見極めてください。</p>
+        </div>
+      </div>
+
+      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8 text-center">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-amber-900">
+          🎮 操作方法
+        </h2>
+        <div class="flex flex-col items-center text-base sm:text-lg space-y-2 mb-4">
+          <p>1️⃣ 下の赤いボタンを押して、串を飛ばそう</p>
+          <p>2️⃣ 画面右の串が左に向かって発射されます</p>
+          <p>3️⃣ 当たる位置を見極めて、クリアを狙おう！</p>
+        </div>
+
+        <div class="mt-4 text-sm sm:text-base text-gray-800">
+          <p class="mt-2">📱 ウィンドウサイズを変えた場合は再読み込みしてください。</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 共通ボタンテンプレート（フッター上固定＋レスポンシブ） -->
+  <div class="fixed bottom-20 left-1/2 transform -translate-x-1/2 flex flex-col sm:flex-row gap-3 z-30">
+    <button
+      class="w-40 sm:w-auto px-4 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-red-600/80 transition duration-200 backdrop-blur-sm"
+      onclick="location.href='game.html'"
+    >
+      ゲーム
+    </button>
+  </div>
+
+  <!-- フッター -->
+  <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0 z-20 backdrop-blur-sm">
+    <p class="text-center m-2">@NOA</p>
+  </footer>
+
+</body>
+</html>

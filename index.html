@@ -9,6 +9,15 @@
     body {
       font-family: 'メイリオ', 'Meiryo', 'Hiragino Kaku Gothic ProN', sans-serif;
     }
+    @keyframes updown {
+      0%   { transform: translateY(3px); }   /* 下に3px */
+      50%  { transform: translateY(-3px); }  /* 上に3px */
+      100% { transform: translateY(3px); }   /* 下に戻る */
+    }
+    .animate-updown {
+      animation: updown 1.2s ease-in-out infinite;
+      will-change: transform;
+    }
   </style>
 </head>
 <body class="bg-[url('image/many_kabab5_cut.png')] bg-repeat bg-center bg-fixed min-h-screen">
@@ -19,35 +28,38 @@
   </header>
 
   <!-- メインコンテンツ -->
-  <main class="flex flex-col items-center justify-center
-               min-h-[calc(100vh-100px)] sm:min-h-auto
-               w-full px-4 sm:px-8 lg:px-16 space-y-6 mt-4">
+  <main class="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] sm:min-h-auto w-full px-4 sm:px-8 lg:px-16 space-y-6 mt-4">
 
     <!-- ケバブケース紹介カード -->
     <div class="w-full max-w-3xl bg-amber-300/90 rounded-3xl shadow-xl p-6 sm:p-12 text-center text-lg leading-8 backdrop-blur-sm">
       <p class="mb-2">みなさんは <b>「ケバブケース」</b> を知っていますか？</p>
-      <p class="mb-2">↓このように↓</p>
+      <!-- 矢印部分 -->
+      <div class="relative flex justify-center items-center h-10 p-1 mb-2">
+        <p class="text-xl font-medium animate-updown absolute">↓こんなふうに↓</p>
+      </div>  
       <div class="inline-block bg-gray-100/90 rounded-3xl px-4 py-2 m-2 text-lg font-mono">
         hoge<b>-</b>fuga<b>-</b>piyo
       </div>
       <p class="mt-3">各単語を <b>-(ハイフン)</b> でつなぐ記法です</p>
-      <p>まるで <b>串刺しにしたケバブ</b> のように見えることから、この名前がつきました</p>
+      <p>まるで <b>串刺しにしたケバブ</b> のように見えることから、この名前で呼ばれています</p>
     </div>
 
     <!-- ゲーム案内カード -->
     <div class="w-full max-w-3xl bg-amber-300/90 rounded-3xl shadow-xl p-6 sm:p-12 text-center text-lg sm:text-xl leading-8 backdrop-blur-sm">
       <p class="mb-4 font-bold text-2xl">さっそくケバブケースを作ってみましょう！</p>
-      <p class="mb-4 text-xl">↓↓↓</p>
-      
+      <!-- 矢印部分 -->
+      <div class="relative flex justify-center items-center h-10 p-1">
+        <p class="text-xl font-medium animate-updown absolute">↓↓↓</p>
+      </div>      
       <!-- ボタン群（縦並び・文字幅に合わせる） -->
       <div class="flex flex-col justify-center gap-4 mt-2 items-center w-full">
         <button onclick="location.href='game.html'" 
-          class="w-auto px-6 py-3 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm">
+          class="w-auto px-6 py-3 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-red-600/80 transition duration-200 backdrop-blur-sm">
           ゲームスタート
         </button>
-        <button onclick="location.href='glossary.html'" 
-          class="w-auto px-6 py-3 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600/80 transition duration-200 backdrop-blur-sm">
-          用語解説を見る
+        <button onclick="location.href='rules.html'" 
+          class="w-auto px-6 py-3 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm">
+          操作説明を見る
         </button>
       </div>
     </div>

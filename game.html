@@ -43,8 +43,7 @@
 
   <!-- メインコンテンツ -->
   <main id="gameArea" class="relative w-full" style="height: calc(100vh - 60px - 60px);">
-    <!-- 説明 -->
-    <p class="text-center text-lg leading-8 p-1">ウィンドウをリサイズしたらページを再読み込みしてね</p>
+
     <!-- 串 -->
     <img id="skewer" src="image/skewer.png" alt="skewer">
     <!-- 共通ボタンテンプレート（フッター上固定＋レスポンシブ） -->
@@ -55,15 +54,20 @@
         class="w-40 sm:w-auto px-4 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm"
         onclick="location.href='index.html'"
       >
-        ホームへ
+        ホーム
       </button>
 
-      <!-- 用語解説へ -->
+      <!-- 操作説明へ -->
       <button
         class="w-40 sm:w-auto px-4 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600/80 transition duration-200 backdrop-blur-sm"
-        onclick="location.href='glossary.html'"
+        onclick="location.href='rules.html'"
       >
-        用語解説へ
+        ルール・操作説明
+      </button>
+
+      <button onclick="location.href='glossary.html'" 
+        class="w-auto px-6 py-3 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600/80 transition duration-200 backdrop-blur-sm">
+        用語解説
       </button>
 
       <!-- 串を飛ばすボタン -->
@@ -113,7 +117,7 @@
       word.textContent = words[Math.floor(Math.random() * words.length)];
 
       // ランダムサイズ（2rem～3rem）
-      const fontSize = 2 + Math.random(); // 2～3rem
+      const fontSize = 1.5 + Math.random(); // 2～3rem
       word.style.fontSize = fontSize + "rem";
 
       gameArea.appendChild(word);

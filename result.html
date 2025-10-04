@@ -36,7 +36,7 @@
         class="w-40 sm:w-auto px-4 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm"
         onclick="location.href='index.html'"
       >
-        ホームへ
+        ホーム
       </button>
 
       <!-- 再挑戦ボタン -->
@@ -44,7 +44,7 @@
         class="w-40 sm:w-auto px-4 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-red-600/80 transition duration-200 backdrop-blur-sm"
         onclick="location.href='game.html'"
       >
-        再挑戦へ
+        再挑戦
       </button>
 
       <!-- 結果シェアボタン -->
@@ -73,7 +73,7 @@
     const hitPercent = params.get("hitPercent") || "0";
 
     wordText.textContent = word;
-    hitPercentText.textContent = `刺さった位置: ${hitPercent}%`;
+    hitPercentText.textContent = `単語上部から: ${hitPercent}%地点に刺さりました`;
 
     // 画像パターン
     const patterns = [
@@ -92,7 +92,7 @@
     // リサイズ対応＋文字サイズ自動調整
     function resizeContainer() {
       const padding = 32; // 親divのパディング
-      const maxWidth = window.innerWidth * 0.7 - padding;
+      const maxWidth = window.innerWidth * 0.8 - padding;
       const maxHeight = (window.innerHeight - 100) * 0.9 - padding; // ヘッダー/フッター考慮
       const size = Math.min(maxWidth, maxHeight);
       resultContainer.style.width = `${size}px`;
