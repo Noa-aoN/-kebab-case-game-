@@ -29,7 +29,27 @@
       max-width: 150px;
       max-height: 150px;
       object-fit: contain;
+      animation: kababGoldGlow 2s linear infinite;
+      transition: filter 0.3s ease;
     }
+    @keyframes kababGoldGlow {
+      0% {
+        filter: drop-shadow(0 0 6px rgba(255, 220, 0, 0.9))
+                drop-shadow(0 0 12px rgba(255, 200, 0, 0.8))
+                drop-shadow(0 0 24px rgba(255, 180, 0, 0.7));
+      }
+      50% {
+        filter: drop-shadow(0 0 10px rgba(255, 240, 100, 1))
+                drop-shadow(0 0 20px rgba(255, 220, 0, 0.9))
+                drop-shadow(0 0 40px rgba(255, 200, 0, 0.8));
+      }
+      100% {
+        filter: drop-shadow(0 0 6px rgba(255, 220, 0, 0.9))
+                drop-shadow(0 0 12px rgba(255, 200, 0, 0.8))
+                drop-shadow(0 0 24px rgba(255, 180, 0, 0.7));
+      }
+    }
+
   </style>
 </head>
 <body class="relative h-screen bg-gray-100 bg-[url('image/target_cut.png')] bg-center bg-cover">
@@ -46,12 +66,19 @@
 
     <!-- 串 -->
     <img id="skewer" src="image/skewer.png" alt="skewer">
+    
     <!-- 共通ボタンテンプレート（フッター上固定＋レスポンシブ） -->
-    <div class="fixed bottom-20 left-1/2 transform -translate-x-1/2 flex flex-col sm:flex-row gap-3 z-30">
-      
+    <div
+      class="fixed bottom-20 left-1/2 transform -translate-x-1/2 
+            grid justify-center gap-3 z-30
+            sm:flex sm:flex-nowrap sm:justify-center"
+      style="grid-template-columns: repeat(2, max-content);"
+    >
       <!-- ホームボタン -->
       <button
-        class="w-40 sm:w-auto px-4 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm"
+        class="px-6 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg 
+              hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm
+              w-auto min-w-fit"
         onclick="location.href='index.html'"
       >
         ホーム
@@ -59,25 +86,33 @@
 
       <!-- 操作説明へ -->
       <button
-        class="w-40 sm:w-auto px-4 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600/80 transition duration-200 backdrop-blur-sm"
+        class="px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg 
+              hover:bg-green-600/80 transition duration-200 backdrop-blur-sm
+              w-auto min-w-fit"
         onclick="location.href='rules.html'"
       >
         ルール・操作説明
       </button>
 
-      <button onclick="location.href='glossary.html'" 
-        class="w-auto px-6 py-3 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600/80 transition duration-200 backdrop-blur-sm">
+      <!-- 用語解説 -->
+      <button
+        onclick="location.href='glossary.html'"
+        class="px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg 
+              hover:bg-green-600/80 transition duration-200 backdrop-blur-sm
+              w-auto min-w-fit"
+      >
         用語解説
       </button>
 
       <!-- 串を飛ばすボタン -->
       <button
-        class="w-40 sm:w-auto px-4 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-red-600/80 transition duration-200 backdrop-blur-sm"
+        class="px-6 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg 
+              hover:bg-red-600/80 transition duration-200 backdrop-blur-sm
+              w-auto min-w-fit"
         id="moveButton"
       >
         串を飛ばす
       </button>
-
     </div>
   </main>
 
