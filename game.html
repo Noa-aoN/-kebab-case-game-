@@ -14,17 +14,19 @@
       position: absolute;
       font-size: 2.5rem;
       font-weight: bold;
+      user-select: none;
     }
     #skewer {
       position: absolute;
-      right: 50px;
       top: 50%;
       transform: translateY(-50%);
-      transition: left 0.2s;
+      max-width: 150px;
+      max-height: 150px;
+      object-fit: contain;
     }
   </style>
 </head>
-<body class="relative h-screen bg-gray-100 bg-[url('image/target_cut.png')] bg-no-repeat bg-center bg-fixed min-h-screen">
+<body class="relative h-screen bg-gray-100 bg-[url('image/target_cut.png')] bg-center bg-cover">
 
   <!-- ヘッダー -->
   <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0">
@@ -36,15 +38,14 @@
   <!-- メインコンテンツ -->
   <main id="gameArea" class="relative w-full" style="height: calc(100vh - 60px - 60px);">
     <!-- 串 -->
-    <img id="skewer" src="image/skewer.png" alt="skewer"
-         class="w-auto h-auto max-w-[150px] max-h-[150px] object-contain">
+    <img id="skewer" src="image/skewer.png" alt="skewer">
     <!-- ボタン -->
-    <button id="moveButton" class="fixed bottom-[70px] right-5 px-4 py-2 bg-blue-500 text-white rounded">
-      串を刺す
-    </button>
-    <button id="backButton" class="fixed bottom-[70px] left-5 px-4 py-2 bg-blue-500 text-white rounded"
-            onclick="location.href='index.html'">戻る</button>
-  </main>
+    <div class="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] w-full px-4 sm:px-8 lg:px-16">
+      <button id="backButton" class="fixed bottom-[70px] left-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='index.html'">戻る</button>
+      <button id="backButton" class="fixed bottom-[70px] center-5 px-4 py-2 bg-blue-500 text-white rounded" onclick="location.href='glossary.html'">用語解説</button>
+      <button id="moveButton" class="fixed bottom-[70px] right-5 px-4 py-2 bg-blue-500 text-white rounded">串を刺す</button>
+    </div>
+    </main>
 
   <!-- フッター -->
   <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0">
@@ -58,31 +59,46 @@
 
     const gameArea = document.getElementById("gameArea");
     const skewer = document.getElementById("skewer");
-    let skewerLeft = gameArea.clientWidth - 100; // 初期位置
-    let flying = false; // 串飛行中フラグ
+    let skewerLeft = 0;
+    let flying = false;
 
+    // ---------------------------
+    // 串の初期位置設定（右端がウィンドウ右端に接触）
+    // ---------------------------
+    function setSkewerInitialPosition() {
+      // 画像ロード済みで width が取得できる場合
+      const skewerWidth = skewer.offsetWidth || 150; // fallback
+      skewerLeft = window.innerWidth - skewerWidth;
+      skewer.style.left = skewerLeft + "px";
+      skewer.style.display = "block";
+    }
+
+    setSkewerInitialPosition();
+
+    // ---------------------------
     // 単語生成
+    // ---------------------------
     function createWord() {
       const word = document.createElement("div");
       word.classList.add("word");
       word.textContent = words[Math.floor(Math.random() * words.length)];
 
-      const leftMargin = 50;
-      const rightMargin = 220;
-      const maxLeft = gameArea.clientWidth - leftMargin - rightMargin - 50;
-      word.style.left = leftMargin + Math.random() * maxLeft + "px";
+      // 落下範囲を串初期位置より左側に限定
+      const leftMargin = 10;
+      const maxLeft = skewerLeft - 50; // 串右端より左側まで
+      word.style.left = leftMargin + Math.random() * (maxLeft - leftMargin) + "px";
 
       word.style.top = "0px";
-      word.dataset.speed = 0.5 + Math.random() * 1.5; // 落下速度
+      word.dataset.speed = 0.5 + Math.random() * 1.5;
       gameArea.appendChild(word);
       wordElements.push(word);
     }
 
-    //-----------------------------------------------------------
-    // 串と文字の衝突判定（安定版）
-    //-----------------------------------------------------------
+    // ---------------------------
+    // 衝突判定
+    // ---------------------------
     function hitCheckSkewer(skewerRect, wordRect) {
-      const tolerance = 5; // px
+      const tolerance = 5;
       const skewerLeftX = skewerRect.left;
       const skewerRightX = skewerRect.right;
       const skewerCenterY = skewerRect.top + skewerRect.height / 2;
@@ -94,7 +110,9 @@
       return horizontalHit && verticalHit;
     }
 
+    // ---------------------------
     // 単語落下＆衝突判定
+    // ---------------------------
     function updateWords() {
       wordElements.forEach((word, index) => {
         const speed = parseFloat(word.dataset.speed);
@@ -120,7 +138,6 @@
           }, 100);
         }
 
-        // 画面下に到達したら削除
         if (parseFloat(word.style.top) > window.innerHeight) {
           word.remove();
           wordElements.splice(index, 1);
@@ -128,43 +145,50 @@
       });
     }
 
+    // ---------------------------
     // 串移動
-    skewer.style.left = skewerLeft + "px";
+    // ---------------------------
     document.getElementById("moveButton").addEventListener("click", () => {
       if (flying) return;
       flying = true;
-      const speed = 40; // px/frame
+      const speed = 40;
 
       function fly() {
         skewerLeft -= speed;
+        if (skewerLeft < 0) skewerLeft = 0; // 左端で止める
         skewer.style.left = skewerLeft + "px";
 
-        if (skewerLeft + skewer.offsetWidth > 0) {
+        if (skewerLeft > 0) {
           requestAnimationFrame(fly);
         } else {
-          skewerLeft = gameArea.clientWidth - skewer.offsetWidth;
-          skewer.style.left = skewerLeft + "px";
-          flying = false;
+          // 左端に完全到達したら消して再出現
+          skewer.style.display = "none";
+          setTimeout(() => {
+            setSkewerInitialPosition(); // 右端に接触する位置から再スタート
+            flying = false;
+          }, 300);
         }
       }
 
       requestAnimationFrame(fly);
     });
 
+    // ---------------------------
     // ウィンドウリサイズ時
+    // ---------------------------
     window.addEventListener('resize', () => {
       if (!flying) {
-        skewerLeft = gameArea.clientWidth - 100;
-        skewer.style.left = skewerLeft + "px";
+        setSkewerInitialPosition();
       }
     });
 
+    // ---------------------------
     // ゲームループ
+    // ---------------------------
     setInterval(() => {
       if (Math.random() < 0.03) createWord();
       updateWords();
-    }, 16); // 約60fps
-  </script>
+    }, 16);
 
+  </script>
 </body>
-</html>
