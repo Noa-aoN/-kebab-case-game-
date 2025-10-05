@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ケバブケースゲーム</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fontsの読み込み -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 落下単語・結果表示に使うフォント */
+    .word,
+    #wordText,
+    #hitPercentText {
+      font-family: 'Baloo 2', 'Zen Maru Gothic', 'Meiryo', sans-serif;
+      font-weight: 700;
+    }
+
+    /* body {
+      font-family: 'Zen Maru Gothic', 'Meiryo', sans-serif;
+    } */
+  </style>
 </head>
 <body class="bg-gray-200 relative min-h-screen w-screen">
 
@@ -73,7 +89,7 @@
     const hitPercent = params.get("hitPercent") || "0";
 
     wordText.textContent = word;
-    hitPercentText.textContent = `単語上部から: ${hitPercent}%地点に刺さりました`;
+    hitPercentText.textContent = `単語上部から ${hitPercent}% 地点に刺さりました`;
 
     // 画像パターン
     const patterns = [
