@@ -61,7 +61,7 @@
   <!-- ヘッダー -->
   <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0">
     <h1 class="text-center text-lg m-2">
-      ゲーム：落ちてくる言葉に串をさしてケバブケース作れ！
+      ゲーム：落下単語を見極めて串を飛ばし最高のケバブケースを作ろう！
     </h1>
   </header>
 
@@ -122,11 +122,50 @@
 
   <!-- フッター -->
   <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0">
-    <p class="text-center m-2">@NOA</p>
+    <p class="text-center m-1 text-sm sm:text-base">kabab-case-game@NOA</p>
   </footer>
 
   <script>
-    const words = ["apple ringo", "banana.test", "sakuraCherry", "date", "fig", "grape"];
+    const words = [
+      // ケバブ素材
+      "chicken meat",
+      "cow meat",
+      "sheep meat",
+
+      "Turkey Meat",
+      // "Pita bread",
+      // "Cabbage Vegetable",
+
+      // スネーク系（snake_case）
+      // "python_snake",
+      "anaconda_serpent",
+      // "cobra_viper",
+
+      // アッパースネーク系（UPPER_SNAKE_CASE）
+      // "PYTHON_SNAKE",
+      "ANACONDA_SERPENT",
+      // "COBRA_VIPER",
+
+      // キャメル系（ローワーキャメル / lowerCamelCase）
+      "dromedaryCamel",
+      // "bactrianCamel",
+      // "camelCamel",
+
+      // アッパーキャメル系（パスカルケース / UpperCamelCase）
+      // "DromedaryCamel",
+      "BactrianCamel",
+      // "CamelCamel",
+
+      // ハンガリアン記法（Hungarian notation）
+      "pListData",
+      "iCount",
+      // "lDate",
+
+      // ドット記法（dot.notation）
+      "polka.dot",
+      "pin.dot",
+      // "coin.dot",
+    ];
     const wordElements = [];
     const results = [];
 

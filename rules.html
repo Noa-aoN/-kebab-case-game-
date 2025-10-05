@@ -50,13 +50,34 @@
           🎮 操作方法
         </h2>
         <div class="flex flex-col items-center text-base sm:text-lg space-y-2 mb-4">
-          <p>1️⃣ 下の赤いボタンを押して、串を飛ばそう</p>
-          <p>2️⃣ 画面右の串が左に向かって発射されます</p>
-          <p>3️⃣ 当たる位置を見極めて、クリアを狙おう！</p>
+          <p>1. 下の赤いボタンを押して、串を飛ばそう</p>
+          <p>2. 画面右の串が左に向かって発射されます</p>
+          <p>3. 当たる位置を見極めて、クリアを狙おう</p>
         </div>
 
         <div class="mt-4 text-sm sm:text-base text-gray-800">
           <p class="mt-2">📱 ウィンドウサイズを変えた場合は再読み込みしてください。</p>
+        </div>
+      </div>
+
+      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8 text-center">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-amber-900">
+          💯 判定基準
+        </h2>
+        <div class="flex flex-col items-center text-base sm:text-lg space-y-2 mb-4">
+          <p>ケバブ単語右側面の中心50%までの範囲に串が当たると、ケバブケース成功判定です</p>
+          <p>その中で</p>
+          <p>100点：Perfect</p>
+          <p>90~99点：Great</p>
+          <p>75~89点：Good</p>
+          <p>50~54点：Ok</p>
+          <p>~49点：失敗</p>
+          <p>と分類されます</p>
+          <p>ケバブ単語右側面の下部15%までの範囲に串が当たると、スネークケースと判定されます</p>
+        </div>
+
+        <div class="mt-4 text-sm sm:text-base text-gray-800">
+          <p class="mt-2"></p>
         </div>
       </div>
 
@@ -75,7 +96,7 @@
 
   <!-- フッター -->
   <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0 z-20 backdrop-blur-sm">
-    <p class="text-center m-2">@NOA</p>
+    <p class="text-center m-1 text-sm sm:text-base">kabab-case-game@NOA</p>
   </footer>
 
 </body>

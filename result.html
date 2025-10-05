@@ -12,17 +12,34 @@
     /* 落下単語・結果表示に使うフォント */
     .word,
     #wordText,
-    #hitPercentText {
+    #hitPercentText,
+    #scoreText {
       font-family: 'Baloo 2', 'Zen Maru Gothic', 'Meiryo', sans-serif;
       font-weight: 700;
     }
 
-    /* body {
-      font-family: 'Zen Maru Gothic', 'Meiryo', sans-serif;
-    } */
+    /* スコア表示を見やすくするスタイル */
+    #scoreText {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.3em 0.8em;
+      border-radius: 0.5em;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: inline-block;
+    }
+
+    /* 下1/3の位置に配置するためのクラス */
+    .bottom-third {
+      position: absolute;
+      bottom: 25%;
+      left: 50%;
+      transform: translateX(-50%) translateY(50%);
+      text-align: center;
+      width: 100%;
+    }
   </style>
 </head>
-<body class="bg-gray-200 relative min-h-screen w-screen">
+<body class="bg-gray-200 relative min-h-screen w-screen bg-[url('image/many_kabab5_cut.png')] bg-center bg-cover">
 
   <!-- ヘッダー -->
   <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0 z-20">
@@ -36,45 +53,57 @@
       <div class="relative bg-gray-100 rounded-lg shadow-lg flex justify-center items-center overflow-hidden mx-auto" id="resultContainer">
         <img id="resultImg" src="" alt="" class="w-full h-full object-contain" />
 
-        <!-- 中央テキスト -->
-        <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-2">
+        <!-- 下1/3に表示されるテキスト群 -->
+        <div class="bottom-third flex flex-col justify-center items-center px-2">
           <span id="wordText" class="font-bold text-white drop-shadow-lg text-center"></span>
-          <span id="hitPercentText" class="font-semibold text-white drop-shadow-lg mt-2 text-center"></span>
+          <span id="scoreText" class="font-bold text-white drop-shadow-lg mt-2 text-center text-xl"></span>
+          <span id="hitPercentText" class="font-semibold text-white drop-shadow-lg mt-1 text-center"></span>
         </div>
       </div>
     </div>
   </main>
 
-    <!-- 固定ボタン群テンプレートに変更 -->
-    <div class="fixed bottom-20 left-1/2 transform -translate-x-1/2 flex flex-col sm:flex-row gap-3 z-30">
-      <!-- ホームボタン -->
-      <button
-        class="w-40 sm:w-auto px-4 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm"
-        onclick="location.href='index.html'"
-      >
-        ホーム
-      </button>
+  <!-- 固定ボタン群（共通テンプレート準拠） -->
+  <div
+    class="fixed bottom-20 left-1/2 transform -translate-x-1/2 
+          grid justify-center gap-3 z-30
+          sm:flex sm:flex-nowrap sm:justify-center"
+    style="grid-template-columns: repeat(2, max-content);"
+  >
+    <!-- ホームボタン -->
+    <button
+      class="px-6 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg 
+            hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm
+            w-auto min-w-fit"
+      onclick="location.href='index.html'"
+    >
+      ホーム
+    </button>
 
-      <!-- 再挑戦ボタン -->
-      <button
-        class="w-40 sm:w-auto px-4 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-red-600/80 transition duration-200 backdrop-blur-sm"
-        onclick="location.href='game.html'"
-      >
-        ゲーム再挑戦
-      </button>
+    <!-- ゲーム再挑戦ボタン -->
+    <button
+      class="px-6 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg 
+            hover:bg-red-600/80 transition duration-200 backdrop-blur-sm
+            w-auto min-w-fit"
+      onclick="location.href='game.html'"
+    >
+      ゲーム再挑戦
+    </button>
 
-      <!-- 結果シェアボタン -->
-      <button
-        class="w-40 sm:w-auto px-4 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600/80 transition duration-200 backdrop-blur-sm"
-        onclick="location.href='result.html'"
-      >
-        結果をシェア
-      </button>
-    </div>
+    <!-- 結果シェアボタン -->
+    <button
+      class="px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg 
+            hover:bg-green-600/80 transition duration-200 backdrop-blur-sm
+            w-auto min-w-fit"
+      onclick="location.href='result.html'"
+    >
+      結果をシェア
+    </button>
+  </div>
 
   <!-- フッター -->
   <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0 z-20">
-    <p class="text-center m-2">@NOA</p>
+    <p class="text-center m-1 text-sm sm:text-base">kabab-case-game@NOA</p>
   </footer>
 
   <script>
@@ -82,46 +111,86 @@
     const resultImg = document.getElementById("resultImg");
     const wordText = document.getElementById("wordText");
     const hitPercentText = document.getElementById("hitPercentText");
+    const scoreText = document.getElementById("scoreText");
 
     // URLパラメータ取得
     const params = new URLSearchParams(window.location.search);
     const word = params.get("word") || "不明";
-    const hitPercent = params.get("hitPercent") || "0";
+    const hitPercent = parseFloat(params.get("hitPercent")) || 0;
 
-    wordText.textContent = word;
-    hitPercentText.textContent = `単語上部から ${hitPercent}% 地点に刺さりました`;
-
-    // 画像パターン
+    // === 背景画像パターン ===
     const patterns = [
-      { regex: /./i, img: "image/result_kabab.png", label: "ケバブ系" },
-      { regex: /banana/i, img: "image/banana.png", label: "バナナ系" },
-      { regex: /cherry|sakura/i, img: "image/cherry.png", label: "サクランボ系" },
-      { regex: /date/i, img: "image/date.png", label: "デーツ系" },
-      { regex: /fig/i, img: "image/fig.png", label: "イチジク系" },
-      { regex: /grape/i, img: "image/grape.png", label: "ブドウ系" },
+      { regex: /^[a-z][A-Z][a-z0-9]+([A-Z][a-z0-9]*)*$/, img: "image/hungarian.png", label: "ハンガリアン記法" },
+      { regex: /^[a-z]+([A-Z][a-z0-9]*)+$/, img: "image/camel.png", label: "キャメルケース" },
+      { regex: /^[A-Z][a-z0-9]+([A-Z][a-z0-9]*)+$/, img: "image/upper_camel.png", label: "アッパーキャメルケース" },
+      { regex: /^[a-z0-9]+(_[a-z0-9]+)+$/, img: "image/snake.png", label: "スネークケース" },
+      { regex: /^[A-Z0-9]+(_[A-Z0-9]+)+$/, img: "image/upper_snake.png", label: "アッパースネークケース" },
+      { regex: /^[a-z0-9]+( [a-z0-9]+)+$/, img: "image/kabab.png", label: "ケバブケース" },
+      { regex: /^[A-Z][a-z0-9]+( [A-Z][a-z0-9]+)+$/, img: "image/upper_kabab.png", label: "アッパーケバブケース" },
+      { regex: /^[a-z0-9]+(\.[a-z0-9]+)+$/, img: "image/dot.png", label: "ドット記法" },
     ];
 
+    // === 背景画像表示 ===
     let matched = patterns.find(p => p.regex.test(word)) || { img: "image/default.png", label: "不明" };
     resultImg.src = matched.img;
     resultImg.alt = matched.label;
 
-    // リサイズ対応＋文字サイズ自動調整
+    // === 単語表示 ===
+    wordText.textContent = word.replace(" ", "-");
+
+    // === スコア算出 ===
+    function calcScore(hitPercent) {
+      const diff = Math.abs(hitPercent - 50);
+      let score = Math.max(0, Math.round(100 - diff * 2));
+      return score;
+    }
+
+    // === ランクと演出 ===
+    function getRank(score) {
+      if (matched.label == "ケバブケース" || matched.label == "アッパーケバブケース") {
+        if (score >= 100) return { label: "Perfect!", color: "text-orange-300" };
+        if (score >= 90) return { label: "Great!", color: "text-yellow-300" };
+        if (score >= 75) return { label: "Good!", color: "text-green-300" };
+        if (score >= 50) return { label: "OK!", color: "text-blue-300" };
+        return { label: "Miss...", color: "text-red-400" };
+      } else {
+        return { label: matched.label + "を刺した！", color: "text-red-400" };
+      };
+    }
+
+    const score = calcScore(hitPercent);
+    const rank = getRank(score);
+
+    // === スコアとランクを表示 ===
+    if (matched.label == "ケバブケース" || matched.label == "アッパーケバブケース") {
+      scoreText.textContent = `${rank.label}　${score}点`;
+    } else {
+      scoreText.textContent = `${rank.label}`;
+    }
+    scoreText.className = `font-bold ${rank.color} mt-2 text-center text-xl animate-pulse`;
+
+    // Perfect時は画像を光らせる
+    if (score >= 90) {
+      resultImg.style.filter = "drop-shadow(0 0 20px rgba(255, 215, 0, 1))";
+    }
+
+    // === リサイズ対応 ===
     function resizeContainer() {
-      const padding = 32; // 親divのパディング
+      const padding = 32;
       const maxWidth = window.innerWidth * 0.8 - padding;
-      const maxHeight = (window.innerHeight - 100) * 0.9 - padding; // ヘッダー/フッター考慮
+      const maxHeight = (window.innerHeight - 100) * 0.9 - padding;
       const size = Math.min(maxWidth, maxHeight);
       resultContainer.style.width = `${size}px`;
       resultContainer.style.height = `${size}px`;
 
-      // Wordの文字サイズ（コンテナサイズの10%）
-      let wordFontSize = size * 0.09;
-      wordFontSize = Math.max(18, wordFontSize); // 最小18px
+      // テキストサイズ調整
+      let wordFontSize = Math.max(16, size * 0.06);
       wordText.style.fontSize = `${wordFontSize}px`;
 
-      // 刺さった位置の文字サイズ（Wordより小さく、コンテナサイズの6%）
-      let hitFontSize = size * 0.03;
-      hitFontSize = Math.max(14, hitFontSize); // 最小14px
+      let scoreFontSize = Math.max(18, size * 0.045);
+      scoreText.style.fontSize = `${scoreFontSize}px`;
+
+      let hitFontSize = Math.max(12, size * 0.03);
       hitPercentText.style.fontSize = `${hitFontSize}px`;
     }
 
