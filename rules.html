@@ -4,13 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ケバブケースゲーム</title>
+  <!-- ファビコン設定 -->
+  <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+  <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+  <!-- TailwindCSS追加 -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- フォント追加 -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
-
   <style>
     body {
-      font-family: 'メイリオ', 'Meiryo', 'Hiragino Kaku Gothic ProN', sans-serif;
+      font-family: 'Zen Maru Gothic', 'Baloo 2', 'Meiryo', sans-serif;
       margin: 0;
     }
   </style>
@@ -19,8 +23,8 @@
 
   <!-- ヘッダー -->
   <header class="bg-amber-300/90 w-full shadow-md p-1 fixed top-0 z-20 backdrop-blur-sm">
-    <h1 class="text-center text-lg m-2">
-      ルール・操作説明
+    <h1 class="text-center text-lg font-bold m-2">
+      🥙 ルール・操作説明 🥙
     </h1>
   </header>
 
@@ -31,17 +35,17 @@
       <!-- 用語解説 -->
       <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8 text-center">
         <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-amber-900">
-          🎯 ルール
+          🎯 ゲーム概要
         </h2>
         <ul class="text-base sm:text-lg space-y-2 mb-6">
-          <li>・上から単語が落ちてきます。</li>
-          <li>・右端の <b>串</b> を飛ばして、単語の <b>右側面の中央</b> に当てよう！</li>
+          <li>・上から文字が落ちてきます。</li>
+          <li>・右端の <b>串</b> を飛ばして、文字の <b>右側面の中央</b> に当てよう！</li>
           <li>・ちょうど中央に当たると、<b>ケバブケース完成！</b></li>
           <li class="text-sm text-gray-700 mt-2">（例）apple ringo → <b>apple-ringo</b></li>
         </ul>
 
         <div class="mt-4 text-sm sm:text-base text-gray-800">
-          <p class="mt-2">💡 ケバブケースになりそうな単語か見極めてください。</p>
+          <p class="mt-2">💡 ケバブケースになりそうな文字列か見極めてね</p>
         </div>
       </div>
 
@@ -52,7 +56,7 @@
         <div class="flex flex-col items-center text-base sm:text-lg space-y-2 mb-4">
           <p>1. 下の赤いボタンを押して、串を飛ばそう</p>
           <p>2. 画面右の串が左に向かって発射されます</p>
-          <p>3. 当たる位置を見極めて、クリアを狙おう</p>
+          <p>3. 当たる位置を見極めて、高得点を狙おう</p>
         </div>
 
         <div class="mt-4 text-sm sm:text-base text-gray-800">
@@ -65,15 +69,35 @@
           💯 判定基準
         </h2>
         <div class="flex flex-col items-center text-base sm:text-lg space-y-2 mb-4">
-          <p>ケバブ単語右側面の中心50%までの範囲に串が当たると、ケバブケース成功判定です</p>
-          <p>その中で</p>
-          <p>100点：Perfect</p>
-          <p>90~99点：Great</p>
-          <p>75~89点：Good</p>
-          <p>50~54点：Ok</p>
-          <p>~49点：失敗</p>
-          <p>と分類されます</p>
-          <p>ケバブ単語右側面の下部15%までの範囲に串が当たると、スネークケースと判定されます</p>
+          <p>文字列の右側面中心<b>50%</b>までの範囲に串が当たると</p>
+          <p><b>ケバブケース成功</b>判定です</p><br>
+          <p>（ケバブケースにならない文字列を除く）</p>
+          <p>中心に近いほどハイスコアになります</p>
+          <div class="inline-block bg-gray-100/90 rounded-3xl px-4 py-2 m-2 text-left text-lg font-mono">
+            <p>100点：Perfect</p>
+            <p>90~99点：Great</p>
+            <p>75~89点：Good</p>
+            <p>50~74点：Ok</p>
+            <p>0~49点：失敗</p>  
+          </div>
+          <br>
+          <p>もし文字列の右側面下部15%までの範囲に串が当たると</p>
+          <p>スネークケースと判定されます</p>
+        </div>
+
+        <div class="mt-4 text-sm sm:text-base text-gray-800">
+          <p class="mt-2"></p>
+        </div>
+      </div>
+
+      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8 text-center">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-amber-900">
+          🌈 結果演出
+        </h2>
+        <div class="flex flex-col items-center text-base sm:text-lg space-y-2 mb-4">
+          <p>・ケバブケースの結果画像は、スコアに応じた<b>6種類</b>です</p>
+          <p>（＋下にあたってスネークケースになった場合を含む）</p>
+          <p>・ケバブケース以外の結果画像は、各ケースに合わせた<b>6種類</b>です</p>
         </div>
 
         <div class="mt-4 text-sm sm:text-base text-gray-800">

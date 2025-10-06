@@ -4,23 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ケバブケースゲーム</title>
+  <!-- ファビコン設定 -->
+  <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+  <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+  <!-- TailwindCSS追加 -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fontsの読み込み -->
+  <!-- フォント追加 -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
   <style>
+    body {
+      font-family: 'Zen Maru Gothic', 'Baloo 2', 'Meiryo', sans-serif;
+    }
     /* 落下単語・結果表示に使うフォント */
     .word,
     #wordText,
     #hitPercentText,
     #scoreText {
-      font-family: 'Baloo 2', 'Zen Maru Gothic', 'Meiryo', sans-serif;
+      font-family: 'Zen Maru Gothic', 'Baloo 2', 'Meiryo', sans-serif;
       font-weight: 700;
     }
 
     /* スコア表示を見やすくするスタイル */
     #scoreText {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(255, 255, 255, 0.7);
+      color: red;
       padding: 0.3em 0.8em;
       border-radius: 0.5em;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
@@ -43,7 +51,7 @@
 
   <!-- ヘッダー -->
   <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0 z-20">
-    <h1 class="text-center text-lg m-2">ゲーム結果</h1>
+    <h1 class="text-center text-lg font-bold m-2">🥙 ゲーム結果 🥙</h1>
   </header>
 
   <!-- 背景画像と中央テキスト -->
@@ -95,7 +103,7 @@
       class="px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg 
             hover:bg-green-600/80 transition duration-200 backdrop-blur-sm
             w-auto min-w-fit"
-      onclick="location.href='result.html'"
+      id="shareButton"
     >
       結果をシェア
     </button>
@@ -161,9 +169,28 @@
     const score = calcScore(hitPercent);
     const rank = getRank(score);
 
+    // === ケバブケース／アッパーケバブケースの背景切り替え ===
+    if (matched.label == "ケバブケース" || matched.label == "アッパーケバブケース") {
+      if (hitPercent >= 85) {
+        // ヘビに変更（スネークケース画像）
+        resultImg.src = "image/kabab_snake.png";
+      } else {
+        // スコアに応じた背景切替
+        if (score >= 100) resultImg.src = "image/perfect_kabab.png";
+        else if (score >= 90) resultImg.src = "image/great_kabab.png";
+        else if (score >= 75) resultImg.src = "image/good_kabab.png";
+        else if (score >= 50) resultImg.src = "image/ok_kabab.png";
+        else resultImg.src = "image/miss_kabab.png";
+      }
+    }
+
     // === スコアとランクを表示 ===
     if (matched.label == "ケバブケース" || matched.label == "アッパーケバブケース") {
-      scoreText.textContent = `${rank.label}　${score}点`;
+      if (hitPercent >= 85) {
+        scoreText.textContent = `下から ${Math.round(100-hitPercent)}% 地点に刺さった！`;
+      } else {
+        scoreText.textContent = `${rank.label}　${score}点`;
+      }
     } else {
       scoreText.textContent = `${rank.label}`;
     }
@@ -196,6 +223,36 @@
 
     window.addEventListener('resize', resizeContainer);
     window.addEventListener('load', resizeContainer);
+
+    // === Xシェア機能 ===
+    const shareButton = document.getElementById("shareButton");
+
+    shareButton.addEventListener("click", () => {
+      const baseUrl = "https://twitter.com/intent/tweet";
+
+      // 表示データを整形
+      const gameTitle = "🥙ケバブケースゲーム🥙";
+      const wordDisplay = word.replace("-"," ");
+      const scoreDisplay = `${score}点`;
+      const rankDisplay = rank.label;
+      const caseType = matched.label;
+      const pageUrl = window.location.origin + "/game.html"; // 公開ページURLに変更
+
+      // 投稿メッセージ
+      const text = 
+        `${gameTitle} \n` +
+        `「${wordDisplay}」に串を刺した！\n` +
+        `仕上がり: ${caseType}\n` +
+        `評価: ${rankDisplay}\n` +
+        `スコア: ${scoreDisplay}\n\n` +
+        `#ケバブケースゲーム\n`;
+
+      // URLパラメータ化
+      const tweetUrl = `${baseUrl}?text=${encodeURIComponent(text)}&url=${encodeURIComponent(pageUrl)}`;
+
+      // 新しいタブでX投稿画面を開く
+      window.open(tweetUrl, "_blank");
+    });
   </script>
 
 </body>
