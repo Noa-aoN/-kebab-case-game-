@@ -4,188 +4,166 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ケバブケースゲーム</title>
-  <!-- ファビコン設定 -->
+
+  <!-- ==============================
+       ファビコン設定
+  =============================== -->
   <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
   <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
-  <!-- TailwindCSS追加 -->
+
+  <!-- ==============================
+       Tailwind CSS 読み込み
+  =============================== -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- フォント追加 -->
+
+  <!-- ==============================
+       フォント設定
+  =============================== -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
     body {
-      font-family: 'Zen Maru Gothic', 'Baloo 2', 'Meiryo', sans-serif;
+      font-family: 'M PLUS Rounded 1c','Zen Maru Gothic', 'Meiryo', sans-serif;
       margin: 0;
     }
   </style>
 </head>
+
 <body class="relative h-screen bg-gray-100 bg-[url('image/many_kabab5_cut.png')] bg-center bg-cover">
 
-  <!-- ヘッダー -->
+  <!-- ==============================
+       ヘッダー
+  =============================== -->
   <header class="bg-amber-300/90 w-full shadow-md p-1 fixed top-0 z-20 backdrop-blur-sm">
-    <h1 class="text-center text-lg font-bold m-2">
-      🥙 用語解説 🥙
-    </h1>
+    <h1 class="text-center text-lg font-bold m-2">🥙 用語解説 🥙</h1>
   </header>
 
-  <!-- メインコンテンツ -->
+  <!-- ==============================
+       メインコンテンツ
+  =============================== -->
   <main class="pt-16 pb-32 overflow-y-auto max-h-[calc(100vh-4rem)]">
     <div class="flex flex-col items-center justify-start w-full px-4 sm:px-8 lg:px-16">
-      <!-- 冒頭説明 -->
-      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+
+      <!-- 💬 はじめに -->
+      <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-2xl font-bold text-yellow-800 mb-4">💬 はじめに</h2>
-          ここでは「いくつかの単語をつなげて、ひとつの単語として表すときの書き方（命名規則）」を紹介します。<br>
-          ゲームでは、落ちてくる言葉がケバブケースになるかを判断する材料にしてね！<br>
-          ※このゲームでは、アッパーケバブケース（トレインケース） もケバブ素材として判定します。
-        <div class="mb-4">
-        </div>
-      </div>
+        ここでは「いくつかの単語をつなげて、ひとつの単語として表すときの書き方（命名規則）」を紹介します。<br>
+        ゲームでは、落ちてくる言葉がケバブケースになるかを判断する材料にしてね！<br>
+        ※このゲームでは、アッパーケバブケース（トレインケース）もケバブ素材として判定します。
+      </section>
 
-
-      <!-- 用語解説 -->      
-      <!-- キャメルケース -->
-      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+      <!-- 🐪 キャメルケース -->
+      <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">🐪 キャメルケース</h2>
+        別名：ローワーキャメルケース<br>
+        ＝最初の単語は小文字、以降の単語は頭が大文字で残りは小文字<br>
+        <span class="text-gray-700 italic">
+          例：camelCase<br>
+          由来：頭を下げたラクダ<br>
+          使用言語：JavaScript, Java, C# など
+        </span>
+      </section>
 
-        <div class="mb-4">
-          別名：ローワーキャメルケース<br>
-          ＝最初の単語は小文字、以降の単語は頭が大文字で残りは小文字<br>
-          <span class="text-gray-700 italic">
-            例：camelCase<br>
-            由来：頭を下げたラクダ<br>
-            使用言語：JavaScript, Java, C# など
-          </span><br>
-          <!-- <img src="images/camel_lower.png" alt="ローワーキャメルケース" class="mt-2 max-w-full rounded-md shadow-sm"> -->
-          <!-- <a href="https://example.com/camelcase" target="_blank" class="text-blue-600 underline mt-1 inline-block">参考リンク</a> -->
-        </div>
-      </div>
-
-      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+      <!-- 🐪🐪 アッパーキャメルケース -->
+      <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">🐪🐪 アッパーキャメルケース</h2>
+        別名：パスカルケース<br>
+        ＝全単語の頭文字が大文字で、あとは小文字<br>
+        <span class="text-gray-700 italic">
+          例：CamelCase<br>
+          由来：頭を上げたラクダ<br>
+          使用言語：Java, C#, Swift など
+        </span>
+      </section>
 
-        <div>
-          別名：パスカルケース<br>
-          ＝全単語の頭文字が大文字で、あとは小文字<br>
-          <span class="text-gray-700 italic">
-            例：CamelCase<br>
-            由来：頭を上げたラクダ<br>
-            使用言語：Java, C#, Swift など
-          </span><br>
-          <!-- <img src="images/camel_upper.png" alt="アッパーキャメルケース" class="mt-2 max-w-full rounded-md shadow-sm"> -->
-          <!-- <a href="https://example.com/CamelCase" target="_blank" class="text-blue-600 underline mt-1 inline-block">参考リンク</a> -->
-        </div>
-      </div>
-
-      <!-- スネークケース -->
-      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+      <!-- 🐍 スネークケース -->
+      <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">🐍 スネークケース</h2>
+        別名：ローワースネークケース<br>
+        ＝全ての単語が小文字、単語間は <code>_</code> で区切る<br>
+        <span class="text-gray-700 italic">
+          例：snake_case<br>
+          由来：蛇みたいだから<br>
+          使用言語：Python, Ruby, C など
+        </span>
+      </section>
 
-        <div>
-          別名：ローワースネークケース<br>
-          ＝全ての単語が小文字、単語間は <code>_</code> で区切る<br>
-          <span class="text-gray-700 italic">
-            例：snake_case<br>
-            由来：蛇みたいだから<br>
-            使用言語：Python, Ruby, C など
-          </span><br>
-          <!-- <img src="images/snake_case.png" alt="スネークケース" class="mt-2 max-w-full rounded-md shadow-sm"> -->
-          <!-- <a href="https://example.com/snake_case" target="_blank" class="text-blue-600 underline mt-1 inline-block">参考リンク</a> -->
-        </div>
-      </div>
-
-      <!-- スネークケース -->
-      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+      <!-- 🐍🐍 アッパースネークケース -->
+      <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">🐍🐍 アッパースネークケース</h2>
+        別名：スクリーミングスネークケース、コンスタントケース<br>
+        ＝全ての単語が大文字、単語間は <code>_</code> で区切る<br>
+        <span class="text-gray-700 italic">
+          例：SNAKE_CASE<br>
+          由来：蛇みたいだから<br>
+          使用言語：Python, Ruby, C など
+        </span>
+      </section>
 
-        <div>
-          別名：スクリーミングスネークケース、コンスタントケース<br>
-          ＝全ての単語が大文字、単語間は <code>_</code> で区切る<br>
-          <span class="text-gray-700 italic">
-            例：SNAKE_CASE<br>
-            由来：蛇みたいだから<br>
-            使用言語：Python, Ruby, C など
-          </span><br>
-          <!-- <img src="images/snake_case.png" alt="スネークケース" class="mt-2 max-w-full rounded-md shadow-sm"> -->
-          <!-- <a href="https://example.com/snake_case" target="_blank" class="text-blue-600 underline mt-1 inline-block">参考リンク</a> -->
-        </div>
-      </div>
-
-      <!-- ケバブケース -->
-      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+      <!-- 🥙 ケバブケース -->
+      <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">🥙 ケバブケース</h2>
+        別名：ローワーケバブケース<br>
+        ＝全ての単語は小文字、単語間を <code>-</code> で区切る<br>
+        <span class="text-gray-700 italic">
+          例：kebab-case<br>
+          由来：串刺しみたいだから<br>
+          使用言語：HTML, CSS, URL, CLI など
+        </span>
+      </section>
 
-        <div>
-          別名：ローワーケバブケース<br>
-          ＝全ての単語は小文字、単語間を <code>-</code> で区切る<br>
-          <span class="text-gray-700 italic">
-            例：kebab-case<br>
-            由来：串刺しみたいだから<br>
-            使用言語：HTML, CSS, URL, CLI など
-          </span><br>
-          <!-- <img src="images/kebab_case.png" alt="ケバブケース" class="mt-2 max-w-full rounded-md shadow-sm"> -->
-          <!-- <a href="https://example.com/kebab-case" target="_blank" class="text-blue-600 underline mt-1 inline-block">参考リンク</a> -->
-        </div>
-      </div>
-
-      <!-- ケバブケース -->
-      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+      <!-- 🥙🥙 アッパーケバブケース -->
+      <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">🥙🥙 アッパーケバブケース</h2>
+        別名：トレインケース<br>
+        ＝各単語の最初は大文字であとは小文字、単語間を <code>-</code> で区切る<br>
+        <span class="text-gray-700 italic">
+          例：Train-Case<br>
+          覚え方：頭がでた列車みたいだから<br>
+          使用言語：HTML, CSS, URL, CLI など
+        </span>
+      </section>
 
-        <div>
-          別名：トレインケース<br>
-          ＝各単語の最初は大文字であとは小文字、単語間を <code>-</code> で区切る<br>
-          <span class="text-gray-700 italic">
-            例：Train-Case<br>
-            覚え方：頭がでた列車みたいだから<br>
-            使用言語：HTML, CSS, URL, CLI など
-          </span><br>
-          <!-- <img src="images/kebab_case.png" alt="ケバブケース" class="mt-2 max-w-full rounded-md shadow-sm"> -->
-          <!-- <a href="https://example.com/kebab-case" target="_blank" class="text-blue-600 underline mt-1 inline-block">参考リンク</a> -->
-        </div>
-      </div>
-
-      <!-- ハンガリアン記法 -->
-      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+      <!-- 🇭🇺 ハンガリアン記法 -->
+      <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">🇭🇺 ハンガリアン記法</h2>
+        ＝変数名に型や用途を接頭辞として付ける<br>
+        <span class="text-gray-700 italic">
+          例：strText<br>
+          使用言語：C, C++ など
+        </span>
+      </section>
 
-        <div>
-          ＝変数名に型や用途を接頭辞として付ける<br>
-          <span class="text-gray-700 italic">
-            例：strText<br>
-            使用言語：C, C++ など
-          </span><br>
-          <!-- <img src="images/hungarian.png" alt="ハンガリアン記法" class="mt-2 max-w-full rounded-md shadow-sm"> -->
-          <!-- <a href="https://example.com/hungarian" target="_blank" class="text-blue-600 underline mt-1 inline-block">参考リンク</a> -->
-        </div>
-      </div>
-
-      <!-- ドットケース -->
-      <div class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+      <!-- ⚫️ ドットケース -->
+      <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">⚫️ ドットケース</h2>
+        ＝単語を <code>.</code> で区切る<br>
+        <span class="text-gray-700 italic">
+          例：kusama.yayoi<br>
+          覚え方：見たまんま<br>
+          使用言語：ファイル名、名前空間表記など
+        </span>
+      </section>
+    </div>
+  </main>
 
-        <div>
-          ＝単語を <code>.</code> で区切る<br>
-          <span class="text-gray-700 italic">
-            例：kusama.yayoi<br>
-            覚え方：見たまんま<br>
-            使用言語：ファイル名、名前空間表記など
-          </span><br>
-          <!-- <img src="images/dot_case.png" alt="ドットケース" class="mt-2 max-w-full rounded-md shadow-sm"> -->
-          <!-- <a href="https://example.com/dot-case" target="_blank" class="text-blue-600 underline mt-1 inline-block">参考リンク</a> -->
-        </div>
-      </div>
-
-  <!-- 共通ボタンテンプレート（フッター上固定＋レスポンシブ） -->
+  <!-- ==============================
+       共通ボタン（フッター上固定）
+  =============================== -->
   <div class="fixed bottom-20 left-1/2 transform -translate-x-1/2 flex flex-col sm:flex-row gap-3 z-30">
     <button
-      class="w-40 sm:w-auto px-4 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-red-600/80 transition duration-200 backdrop-blur-sm"
+      class="w-40 sm:w-auto px-4 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg 
+             hover:bg-red-600/80 transition duration-200 backdrop-blur-sm"
       onclick="location.href='game.html'"
     >
       ゲーム
     </button>
   </div>
 
-  <!-- フッター -->
+  <!-- ==============================
+       フッター
+  =============================== -->
   <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0 z-20 backdrop-blur-sm">
     <p class="text-center m-1 text-sm sm:text-base">kabab-case-game@NOA</p>
   </footer>

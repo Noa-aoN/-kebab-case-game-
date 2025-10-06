@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ケバブケースゲーム</title>
-  <!-- ファビコン設定 -->
-  <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
-  <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
-  <!-- TailwindCSS追加 -->
+
+  <!-- =========================
+        ファビコン設定
+  ========================== -->
+  <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
+  <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
+
+  <!-- ==============================
+       Tailwind CSS 読み込み
+  =============================== -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- フォント追加 -->
+
+  <!-- ==============================
+       フォント設定
+  =============================== -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- =========================
+        スタイル定義
+  ========================== -->
   <style>
+    /* 共通フォント設定 */
     body {
-      font-family: 'Zen Maru Gothic', 'Baloo 2', 'Meiryo', sans-serif;
+      font-family: 'M PLUS Rounded 1c','Zen Maru Gothic', 'Meiryo', sans-serif;
     }
-    /* 落下単語・結果表示に使うフォント */
+
+    /* 落下単語・結果表示用フォント */
     .word,
     #wordText,
     #hitPercentText,
     #scoreText {
-      font-family: 'Zen Maru Gothic', 'Baloo 2', 'Meiryo', sans-serif;
+      font-family: 'M PLUS Rounded 1c','Zen Maru Gothic', 'Meiryo', sans-serif;
       font-weight: 700;
     }
 
-    /* スコア表示を見やすくするスタイル */
+    /* スコア表示デザイン */
     #scoreText {
       background: rgba(255, 255, 255, 0.7);
       color: red;
@@ -36,7 +51,7 @@
       display: inline-block;
     }
 
-    /* 下1/3の位置に配置するためのクラス */
+    /* 下1/3に配置 */
     .bottom-third {
       position: absolute;
       bottom: 25%;
@@ -47,86 +62,101 @@
     }
   </style>
 </head>
+
 <body class="bg-gray-200 relative min-h-screen w-screen bg-[url('image/many_kabab5_cut.png')] bg-center bg-cover">
 
-  <!-- ヘッダー -->
+  <!-- =========================
+        ヘッダー
+  ========================== -->
   <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0 z-20">
     <h1 class="text-center text-lg font-bold m-2">🥙 ゲーム結果 🥙</h1>
   </header>
 
-  <!-- 背景画像と中央テキスト -->
+  <!-- =========================
+        メインコンテンツ（結果表示）
+  ========================== -->
   <main class="flex justify-center items-center min-h-[calc(100vh-100px)] relative z-10 px-4">
     <div class="relative w-full max-w-[90vw] max-h-[90vh] p-4">
-      <!-- 正方形コンテナ -->
-      <div class="relative bg-gray-100 rounded-lg shadow-lg flex justify-center items-center overflow-hidden mx-auto" id="resultContainer">
+
+      <!-- 結果コンテナ（正方形） -->
+      <div id="resultContainer" class="relative bg-gray-100 rounded-lg shadow-lg flex justify-center items-center overflow-hidden mx-auto">
         <img id="resultImg" src="" alt="" class="w-full h-full object-contain" />
 
-        <!-- 下1/3に表示されるテキスト群 -->
+        <!-- 下部テキスト群 -->
         <div class="bottom-third flex flex-col justify-center items-center px-2">
           <span id="wordText" class="font-bold text-white drop-shadow-lg text-center"></span>
           <span id="scoreText" class="font-bold text-white drop-shadow-lg mt-2 text-center text-xl"></span>
           <span id="hitPercentText" class="font-semibold text-white drop-shadow-lg mt-1 text-center"></span>
         </div>
       </div>
+
     </div>
   </main>
 
-  <!-- 固定ボタン群（共通テンプレート準拠） -->
+  <!-- =========================
+        固定ボタン群（共通デザイン）
+  ========================== -->
   <div
     class="fixed bottom-20 left-1/2 transform -translate-x-1/2 
-          grid justify-center gap-3 z-30
-          sm:flex sm:flex-nowrap sm:justify-center"
+           grid justify-center gap-3 z-30
+           sm:flex sm:flex-nowrap sm:justify-center"
     style="grid-template-columns: repeat(2, max-content);"
   >
     <!-- ホームボタン -->
     <button
-      class="px-6 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg 
-            hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm
-            w-auto min-w-fit"
       onclick="location.href='index.html'"
+      class="px-6 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg 
+             hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm
+             w-auto min-w-fit"
     >
       ホーム
     </button>
 
     <!-- ゲーム再挑戦ボタン -->
     <button
-      class="px-6 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg 
-            hover:bg-red-600/80 transition duration-200 backdrop-blur-sm
-            w-auto min-w-fit"
       onclick="location.href='game.html'"
+      class="px-6 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg 
+             hover:bg-red-600/80 transition duration-200 backdrop-blur-sm
+             w-auto min-w-fit"
     >
       ゲーム再挑戦
     </button>
 
     <!-- 結果シェアボタン -->
     <button
-      class="px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg 
-            hover:bg-green-600/80 transition duration-200 backdrop-blur-sm
-            w-auto min-w-fit"
       id="shareButton"
+      class="px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg 
+             hover:bg-green-600/80 transition duration-200 backdrop-blur-sm
+             w-auto min-w-fit"
     >
-      結果をシェア
+      結果シェア
     </button>
   </div>
 
-  <!-- フッター -->
+  <!-- =========================
+        フッター
+  ========================== -->
   <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0 z-20">
     <p class="text-center m-1 text-sm sm:text-base">kabab-case-game@NOA</p>
   </footer>
 
+  <!-- =========================
+        スクリプト
+  ========================== -->
   <script>
+    // === 要素取得 ===
     const resultContainer = document.getElementById('resultContainer');
     const resultImg = document.getElementById("resultImg");
     const wordText = document.getElementById("wordText");
     const hitPercentText = document.getElementById("hitPercentText");
     const scoreText = document.getElementById("scoreText");
 
-    // URLパラメータ取得
+    // === URLパラメータ取得 ===
     const params = new URLSearchParams(window.location.search);
     const word = params.get("word") || "不明";
     const hitPercent = parseFloat(params.get("hitPercent")) || 0;
 
-    // === 背景画像パターン ===
+    // === ケース判定用パターン ===
     const patterns = [
       { regex: /^[a-z][A-Z][a-z0-9]+([A-Z][a-z0-9]*)*$/, img: "image/hungarian.png", label: "ハンガリアン記法" },
       { regex: /^[a-z]+([A-Z][a-z0-9]*)+$/, img: "image/camel.png", label: "キャメルケース" },
@@ -138,44 +168,42 @@
       { regex: /^[a-z0-9]+(\.[a-z0-9]+)+$/, img: "image/dot.png", label: "ドット記法" },
     ];
 
-    // === 背景画像表示 ===
-    let matched = patterns.find(p => p.regex.test(word)) || { img: "image/default.png", label: "不明" };
+    // === マッチングと結果画像設定 ===
+    const matched = patterns.find(p => p.regex.test(word)) || { img: "image/default.png", label: "不明" };
     resultImg.src = matched.img;
     resultImg.alt = matched.label;
 
-    // === 単語表示 ===
+    // === 単語表示（ケバブ用に置換） ===
     wordText.textContent = word.replace(" ", "-");
 
-    // === スコア算出 ===
-    function calcScore(hitPercent) {
+    // === スコア算出関数 ===
+    const calcScore = hitPercent => {
       const diff = Math.abs(hitPercent - 50);
-      let score = Math.max(0, Math.round(100 - diff * 2));
-      return score;
-    }
+      return Math.max(0, Math.round(100 - diff * 2));
+    };
 
-    // === ランクと演出 ===
-    function getRank(score) {
-      if (matched.label == "ケバブケース" || matched.label == "アッパーケバブケース") {
+    // === ランク判定関数 ===
+    const getRank = score => {
+      if (["ケバブケース", "アッパーケバブケース"].includes(matched.label)) {
         if (score >= 100) return { label: "Perfect!", color: "text-orange-300" };
-        if (score >= 90) return { label: "Great!", color: "text-yellow-300" };
-        if (score >= 75) return { label: "Good!", color: "text-green-300" };
-        if (score >= 50) return { label: "OK!", color: "text-blue-300" };
+        if (score >= 90)  return { label: "Great!", color: "text-yellow-300" };
+        if (score >= 75)  return { label: "Good!", color: "text-green-300" };
+        if (score >= 50)  return { label: "OK!", color: "text-blue-300" };
         return { label: "Miss...", color: "text-red-400" };
       } else {
         return { label: matched.label + "を刺した！", color: "text-red-400" };
-      };
-    }
+      }
+    };
 
+    // === スコア・ランク判定 ===
     const score = calcScore(hitPercent);
     const rank = getRank(score);
 
-    // === ケバブケース／アッパーケバブケースの背景切り替え ===
-    if (matched.label == "ケバブケース" || matched.label == "アッパーケバブケース") {
+    // === ケバブ専用画像分岐 ===
+    if (["ケバブケース", "アッパーケバブケース"].includes(matched.label)) {
       if (hitPercent >= 85) {
-        // ヘビに変更（スネークケース画像）
         resultImg.src = "image/kabab_snake.png";
       } else {
-        // スコアに応じた背景切替
         if (score >= 100) resultImg.src = "image/perfect_kabab.png";
         else if (score >= 90) resultImg.src = "image/great_kabab.png";
         else if (score >= 75) resultImg.src = "image/good_kabab.png";
@@ -184,76 +212,49 @@
       }
     }
 
-    // === スコアとランクを表示 ===
-    if (matched.label == "ケバブケース" || matched.label == "アッパーケバブケース") {
-      if (hitPercent >= 85) {
-        scoreText.textContent = `下から ${Math.round(100-hitPercent)}% 地点に刺さった！`;
-      } else {
-        scoreText.textContent = `${rank.label}　${score}点`;
-      }
+    // === スコアテキスト設定 ===
+    if (["ケバブケース", "アッパーケバブケース"].includes(matched.label)) {
+      scoreText.textContent =
+        hitPercent >= 85
+          ? `下から ${Math.round(100 - hitPercent)}% 地点に刺さった！`
+          : `${rank.label}　${score}点`;
     } else {
-      scoreText.textContent = `${rank.label}`;
+      scoreText.textContent = rank.label;
     }
     scoreText.className = `font-bold ${rank.color} mt-2 text-center text-xl animate-pulse`;
 
-    // Perfect時は画像を光らせる
+    // === 高スコア時の光エフェクト ===
     if (score >= 90) {
       resultImg.style.filter = "drop-shadow(0 0 20px rgba(255, 215, 0, 1))";
     }
 
-    // === リサイズ対応 ===
-    function resizeContainer() {
+    // === リサイズ処理 ===
+    const resizeContainer = () => {
       const padding = 32;
       const maxWidth = window.innerWidth * 0.8 - padding;
       const maxHeight = (window.innerHeight - 100) * 0.9 - padding;
       const size = Math.min(maxWidth, maxHeight);
+
       resultContainer.style.width = `${size}px`;
       resultContainer.style.height = `${size}px`;
 
-      // テキストサイズ調整
-      let wordFontSize = Math.max(16, size * 0.06);
-      wordText.style.fontSize = `${wordFontSize}px`;
-
-      let scoreFontSize = Math.max(18, size * 0.045);
-      scoreText.style.fontSize = `${scoreFontSize}px`;
-
-      let hitFontSize = Math.max(12, size * 0.03);
-      hitPercentText.style.fontSize = `${hitFontSize}px`;
-    }
-
+      wordText.style.fontSize = `${Math.max(16, size * 0.06)}px`;
+      scoreText.style.fontSize = `${Math.max(18, size * 0.045)}px`;
+      hitPercentText.style.fontSize = `${Math.max(12, size * 0.03)}px`;
+    };
     window.addEventListener('resize', resizeContainer);
     window.addEventListener('load', resizeContainer);
 
-    // === Xシェア機能 ===
-    const shareButton = document.getElementById("shareButton");
-
-    shareButton.addEventListener("click", () => {
+    // === X（旧Twitter）シェア機能 ===
+    document.getElementById("shareButton").addEventListener("click", () => {
       const baseUrl = "https://twitter.com/intent/tweet";
-
-      // 表示データを整形
-      const gameTitle = "🥙ケバブケースゲーム🥙";
-      const wordDisplay = word.replace("-"," ");
-      const scoreDisplay = `${score}点`;
-      const rankDisplay = rank.label;
-      const caseType = matched.label;
-      const pageUrl = window.location.origin + "/game.html"; // 公開ページURLに変更
-
-      // 投稿メッセージ
-      const text = 
-        `${gameTitle} \n` +
-        `「${wordDisplay}」に串を刺した！\n` +
-        `仕上がり: ${caseType}\n` +
-        `評価: ${rankDisplay}\n` +
-        `スコア: ${scoreDisplay}\n\n` +
-        `#ケバブケースゲーム\n`;
-
-      // URLパラメータ化
+      const gameTitle = "🥙ケバブ-ケース-ゲーム🥙";
+      const wordDisplay = word.replace("-", " ");
+      const text = `${gameTitle}\n-----------------------------\n素材「${wordDisplay}」に串を刺した！\n🥙仕上がり: ${matched.label}\n🎯評価: ${rank.label}\n💯スコア: ${score}点\n-----------------------------\n#ケバブケースゲーム\n`;
+      const pageUrl = window.location.origin + "/game.html";
       const tweetUrl = `${baseUrl}?text=${encodeURIComponent(text)}&url=${encodeURIComponent(pageUrl)}`;
-
-      // 新しいタブでX投稿画面を開く
       window.open(tweetUrl, "_blank");
     });
   </script>
-
 </body>
 </html>
