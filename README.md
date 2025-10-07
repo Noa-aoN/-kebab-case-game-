@@ -1,4 +1,4 @@
-# MyApp01_kabab
+# my-app-01_kebab-case-game
 
-個人開発
+self development
 テーマ：ケバブケースをつくるゲーム
