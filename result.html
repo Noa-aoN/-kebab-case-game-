@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ケバブケースゲーム</title>
+  <title>-ケバブ-ケース-ゲーム-</title>
 
   <!-- =========================
         ファビコン設定
@@ -70,7 +70,7 @@
   </style>
 </head>
 
-<body class="bg-gray-200 relative min-h-screen w-screen bg-[url('image/many_kabab5_cut.png')] bg-center bg-cover">
+<body class="bg-gray-200 relative min-h-screen w-screen bg-[url('image/many_kebab.png')] bg-center bg-cover">
 
   <!-- =========================
         ヘッダー
@@ -144,7 +144,7 @@
         フッター
   ========================== -->
   <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0 z-20">
-    <p class="text-center m-1 text-sm sm:text-base">kabab-case-game@NOA</p>
+    <p class="text-center m-1 text-sm sm:text-base">-kebab-case-game-@NOA</p>
   </footer>
 
   <!-- =========================
@@ -170,8 +170,8 @@
       { regex: /^[A-Z][a-z0-9]+([A-Z][a-z0-9]*)+$/, img: "image/upper_camel.png", label: "アッパーキャメルケース" },
       { regex: /^[a-z0-9]+(_[a-z0-9]+)+$/, img: "image/snake.png", label: "スネークケース" },
       { regex: /^[A-Z0-9]+(_[A-Z0-9]+)+$/, img: "image/upper_snake.png", label: "アッパースネークケース" },
-      { regex: /^[a-z0-9]+( [a-z0-9]+)+$/, img: "image/kabab.png", label: "ケバブケース" },
-      { regex: /^[A-Z][a-z0-9]+( [A-Z][a-z0-9]+)+$/, img: "image/upper_kabab.png", label: "アッパーケバブケース" },
+      { regex: /^[a-z0-9]+( [a-z0-9]+)+$/, img: "image/kebab.png", label: "ケバブケース" },
+      { regex: /^[A-Z][a-z0-9]+( [A-Z][a-z0-9]+)+$/, img: "image/upper_kebab.png", label: "アッパーケバブケース" },
       { regex: /^[a-z0-9]+(\.[a-z0-9]+)+$/, img: "image/dot.png", label: "ドット記法" },
     ];
 
@@ -209,14 +209,14 @@
     // === ケバブ専用画像分岐 ===
     if (["ケバブケース", "アッパーケバブケース"].includes(matched.label)) {
       if (hitPercent >= 85) {
-        resultImg.src = "image/kabab_snake.png";
+        resultImg.src = "image/kebab_snake.png";
         wordText.textContent = word.replace(" ", "_");
       } else {
-        if (score >= 100) resultImg.src = "image/perfect_kabab.png";
-        else if (score >= 90) resultImg.src = "image/great_kabab.png";
-        else if (score >= 75) resultImg.src = "image/good_kabab.png";
-        else if (score >= 50) resultImg.src = "image/ok_kabab.png";
-        else resultImg.src = "image/miss_kabab.png";
+        if (score >= 100) resultImg.src = "image/perfect_kebab.png";
+        else if (score >= 90) resultImg.src = "image/great_kebab.png";
+        else if (score >= 75) resultImg.src = "image/good_kebab.png";
+        else if (score >= 50) resultImg.src = "image/ok_kebab.png";
+        else resultImg.src = "image/miss_kebab.png";
       }
     }
 
@@ -256,15 +256,21 @@
     // === X（旧Twitter）シェア機能 ===
     document.getElementById("shareButton").addEventListener("click", () => {
       const baseUrl = "https://twitter.com/intent/tweet";
-      const gameTitle = "🥙ケバブケースゲーム🥙";
-      // const wordDisplay = word.replace("-", " ");
+      const gameTitle = "🥙-ケバブ-ケース-ゲーム-🥙";
+      const borderLine = "-------------------------------\n"
       const wordDisplay = ["ケバブケース", "アッパーケバブケース"].includes(matched.label)
         ? word.replace("-", " ").replace("_", " ")
         : word.replace("-", " ");
+      const resultCase = (["ケバブケース", "アッパーケバブケース"].includes(matched.label) && hitPercent >= 85)
+        ? "新スネークケース"
+        : matched.label;
       const rankText = ["ケバブケース", "アッパーケバブケース"].includes(matched.label)
         ? rank.label
         : "判定不能！";
-      const text = `${gameTitle}\n---------------------------\n素材「${wordDisplay}」に串を刺した！\n🥙仕上がり: ${matched.label}\n🎯評価: ${rankText}\n💯スコア: ${score}点\n---------------------------\n#ケバブケースゲーム\n`;
+      const resultSkewer = (["ケバブケース", "アッパーケバブケース"].includes(matched.label))
+        ? ""
+        : "串";
+      const text = `${gameTitle}\n${borderLine}🍖素材：「${wordDisplay}」を串刺し！\n🥙仕上がり: ${resultCase}${resultSkewer}\n💯スコア: ${score}点\n🎯評価: ${rankText}\n${borderLine}#ケバブケースゲーム\n`;
       const pageUrl = window.location.origin + "/game.html";
       const tweetUrl = `${baseUrl}?text=${encodeURIComponent(text)}&url=${encodeURIComponent(pageUrl)}`;
       window.open(tweetUrl, "_blank");
