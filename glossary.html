@@ -45,106 +45,153 @@
   <main class="pt-16 pb-32 overflow-y-auto max-h-[calc(100vh-4rem)]">
     <div class="flex flex-col items-center justify-start w-full px-4 sm:px-8 lg:px-16">
 
-      <!-- 💬 はじめに -->
+      <!-- はじめに -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-2xl font-bold text-yellow-800 mb-4">💬 はじめに</h2>
-        ここでは「いくつかの単語をつなげて、ひとつの単語として表すときの書き方（命名規則）」を紹介します。<br>
-        ゲームでは、落ちてくる言葉がケバブケースになるかを判断する材料にしてね！<br>
-        ※このゲームでは、アッパーケバブケース（トレインケース）もケバブ素材として判定します。
+        ここでは「英単語をつなげて1つの識別子（変数名・関数名など）を作るときの書き方（<span style="color: red">命名規則</span>）」を紹介します。<br><br>
+        ゲームで出てくる文字がケバブケースかどうか、見分けるヒントにしてね！<br>
       </section>
 
-      <!-- 🐪 キャメルケース -->
+      <!-- キャメルケース -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
-        <h2 class="text-xl font-bold text-yellow-800 mb-4">🐪 キャメルケース</h2>
-        別名：ローワーキャメルケース<br>
-        ＝最初の単語は小文字、以降の単語は頭が大文字で残りは小文字<br>
+        <h2 class="text-xl font-bold text-yellow-800 mb-4">🐪 キャメルケース（camelCase）</h2>
+        別名：ローワーキャメルケース（lowerCamelCase）<br>
+        ＝最初の単語は小文字で始まり、2単語目以降の先頭を大文字にして単語を区切る。区切りに記号は使わない。<br>
         <span class="text-gray-700 italic">
-          例：camelCase<br>
-          由来：頭を下げたラクダ<br>
-          使用言語：JavaScript, Java, C# など
+          例：camelCase, userName, getElementById<br>
+          由来：単語の途中が大文字で盛り上がる様子が「ラクダのこぶ」に似ているため。<br>
+          使用言語：JavaScript, Java, TypeScript, Swift, Kotlin, C# など（主に変数名・関数名）
         </span>
       </section>
 
-      <!-- 🐪🐪 アッパーキャメルケース -->
+      <!-- アッパーキャメルケース -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
-        <h2 class="text-xl font-bold text-yellow-800 mb-4">🐪🐪 アッパーキャメルケース</h2>
-        別名：パスカルケース<br>
-        ＝全単語の頭文字が大文字で、あとは小文字<br>
+        <h2 class="text-xl font-bold text-yellow-800 mb-4">🐪🐪 アッパーキャメルケース（UpperCamelCase）</h2>
+        別名：パスカルケース（PascalCase）<br>
+        ＝すべての単語の先頭を大文字にし、単語をつなげる。区切りに記号は使わない。<br>
         <span class="text-gray-700 italic">
-          例：CamelCase<br>
-          由来：頭を上げたラクダ<br>
-          使用言語：Java, C#, Swift など
+          例：CamelCase, UserName, GetElementById<br>
+          由来：ラクダが頭を高く上げているように見えるため。別名はPascal言語で一般的に使われたことからこの名がある。<br>
+          使用言語：C#, Java, TypeScript, Swift など（主にクラス名・構造体名・型名）
         </span>
       </section>
 
-      <!-- 🐍 スネークケース -->
+      <!-- スネークケース -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
-        <h2 class="text-xl font-bold text-yellow-800 mb-4">🐍 スネークケース</h2>
-        別名：ローワースネークケース<br>
-        ＝全ての単語が小文字、単語間は <code>_</code> で区切る<br>
+        <h2 class="text-xl font-bold text-yellow-800 mb-4">🐍 スネークケース（snake_case）</h2>
+        別名：ローワースネークケース（lower_snake_case）<br>
+        ＝すべての単語を小文字で書き、単語の区切りにはアンダースコア <code>_</code> を使う。<br>
         <span class="text-gray-700 italic">
-          例：snake_case<br>
-          由来：蛇みたいだから<br>
-          使用言語：Python, Ruby, C など
+          例：snake_case, user_name, get_element_by_id<br>
+          由来：アンダースコアが蛇が這っているように見えるため。<br>
+          使用言語：Python, Ruby, C, SQL など（主に変数名・関数名）
         </span>
       </section>
 
-      <!-- 🐍🐍 アッパースネークケース -->
+      <!-- アッパースネークケース -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
-        <h2 class="text-xl font-bold text-yellow-800 mb-4">🐍🐍 アッパースネークケース</h2>
-        別名：スクリーミングスネークケース、コンスタントケース<br>
-        ＝全ての単語が大文字、単語間は <code>_</code> で区切る<br>
+        <h2 class="text-xl font-bold text-yellow-800 mb-4">🐍🐍 アッパースネークケース（UPPER_SNAKE_CASE）</h2>
+        別名：スクリーミングスネークケース（SCREAMING_SNAKE_CASE） / コンスタントケース（CONSTANT_CASE）など<br>
+        ＝すべての単語を大文字で書き、区切りにアンダースコア <code>_</code> を使う。<br>
         <span class="text-gray-700 italic">
-          例：SNAKE_CASE<br>
-          由来：蛇みたいだから<br>
-          使用言語：Python, Ruby, C など
+          例：SNAKE_CASE, USER_NAME, MAX_LENGTH<br>
+          由来：別名は、すべて大文字で“叫んでいる（screaming）”ように見えるため。<br>
+          使用言語：C, C++, Python, Rust など（主に定数・グローバル変数）
         </span>
       </section>
 
-      <!-- 🥙 ケバブケース -->
+      <!-- ケバブケース -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
-        <h2 class="text-xl font-bold text-yellow-800 mb-4">🥙 ケバブケース</h2>
-        別名：ローワーケバブケース<br>
-        ＝全ての単語は小文字、単語間を <code>-</code> で区切る<br>
+        <h2 class="text-xl font-bold text-yellow-800 mb-4">🥙 ケバブケース（kebab-case）</h2>
+        別名：ローワーケバブケース（lower-kebab-case） / リスプケース（lisp-case）<br>
+        ＝すべての単語を小文字で書き、単語の区切りにハイフン <code>-</code> を使う。<br>
         <span class="text-gray-700 italic">
-          例：kebab-case<br>
-          由来：串刺しみたいだから<br>
-          使用言語：HTML, CSS, URL, CLI など
+          例：kebab-case, user-name, get-element-by-id<br>
+          由来：単語がハイフンで“串刺し”のようにつながっている様子から。別名は、Lisp系言語でよく使われることに由来。<br>
+          使用言語：HTML属性, CSSクラス名, URL, CLIコマンドなど
         </span>
       </section>
 
-      <!-- 🥙🥙 アッパーケバブケース -->
+      <!-- アッパーケバブケース -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
-        <h2 class="text-xl font-bold text-yellow-800 mb-4">🥙🥙 アッパーケバブケース</h2>
-        別名：トレインケース<br>
-        ＝各単語の最初は大文字であとは小文字、単語間を <code>-</code> で区切る<br>
+        <h2 class="text-xl font-bold text-yellow-800 mb-4">🥙🥙 アッパーケバブケース（Upper-Kebab-Case）</h2>
+        別名：トレインケース（Train-Case）<br>
+        ＝各単語の先頭を大文字にし、単語の間をハイフン <code>-</code> で区切る。<br>
         <span class="text-gray-700 italic">
-          例：Train-Case<br>
-          覚え方：頭がでた列車みたいだから<br>
-          使用言語：HTML, CSS, URL, CLI など
+          例：Train-Case, Hello-World, User-Profile<br>
+          由来：別名は、単語の最初の文字が“頭を出して連なって走る列車”のように見えるため。<br>
+          使用言語：ほとんど使われないが、一部の文書構造や命名スタイルで見られる。
         </span>
       </section>
 
-      <!-- 🇭🇺 ハンガリアン記法 -->
+      <!-- ハンガリアン記法 -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
-        <h2 class="text-xl font-bold text-yellow-800 mb-4">🇭🇺 ハンガリアン記法</h2>
-        ＝変数名に型や用途を接頭辞として付ける<br>
+        <h2 class="text-xl font-bold text-yellow-800 mb-4">🇭🇺 ハンガリアン記法（Hungarian Notation）</h2>
+        ＝変数名の先頭に、その型や用途を表す短い接頭辞（prefix）を付ける。<br>
         <span class="text-gray-700 italic">
-          例：strText<br>
-          使用言語：C, C++ など
+          例：strName（文字列）、nCount（数値）、btnSubmit（ボタン要素）<br>
+          由来：発案者のチャールズ・シモニーがハンガリー出身だったため。<br>
+          使用言語：C, C++, Visual Basic など
         </span>
       </section>
 
-      <!-- ⚫️ ドットケース -->
+      <!-- ドットケース -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
-        <h2 class="text-xl font-bold text-yellow-800 mb-4">⚫️ ドットケース</h2>
-        ＝単語を <code>.</code> で区切る<br>
+        <h2 class="text-xl font-bold text-yellow-800 mb-4">⚪️ ドットケース（dot.case）</h2>
+        ＝単語をピリオド <code>.</code> で区切る命名方法。<br>
         <span class="text-gray-700 italic">
-          例：kusama.yayoi<br>
-          覚え方：見たまんま<br>
-          使用言語：ファイル名、名前空間表記など
+          例：config.file.name, user.profile.image<br>
+          由来：見たまんま「ドット（.）で区切る」書き方。<br>
+          使用言語：ファイル名、設定ファイル（JSON・YAML・プロパティ形式）、名前空間など
         </span>
       </section>
+
+      <!-- おわりに -->
+      <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
+        <h2 class="text-2xl font-bold text-yellow-800 mb-4">💬 おわりに</h2>
+
+        このページで紹介している命名規則は、
+        <span class="font-semibold">国内外のいろいろなサイトや資料</span>をもとに、
+        共通点を整理してまとめたものです。<br><br>
+
+        🚨 サイトや資料や地域によって内容や呼び方が異なる場合もあります。<br>
+        🚨 「ハンガリアン記法」のように、意味づけを含む命名方法も一緒に紹介しています。  
+        一部はわかりやすさを優先して簡略化していますのでご了承ください。<br><br>
+
+        より正確で詳細な情報や用途を知りたい場合は、信頼性の高い資料を参照してください。（下記例）<br>
+
+        <ul class="list-disc ml-6 mt-3 space-y-2">
+          <li>
+            <a href="https://en.wikipedia.org/wiki/Naming_convention_(programming)" target="_blank" class="text-blue-700 underline hover:text-blue-900">
+              Wikipedia（英語版）: Naming convention (programming)
+            </a>
+            （信頼性が高いかはさておき）
+          </li>
+          <li>
+            <a href="https://google.github.io/styleguide/" target="_blank" class="text-blue-700 underline hover:text-blue-900">
+              Google Style Guides
+            </a>
+            （Googleが社内向けに定義したスタイルガイドを外部公開したもの）
+          </li>
+        </ul>
+
+        <br>
+
+        よく挙げられる命名規則の主なメリットも以下にまとめておきます。<br>
+        <div class="bg-gray-100/90 rounded-3xl px-6 py-4 m-2 text-left text-lg font-mono leading-relaxed shadow-inner">
+          <p>・コードの可読性（読みやすさ）が上がる</p>
+          <p>・保守性・再利用性が高まる</p>
+          <p>・バグの削減につながる</p>
+          <p>・チーム開発が円滑になる</p>
+          <p>・自動化ツール・補完機能と相性が良くなる</p>
+          <p>・プロジェクト全体の信頼性・美しさが向上する</p>
+        </div>
+
+        <p class="mt-4 text-center font-semibold text-yellow-900">
+          命名規則を少しずつマスターしていきましょう！💪
+        </p>
+      </section>
+
     </div>
   </main>
 

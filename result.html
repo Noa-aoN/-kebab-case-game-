@@ -21,6 +21,7 @@
   =============================== -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- =========================
         スタイル定義
@@ -36,7 +37,7 @@
     #wordText,
     #hitPercentText,
     #scoreText {
-      font-family: 'M PLUS Rounded 1c','Zen Maru Gothic', 'Meiryo', sans-serif;
+      font-family: 'Quicksand', 'M PLUS Rounded 1c','Zen Maru Gothic', 'Meiryo', sans-serif;
       font-weight: 700;
     }
 
@@ -46,7 +47,7 @@
       color: red;
       padding: 0.3em 0.8em;
       border-radius: 0.5em;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 2px 4px rgba(255, 255, 255, 0.6);
       backdrop-filter: blur(4px);
       display: inline-block;
     }
@@ -59,6 +60,13 @@
       transform: translateX(-50%) translateY(50%);
       text-align: center;
       width: 100%;
+    }
+
+    @media screen and (max-width: 640px) {
+      /* ボタン全体を少し下に移動 */
+      .fixed.bottom-20 {
+        bottom: 3rem !important; /* ← 通常は5rem相当、ここでは約6.4remに下げる */
+      }
     }
   </style>
 </head>
@@ -203,6 +211,7 @@
     if (["ケバブケース", "アッパーケバブケース"].includes(matched.label)) {
       if (hitPercent >= 85) {
         resultImg.src = "image/kabab_snake.png";
+        wordText.textContent = word.replace(" ", "_");
       } else {
         if (score >= 100) resultImg.src = "image/perfect_kabab.png";
         else if (score >= 90) resultImg.src = "image/great_kabab.png";
@@ -248,9 +257,15 @@
     // === X（旧Twitter）シェア機能 ===
     document.getElementById("shareButton").addEventListener("click", () => {
       const baseUrl = "https://twitter.com/intent/tweet";
-      const gameTitle = "🥙ケバブ-ケース-ゲーム🥙";
-      const wordDisplay = word.replace("-", " ");
-      const text = `${gameTitle}\n-----------------------------\n素材「${wordDisplay}」に串を刺した！\n🥙仕上がり: ${matched.label}\n🎯評価: ${rank.label}\n💯スコア: ${score}点\n-----------------------------\n#ケバブケースゲーム\n`;
+      const gameTitle = "🥙ケバブケースゲーム🥙";
+      // const wordDisplay = word.replace("-", " ");
+      const wordDisplay = ["ケバブケース", "アッパーケバブケース"].includes(matched.label)
+        ? word.replace("-", " ").replace("_", " ")
+        : word.replace("-", " ");
+      const rankText = ["ケバブケース", "アッパーケバブケース"].includes(matched.label)
+        ? rank.label
+        : "判定不能！";
+      const text = `${gameTitle}\n---------------------------\n素材「${wordDisplay}」に串を刺した！\n🥙仕上がり: ${matched.label}\n🎯評価: ${rankText}\n💯スコア: ${score}点\n---------------------------\n#ケバブケースゲーム\n`;
       const pageUrl = window.location.origin + "/game.html";
       const tweetUrl = `${baseUrl}?text=${encodeURIComponent(text)}&url=${encodeURIComponent(pageUrl)}`;
       window.open(tweetUrl, "_blank");

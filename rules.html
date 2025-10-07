@@ -50,38 +50,39 @@
   <main class="pt-16 pb-32 overflow-y-auto max-h-[calc(100vh-4rem)]">
     <div class="flex flex-col items-center justify-start w-full px-4 sm:px-8 lg:px-16">
 
-      <!-- 🎯 ゲーム概要 -->
+      <!-- ゲーム概要 -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8 text-center">
-        <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-amber-900">🎯 ゲーム概要</h2>
+        <h2 class="text-2xl font-bold text-yellow-800 mb-4">🎯 ゲーム概要</h2>
         <ul class="text-base sm:text-lg space-y-2 mb-6">
           <li>・上から文字が落ちてきます。</li>
-          <li>・右端の <b>串</b> を飛ばして、文字の <b>右側面の中央</b> に当てよう！</li>
-          <li>・ちょうど中央に当たると、<b>ケバブケース完成！</b></li>
-          <li class="text-sm text-gray-700 mt-2">（例）apple ringo → <b>apple-ringo</b></li>
+          <li>・ <b>串</b> を飛ばして、文字の <b>右側面</b> に当てよう！</li>
+          <li>・だいたい中央に当たると、<b>ケバブケース完成！</b></li>
+          <li>・できるだけ中央を狙って<b> 高得点 </b>を取ろう！</li>
         </ul>
         <p class="mt-4 text-sm sm:text-base text-gray-800">
-          💡 ケバブケースになりそうな文字列か見極めてね
+          🚨 ケバブケースになりそうな（-でつなげられる）文字列か見極めてね
+          <p class="text-sm text-gray-700 mt-2">（例）apple ringo → <b>apple-ringo</b></p>
         </p>
       </section>
 
-      <!-- 🎮 操作方法 -->
+      <!-- 操作方法 -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8 text-center">
-        <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-amber-900">🎮 操作方法</h2>
-        <div class="flex flex-col items-center text-base sm:text-lg space-y-2 mb-4">
-          <p>1. 下の赤いボタンを押して、串を飛ばそう</p>
+        <h2 class="text-2xl font-bold text-yellow-800 mb-4">🎮 操作方法</h2>
+        <div class="flex flex-col items-center text-base sm:text-lg space-y-2 mb-6">
+          <p>1. 下の<span style="color: red;">赤いボタン</span>を押して、串を飛ばそう</p>
           <p>2. 画面右の串が左に向かって発射されます</p>
-          <p>3. 当たる位置を見極めて、高得点を狙おう</p>
+          <p>3. 当たると判定結果や点数が表示されます</p>
         </div>
         <p class="mt-4 text-sm sm:text-base text-gray-800">
-          📱 ウィンドウサイズを変えた場合は再読み込みしてください。
+          📱 ウィンドウサイズを変えた場合は再読み込みをしてください。
         </p>
       </section>
 
-      <!-- 💯 判定基準 -->
+      <!-- 判定基準 -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8 text-center">
-        <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-amber-900">💯 判定基準</h2>
+        <h2 class="text-2xl font-bold text-yellow-800 mb-4">💯 判定基準</h2>
         <div class="flex flex-col items-center text-base sm:text-lg space-y-2 mb-4">
-          <p>文字列の右側面中心<b>50%</b>までの範囲に串が当たると</p>
+          <p>文字列の右側面中央から<b>50%</b>の範囲に串が当たると</p>
           <p><b>ケバブケース成功</b>判定です</p>
           <br>
           <p>（ケバブケースにならない文字列を除く）</p>
@@ -98,16 +99,18 @@
           <br>
           <p>もし文字列の右側面下部15%までの範囲に串が当たると</p>
           <p>スネークケースと判定されます</p>
+          <br>
+          <p>また、アッパーケバブケース（トレインケース）もケバブケースとして判定します</p>
         </div>
       </section>
 
-      <!-- 🌈 結果演出 -->
+      <!-- 結果演出 -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8 text-center">
-        <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-amber-900">🌈 結果演出</h2>
+        <h2 class="text-2xl font-bold text-yellow-800 mb-4">🌈 判定演出</h2>
         <div class="flex flex-col items-center text-base sm:text-lg space-y-2 mb-4">
-          <p>・ケバブケースの結果画像は、位置とスコアに応じた<b>6種類</b>です</p>
+          <p>・ケバブケースの判定画像は、位置とスコアに応じた<b>6種類</b>です</p>
           <p>（下にあたってスネークケースになった場合を含む）</p>
-          <p>・ケバブケース以外の結果画像は、各ケースに合わせた<b>6種類</b>です</p>
+          <p>・ケバブケース以外の判定画像は、各ケース毎の<b>6種類</b>です</p>
         </div>
       </section>
 

@@ -21,6 +21,7 @@
   =============================== -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- ===========================
         スタイル設定
@@ -35,7 +36,7 @@
       position: absolute;
       font-weight: bold;
       user-select: none;
-      font-family: 'M PLUS Rounded 1c', 'Zen Maru Gothic', 'Meiryo', sans-serif;
+      font-family: 'Quicksand', 'M PLUS Rounded 1c', 'Zen Maru Gothic', 'Meiryo', sans-serif;
     }
 
     /* スマホ用（画面幅640px以下） */
@@ -43,8 +44,9 @@
       .word {
         font-size: 1.5rem !important;
       }
-      #gameArea {
-        width: calc(100vw - 2000px); 
+      /* ボタン全体を少し下に移動 */
+      .fixed.bottom-20 {
+        bottom: 3rem !important; /* ← 通常は5rem相当、ここでは約6.4remに下げる */
       }
     }
 
@@ -98,7 +100,7 @@
   <main id="gameArea" class="relative w-full" style="height: calc(100vh - 60px - 60px);">
 
     <!-- 串画像 -->
-    <img id="skewer" src="image/skewer.png" alt="skewer">
+    <img id="skewer" src="image/skewer_sm.png" alt="skewer">
 
     <!-- ===========================
           共通ボタン（中央固定）
@@ -228,7 +230,7 @@
       const margin = 10;
       const minLeft = 10;
       const maxLeft = skewerLeft - wordWidth - margin;
-      if (window.innerWidth <= 640) {
+      if (window.innerWidth <= 640) { // 少しスマホ対応
         word.style.left = minLeft + Math.random() * (maxLeft - minLeft) - 100 + "px";
       } else {
         word.style.left = minLeft + Math.random() * (maxLeft - minLeft) + "px";
