@@ -19,8 +19,26 @@
   <!-- ==============================
        フォント設定
   =============================== -->
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- フォント最適化：先読み・非同期読み込みなど -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap"
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'"
+  >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'"
+  >
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </noscript>
 
   <!-- =========================
         スタイル定義
@@ -271,8 +289,12 @@
         ? ""
         : "串";
       const text = `${gameTitle}\n${borderLine}🍖素材：「${wordDisplay}」を串刺し！\n🥙仕上がり: ${resultCase}${resultSkewer}\n💯スコア: ${score}点\n🎯評価: ${rankText}\n${borderLine}#ケバブケースゲーム\n`;
-      const pageUrl = window.location.origin + "/game.html";
-      const tweetUrl = `${baseUrl}?text=${encodeURIComponent(text)}&url=${encodeURIComponent(pageUrl)}`;
+      const pageUrl = window.location.origin + "/index.html";
+
+      function makeXUrl(text, url) {
+        return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+      }
+      const tweetUrl = makeXUrl(text, pageUrl);
       window.open(tweetUrl, "_blank");
     });
   </script>
