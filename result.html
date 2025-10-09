@@ -288,8 +288,8 @@
       const resultSkewer = (["ケバブケース", "アッパーケバブケース"].includes(matched.label))
         ? ""
         : "串";
-      const text = `${gameTitle}\n${borderLine}🍖素材：「${wordDisplay}」を串刺し！\n🥙仕上がり: ${resultCase}${resultSkewer}\n💯スコア: ${score}点\n🎯評価: ${rankText}\n${borderLine}#ケバブケースゲーム\n`;
-      const pageUrl = window.location.origin + "/-kebab-case-game-/index.html";
+      const text = `🥙 #ケバブケースゲーム 🥙\n${borderLine}🍖素材：「${wordDisplay}」を串刺し！\n🥙仕上がり：${resultCase}${resultSkewer}\n💯スコア：${score}点\n🎯評価：${rankText}\n${borderLine}`;
+      const pageUrl = window.location.origin + "/-kebab-case-game-/";
 
       function makeXUrl(text, url) {
         return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
