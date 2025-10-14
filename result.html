@@ -12,6 +12,18 @@
   <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
 
   <!-- ==============================
+       Google tag (gtag.js)
+  =============================== -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M4H2XHF2LC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M4H2XHF2LC');
+  </script>
+
+  <!-- ==============================
        Tailwind CSS 読み込み
   =============================== -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,12 +35,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+  <!-- M+ Rounded -->
   <link
     href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap"
     rel="stylesheet"
     media="print"
     onload="this.media='all'"
   >
+  <!-- Quicksand -->
   <link
     href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
     rel="stylesheet"
@@ -40,13 +54,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   </noscript>
 
-  <!-- =========================
-        スタイル定義
-  ========================== -->
+  <!-- ================================
+       カスタムスタイル
+  ================================= -->
   <style>
-    /* 共通フォント設定 */
     body {
-      font-family: 'M PLUS Rounded 1c','Zen Maru Gothic', 'Meiryo', sans-serif;
+      font-family: 'Quicksand', 'M PLUS Rounded 1c','Zen Maru Gothic', 'Meiryo', sans-serif;
     }
 
     /* 落下単語・結果表示用フォント */
@@ -94,7 +107,7 @@
         ヘッダー
   ========================== -->
   <header class="bg-amber-300/80 w-full shadow-md p-1 sticky top-0 z-20">
-    <h1 class="text-center text-lg font-bold m-2">🥙 ゲーム結果 🥙</h1>
+    <h1 class="text-center text-lg font-bold m-2 text-yellow-800">🥙 ゲーム結果 🥙</h1>
   </header>
 
   <!-- =========================
@@ -161,8 +174,22 @@
   <!-- =========================
         フッター
   ========================== -->
-  <footer class="bg-amber-300/80 w-full shadow-inner p-1 fixed bottom-0 z-20">
-    <p class="text-center m-1 text-sm sm:text-base">-kebab-case-game-@NOA</p>
+  <footer class="bg-amber-300/80 w-full shadow-inner p-2 fixed bottom-0 z-20 backdrop-blur-sm">
+    <div class="flex flex-col sm:flex-row items-center justify-center relative">
+      <!-- 左/中央部分 -->
+      <p class="text-center m-1 text-sm text-yellow-800 sm:text-yellow-900 sm:text-base">
+        -kebab-case-game-@NOA
+      </p>
+      <!-- スマホで少しスペース -->
+      <span class="hidden sm:inline mx-2"></span>
+      <!-- リンク部分 -->
+      <a
+        href="privacy.html"
+        class="mt-1 sm:mt-0 sm:absolute sm:right-4 text-yellow-900/90 hover:underline text-sm"
+      >
+        プライバシーポリシー
+      </a>
+    </div>
   </footer>
 
   <!-- =========================

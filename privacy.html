@@ -61,18 +61,6 @@
     body {
       font-family: 'Quicksand', 'M PLUS Rounded 1c','Zen Maru Gothic', 'Meiryo', sans-serif;
     }
-
-    /* 上下にゆっくり動くアニメーション */
-    @keyframes updown {
-      0%   { transform: translateY(3px); }   /* 下に3px */
-      50%  { transform: translateY(-3px); }  /* 上に3px */
-      100% { transform: translateY(3px); }   /* 元の位置へ */
-    }
-
-    .animate-updown {
-      animation: updown 1.2s ease-in-out infinite;
-      will-change: transform; /* パフォーマンス最適化 */
-    }
   </style>
 </head>
 
@@ -82,7 +70,7 @@
        ヘッダー
   ================================= -->
   <header class="bg-amber-300/80 w-full shadow-md p-2 sticky top-0 z-20 backdrop-blur-sm">
-    <h1 class="text-center text-xl font-bold text-yellow-800">🥙 ホーム 🥙</h1>
+    <h1 class="text-center text-xl font-bold text-yellow-800">🥙 プライバシーポリシー 🥙</h1>
   </header>
 
   <!-- ================================
@@ -91,62 +79,52 @@
   <main class="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] sm:min-h-auto w-full px-4 sm:px-8 lg:px-16 space-y-6 mt-4">
 
     <!-- --------------------------------
-         ケバブケース紹介カード
+         プライバシーポリシーカード
     --------------------------------- -->
     <section class="w-full max-w-3xl bg-amber-300/90 rounded-3xl shadow-xl p-6 sm:p-12 text-center text-lg leading-8 backdrop-blur-sm">
-      <p class="mb-2">みなさんは <b>「<span style="color: red">ケバブケース</span>」</b> を知っていますか？</p>
-
-      <!-- ↓ 矢印アニメーション部分 ↓ -->
-      <div class="relative flex justify-center items-center h-10 p-1 mb-2">
-        <p class="text-lg font-medium animate-updown absolute">⇩こんなふうに⇩</p>
-      </div>
-
-      <!-- ケバブケース例 -->
-      <div class="inline-block bg-gray-100/90 rounded-3xl px-4 py-2 m-2 text-lg Quicksand">
-        hoge<b>-</b>fuga<b>-</b>piyo
-      </div>
-
-      <!-- 説明文 -->
-      <p class="mt-3">各単語を <b><span style="color: red">-（ハイフン）</span></b> でつなぐ記法です。</p>
-      <p>まるで <b><span style="color: red">串刺し</span>にした<span style="color: red">ケバブ</span></b> のように見えることから、</p>
-      <p>この名前で呼ばれているそう。</p>
-    </section>
-
-    <!-- --------------------------------
-         ゲーム案内カード
-    --------------------------------- -->
-    <section class="w-full max-w-3xl bg-amber-300/90 rounded-3xl shadow-xl p-6 sm:p-12 text-center text-lg sm:text-xl leading-8 backdrop-blur-sm">
-      <p class="mb-4 font-bold text-2xl">さっそくケバブケースを作ってみましょう！</p>
-
-      <!-- ↓ 矢印アニメーション部分 ↓ -->
-      <div class="relative flex justify-center items-center h-10 p-1">
-        <p class="text-lg font-medium animate-updown absolute">⇩⇩⇩</p>
-      </div>
-
-      <!-- ボタン群 -->
-      <div class="flex flex-col justify-center gap-4 mt-2 items-center w-full">
-
-        <!-- ゲーム開始ボタン -->
-        <button
-          onclick="location.href='game.html'"
-          class="w-auto px-6 py-3 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-red-600/80 transition duration-200 backdrop-blur-sm">
-          ゲームスタート
-        </button>
-
-        <!-- 操作説明ボタン -->
-        <button
-          onclick="location.href='rules.html'"
-          class="w-auto px-6 py-3 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm">
-          操作説明をみる
-        </button>
-
-      </div>
+      <h2 class="text-2xl font-bold text-yellow-800 mb-4">🔒 プライバシーポリシーについて</h2>
+      <p>
+        このサイトでは、より快適に遊んでもらうために<br>
+        <b>Google アナリティクス</b>を利用しています。
+      </p>
+      <br>
+      <p>
+        Google アナリティクスは Cookie を使用し<br>
+        個人を特定しない形でアクセス状況を収集します。
+      </p>
+      <p>
+        収集されたデータは Google 社の<br>
+        <a href="https://policies.google.com/privacy?hl=ja" target="_blank" style="color:red">
+          <b>プライバシーポリシー</b>
+        </a>
+        に基づいて管理されます。
+      </p>
+      <br>
+      <p>
+        このサイトを利用することで<br>
+        上記に同意したものとみなします。
+      </p>
+      <br>
+      <p>
+        安心してゲームをお楽しみください 🎮✨
+      </p>
     </section>
 
     <!-- フッターとの余白確保 -->
     <div class="h-20"></div>
-
   </main>
+
+  <!-- ==============================
+       共通ボタン（ホームへ）
+  =============================== -->
+  <div class="fixed bottom-20 left-1/2 transform -translate-x-1/2 flex flex-col sm:flex-row gap-3 z-30">
+    <button
+      class="w-40 sm:w-auto px-4 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm"
+      onclick="location.href='index.html'"
+    >
+      ホーム
+    </button>
+  </div>
 
   <!-- ================================
        フッター
