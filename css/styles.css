@@ -160,15 +160,9 @@ body {
   width: 100%;
 }
 
-.result-page {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto auto;
-  min-height: 100dvh;
-}
-
 .result-main {
-  min-height: 0;
-  padding-block: 0.75rem;
+  min-height: calc(100dvh - 48px);
+  padding-block: 0.75rem calc(7rem + env(safe-area-inset-bottom));
 }
 
 .result-shell {
@@ -180,10 +174,7 @@ body {
 }
 
 .result-actions {
-  position: relative;
-  bottom: auto;
-  margin-inline: auto;
-  margin-bottom: 0.75rem;
+  width: auto;
 }
 
 .result-word {
