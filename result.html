@@ -215,13 +215,13 @@
       { regex: /^[A-Z][a-z0-9]+([A-Z][a-z0-9]*)+$/, img: "image/upper_camel.png", label: "アッパーキャメルケース" },
       { regex: /^[a-z0-9]+(_[a-z0-9]+)+$/, img: "image/snake.png", label: "スネークケース" },
       { regex: /^[A-Z0-9]+(_[A-Z0-9]+)+$/, img: "image/upper_snake.png", label: "アッパースネークケース" },
-      { regex: /^[a-z0-9]+( [a-z0-9]+)+$/, img: "image/kebab.png", label: "ケバブケース" },
-      { regex: /^[A-Z][a-z0-9]+( [A-Z][a-z0-9]+)+$/, img: "image/upper_kebab.png", label: "アッパーケバブケース" },
+      { regex: /^[a-z0-9]+( [a-z0-9]+)+$/, img: "image/ok_kebab.png", label: "ケバブケース" },
+      { regex: /^[A-Z][a-z0-9]+( [A-Z][a-z0-9]+)+$/, img: "image/ok_kebab.png", label: "アッパーケバブケース" },
       { regex: /^[a-z0-9]+(\.[a-z0-9]+)+$/, img: "image/dot.png", label: "ドット記法" },
     ];
 
     // === マッチングと結果画像設定 ===
-    const matched = patterns.find(p => p.regex.test(word)) || { img: "image/default.png", label: "不明" };
+    const matched = patterns.find(p => p.regex.test(word)) || { img: "image/miss_kebab.png", label: "不明" };
     resultImg.src = matched.img;
     resultImg.alt = matched.label;
 
