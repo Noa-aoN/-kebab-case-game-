@@ -1,5 +1,10 @@
 {
   "scripts": {
+    "build:css": "tailwindcss -i ./css/tailwind-input.css -o ./tailwind.css --minify",
     "test": "node --test"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.2",
+    "tailwindcss": "^4.2.2"
   }
 }
