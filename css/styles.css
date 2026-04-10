@@ -7,12 +7,22 @@ body {
 }
 
 .game-page {
+  --site-header-height: 44px;
+  --site-footer-height: 48px;
+  --skewer-right-offset: 0px;
   overflow: hidden;
 }
 
 .home-page {
   --site-header-height: 44px;
   --site-footer-height: 48px;
+}
+
+.info-page {
+  --site-header-height: 44px;
+  --site-footer-height: 48px;
+  --info-bottom-clearance: 6rem;
+  overflow: hidden;
 }
 
 .home-main {
@@ -34,13 +44,34 @@ body {
   width: 100%;
 }
 
+.info-main {
+  height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
+  min-height: 0;
+  margin-top: var(--site-header-height);
+  overflow-y: auto;
+  padding-top: 1.5rem;
+  padding-bottom: var(--info-bottom-clearance);
+}
+
+.info-content {
+  width: 100%;
+}
+
+.info-content > :last-child {
+  margin-bottom: 0;
+}
+
 .text-accent {
   color: red;
 }
 
 .game-area {
-  height: calc(100dvh - 60px - 60px);
+  height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
   min-height: 360px;
+  background-image: url('../image/target_cut4.png');
+  background-position: right center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .button-grid {
@@ -49,6 +80,8 @@ body {
 
 .action-bar {
   bottom: calc(5rem + env(safe-area-inset-bottom));
+  align-items: center;
+  justify-items: center;
 }
 
 .touch-button {
@@ -175,7 +208,7 @@ body {
 
 .bottom-third {
   position: absolute;
-  bottom: 25%;
+  bottom: 18%;
   left: 50%;
   transform: translateX(-50%) translateY(50%);
   text-align: center;
@@ -193,9 +226,9 @@ body {
 .result-shell {
   width: min(
     100%,
-    88vw,
-    calc(100dvh - var(--site-header-height) - var(--site-footer-height) - var(--action-area-height) - 1.5rem),
-    860px
+    94vw,
+    calc(100dvh - var(--site-header-height) - var(--site-footer-height) - var(--action-area-height) - 0.5rem),
+    900px
   );
   max-height: 100%;
   aspect-ratio: 1 / 1;
@@ -230,11 +263,21 @@ body {
     --site-footer-height: 68px;
   }
 
-  .game-area {
-    height: calc(100dvh - 54px - 80px);
-    min-height: 320px;
+  .info-page {
+    --site-header-height: 44px;
+    --site-footer-height: 68px;
+    --info-bottom-clearance: 4rem;
   }
 
+  .game-page {
+    --site-header-height: 68px;
+    --site-footer-height: 68px;
+    --skewer-right-offset: -8px;
+  }
+
+  .game-area {
+    min-height: 320px;
+  }
   .home-main {
     padding-top: 1rem;
   }
@@ -248,7 +291,7 @@ body {
   }
 
   .action-bar {
-    bottom: calc(4.25rem + env(safe-area-inset-bottom));
+    bottom: calc(4.75rem + env(safe-area-inset-bottom));
     width: min(92vw, 24rem);
   }
 
@@ -256,11 +299,27 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .button-grid .touch-button {
+    width: 100%;
+    min-width: 0;
+    white-space: nowrap;
+  }
+
+  .button-grid .touch-button:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(100%, 12rem);
+  }
+
+  .bottom-third {
+    bottom: 19%;
+  }
+
   .result-shell {
     width: min(
       100%,
-      92vw,
-      calc(100dvh - var(--site-header-height) - var(--site-footer-height) - var(--action-area-height) - 1.5rem)
+      84vw,
+      calc(100dvh - var(--site-header-height) - var(--site-footer-height) - var(--action-area-height) - 2.25rem)
     );
   }
 }
