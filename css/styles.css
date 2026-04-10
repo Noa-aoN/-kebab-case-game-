@@ -10,13 +10,28 @@ body {
   overflow: hidden;
 }
 
+.home-page {
+  --site-header-height: 44px;
+  --site-footer-height: 48px;
+}
+
 .home-main {
-  height: calc(100dvh - var(--site-header-height));
+  display: block;
+  height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
   min-height: 0;
-  justify-content: safe center;
   overflow-y: auto;
   padding-top: 1rem;
-  padding-bottom: 0;
+  padding-bottom: 1rem;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: safe center;
+  gap: 1.5rem;
+  min-height: 100%;
+  width: 100%;
 }
 
 .text-accent {
@@ -210,12 +225,21 @@ body {
     --action-area-height: 128px;
   }
 
+  .home-page {
+    --site-header-height: 44px;
+    --site-footer-height: 68px;
+  }
+
   .game-area {
     height: calc(100dvh - 54px - 80px);
     min-height: 320px;
   }
 
   .home-main {
+    padding-top: 1rem;
+  }
+
+  .home-content {
     justify-content: flex-start;
   }
 
