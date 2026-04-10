@@ -59,6 +59,15 @@ const getKebabResultImage = score => {
   return "image/miss_kebab.png";
 };
 
+// === スコア表示文言生成関数 ===
+const getScoreText = (score, rank) => {
+  if (!isKebabTarget) return rank.label;
+
+  return hitPercent >= 85
+    ? `下から ${Math.round(100 - hitPercent)}% 地点に刺さった！`
+    : `${rank.label}　${score}点`;
+};
+
 // === スコア・ランク判定 ===
 const score = calcScore(hitPercent);
 const rank = getRank(score);
@@ -74,14 +83,7 @@ if (isKebabTarget) {
 }
 
 // === スコアテキスト設定 ===
-if (isKebabTarget) {
-  scoreText.textContent =
-    hitPercent >= 85
-      ? `下から ${Math.round(100 - hitPercent)}% 地点に刺さった！`
-      : `${rank.label}　${score}点`;
-} else {
-  scoreText.textContent = rank.label;
-}
+scoreText.textContent = getScoreText(score, rank);
 scoreText.className = `font-bold ${rank.color} mt-2 text-center text-xl animate-pulse`;
 
 // === 高スコア時の光エフェクト ===
