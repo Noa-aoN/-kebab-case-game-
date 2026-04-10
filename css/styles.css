@@ -1,10 +1,134 @@
 body {
   font-family: 'Quicksand', 'M PLUS Rounded 1c', 'Zen Maru Gothic', 'Meiryo', sans-serif;
   margin: 0;
+  --site-header-height: 48px;
+  --site-footer-height: 56px;
+  --action-area-height: 112px;
 }
 
 .game-page {
+  --site-header-height: 44px;
+  --site-footer-height: 48px;
+  --skewer-right-offset: 0px;
   overflow: hidden;
+}
+
+.home-page {
+  --site-header-height: 44px;
+  --site-footer-height: 48px;
+}
+
+.info-page {
+  --site-header-height: 44px;
+  --site-footer-height: 48px;
+  --info-bottom-clearance: 6rem;
+  overflow: hidden;
+}
+
+.home-main {
+  display: block;
+  height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
+  min-height: 0;
+  overflow-y: auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: safe center;
+  gap: 1.5rem;
+  min-height: 100%;
+  width: 100%;
+}
+
+.info-main {
+  height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
+  min-height: 0;
+  margin-top: var(--site-header-height);
+  overflow-y: auto;
+  padding-top: 1.5rem;
+  padding-bottom: var(--info-bottom-clearance);
+}
+
+.info-content {
+  width: 100%;
+}
+
+.info-content > :last-child {
+  margin-bottom: 0;
+}
+
+.text-accent {
+  color: red;
+}
+
+.game-area {
+  height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
+  min-height: 360px;
+  background-image: url('../image/target_cut4.png');
+  background-position: right center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.button-grid {
+  grid-template-columns: repeat(2, max-content);
+}
+
+.action-bar {
+  bottom: calc(5rem + env(safe-area-inset-bottom));
+  align-items: center;
+  justify-items: center;
+}
+
+.touch-button {
+  min-height: 44px;
+}
+
+.site-header {
+  width: 100%;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  backdrop-filter: blur(4px);
+}
+
+.site-header--soft {
+  background: rgb(252 211 77 / 0.8);
+}
+
+.site-header--strong {
+  background: rgb(252 211 77 / 0.9);
+}
+
+.site-header--compact {
+  padding: 0.25rem;
+}
+
+.site-header--regular {
+  padding: 0.5rem;
+}
+
+.site-header--sticky {
+  position: sticky;
+}
+
+.site-header--fixed {
+  position: fixed;
+}
+
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  z-index: 20;
+  width: 100%;
+  padding: 0.5rem;
+  background: rgb(252 211 77 / 0.8);
+  box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  backdrop-filter: blur(4px);
 }
 
 .word,
@@ -17,6 +141,8 @@ body {
 
 .word {
   position: absolute;
+  max-width: calc(100vw - 1rem);
+  overflow-wrap: anywhere;
   user-select: none;
 }
 
@@ -43,7 +169,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  max-width: 150px;
+  width: clamp(96px, 28vw, 150px);
   max-height: 150px;
   object-fit: contain;
   animation: kebabRedGlow 2s linear infinite;
@@ -82,19 +208,118 @@ body {
 
 .bottom-third {
   position: absolute;
-  bottom: 25%;
+  bottom: 18%;
   left: 50%;
   transform: translateX(-50%) translateY(50%);
   text-align: center;
   width: 100%;
 }
 
+.result-main {
+  height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
+  min-height: 0;
+  justify-content: safe center;
+  overflow: hidden;
+  padding-block: 0.75rem;
+}
+
+.result-shell {
+  width: min(
+    100%,
+    94vw,
+    calc(100dvh - var(--site-header-height) - var(--site-footer-height) - var(--action-area-height) - 0.5rem),
+    900px
+  );
+  max-height: 100%;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.result-actions {
+  width: auto;
+}
+
+.result-word {
+  max-width: 92%;
+  overflow-wrap: anywhere;
+  line-height: 1.1;
+}
+
+.result-score {
+  max-width: 92%;
+  line-height: 1.2;
+}
+
 @media screen and (max-width: 640px) {
+  body {
+    --site-header-height: 54px;
+    --site-footer-height: 72px;
+    --action-area-height: 128px;
+  }
+
+  .home-page {
+    --site-header-height: 44px;
+    --site-footer-height: 68px;
+  }
+
+  .info-page {
+    --site-header-height: 44px;
+    --site-footer-height: 68px;
+    --info-bottom-clearance: 4rem;
+  }
+
+  .game-page {
+    --site-header-height: 68px;
+    --site-footer-height: 68px;
+    --skewer-right-offset: -8px;
+  }
+
+  .game-area {
+    min-height: 320px;
+  }
+  .home-main {
+    padding-top: 1rem;
+  }
+
+  .home-content {
+    justify-content: flex-start;
+  }
+
   .word {
     font-size: 1.5rem !important;
   }
 
-  .fixed.bottom-20 {
-    bottom: 3rem !important;
+  .action-bar {
+    bottom: calc(4.75rem + env(safe-area-inset-bottom));
+    width: min(92vw, 24rem);
+  }
+
+  .button-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .button-grid .touch-button {
+    width: 100%;
+    min-width: 0;
+    white-space: nowrap;
+  }
+
+  .button-grid .touch-button:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(100%, 12rem);
+  }
+
+  .bottom-third {
+    bottom: 19%;
+  }
+
+  .result-shell {
+    width: min(
+      100%,
+      84vw,
+      calc(100dvh - var(--site-header-height) - var(--site-footer-height) - var(--action-area-height) - 2.25rem)
+    );
   }
 }
