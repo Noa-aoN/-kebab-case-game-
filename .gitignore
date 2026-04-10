@@ -1,5 +1,6 @@
 .DS_Store
 */.DS_Store
+node_modules/
 
 # Local documentation and personal notes
 docs/
