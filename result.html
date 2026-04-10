@@ -53,20 +53,16 @@
         メインコンテンツ（結果表示）
   ========================== -->
   <main class="result-main flex justify-center items-center relative z-10 px-4">
-    <div class="relative w-full max-w-[90vw] max-h-[90vh] p-4">
+    <!-- 結果コンテナ（正方形） -->
+    <div id="resultContainer" class="result-shell relative bg-gray-100 rounded-lg shadow-lg flex justify-center items-center overflow-hidden">
+      <img id="resultImg" src="" alt="" class="w-full h-full object-contain" />
 
-      <!-- 結果コンテナ（正方形） -->
-      <div id="resultContainer" class="result-shell relative bg-gray-100 rounded-lg shadow-lg flex justify-center items-center overflow-hidden mx-auto">
-        <img id="resultImg" src="" alt="" class="w-full h-full object-contain" />
-
-        <!-- 下部テキスト群 -->
-        <div class="bottom-third flex flex-col justify-center items-center px-2">
-          <span id="wordText" class="result-word font-bold text-white drop-shadow-lg text-center"></span>
-          <span id="scoreText" class="result-score font-bold text-white drop-shadow-lg mt-2 text-center text-xl"></span>
-          <span id="hitPercentText" class="font-semibold text-white drop-shadow-lg mt-1 text-center"></span>
-        </div>
+      <!-- 下部テキスト群 -->
+      <div class="bottom-third flex flex-col justify-center items-center px-2">
+        <span id="wordText" class="result-word font-bold text-white drop-shadow-lg text-center"></span>
+        <span id="scoreText" class="result-score font-bold text-white drop-shadow-lg mt-2 text-center text-xl"></span>
+        <span id="hitPercentText" class="font-semibold text-white drop-shadow-lg mt-1 text-center"></span>
       </div>
-
     </div>
   </main>
 

@@ -12,7 +12,8 @@ function setSkewerInitialPosition() {
     gameAreaWidth,
     skewerWidth,
   );
-  skewer.style.left = `${gameState.skewerLeft}px`;
+  skewer.style.left = "auto";
+  skewer.style.right = "0";
   skewer.style.display = "block";
 }
 
@@ -122,6 +123,12 @@ function flySkewer() {
 function shootSkewer() {
   if (gameState.flying || gameState.ended) return;
 
+  const gameAreaRect = gameArea.getBoundingClientRect();
+  const skewerRect = skewer.getBoundingClientRect();
+
+  gameState.skewerLeft = skewerRect.left - gameAreaRect.left;
+  skewer.style.right = "auto";
+  skewer.style.left = `${gameState.skewerLeft}px`;
   gameState.flying = true;
   requestAnimationFrame(flySkewer);
 }
