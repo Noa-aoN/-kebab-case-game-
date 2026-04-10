@@ -37,14 +37,8 @@ function renderResult(result) {
   }
 }
 
-function resizeContainer() {
-  const padding = 32;
-  const maxWidth = window.innerWidth * 0.8 - padding;
-  const maxHeight = (window.innerHeight - 100) * 0.9 - padding;
-  const size = Math.min(maxWidth, maxHeight);
-
-  resultContainer.style.width = `${size}px`;
-  resultContainer.style.height = `${size}px`;
+function updateTextSizes() {
+  const size = resultContainer.getBoundingClientRect().width;
 
   wordText.style.fontSize = `${Math.max(16, size * 0.06)}px`;
   scoreText.style.fontSize = `${Math.max(18, size * 0.045)}px`;
@@ -67,6 +61,6 @@ function shareResult() {
 
 renderResult(result);
 
-window.addEventListener("resize", resizeContainer);
-window.addEventListener("load", resizeContainer);
+window.addEventListener("resize", updateTextSizes);
+window.addEventListener("load", updateTextSizes);
 shareButton.addEventListener("click", shareResult);

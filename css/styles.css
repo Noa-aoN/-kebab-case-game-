@@ -12,11 +12,20 @@ body {
 }
 
 .game-area {
-  height: calc(100vh - 60px - 60px);
+  height: calc(100dvh - 60px - 60px);
+  min-height: 360px;
 }
 
 .button-grid {
   grid-template-columns: repeat(2, max-content);
+}
+
+.action-bar {
+  bottom: calc(5rem + env(safe-area-inset-bottom));
+}
+
+.touch-button {
+  min-height: 44px;
 }
 
 .site-header {
@@ -72,6 +81,8 @@ body {
 
 .word {
   position: absolute;
+  max-width: calc(100vw - 1rem);
+  overflow-wrap: anywhere;
   user-select: none;
 }
 
@@ -98,7 +109,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  max-width: 150px;
+  width: clamp(96px, 28vw, 150px);
   max-height: 150px;
   object-fit: contain;
   animation: kebabRedGlow 2s linear infinite;
@@ -144,12 +155,51 @@ body {
   width: 100%;
 }
 
+.result-main {
+  min-height: calc(100dvh - 120px);
+  padding-block: 1rem 8rem;
+}
+
+.result-shell {
+  width: min(88vw, calc(100dvh - 180px), 640px);
+  aspect-ratio: 1 / 1;
+  min-width: 260px;
+  min-height: 260px;
+}
+
+.result-word {
+  max-width: 92%;
+  overflow-wrap: anywhere;
+  line-height: 1.1;
+}
+
+.result-score {
+  max-width: 92%;
+  line-height: 1.2;
+}
+
 @media screen and (max-width: 640px) {
+  .game-area {
+    height: calc(100dvh - 54px - 80px);
+    min-height: 320px;
+  }
+
   .word {
     font-size: 1.5rem !important;
   }
 
-  .fixed.bottom-20 {
-    bottom: 3rem !important;
+  .action-bar {
+    bottom: calc(4.25rem + env(safe-area-inset-bottom));
+    width: min(92vw, 24rem);
+  }
+
+  .button-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .result-shell {
+    width: min(92vw, calc(100dvh - 210px));
+    min-width: 240px;
+    min-height: 240px;
   }
 }

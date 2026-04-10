@@ -52,17 +52,17 @@
   <!-- =========================
         メインコンテンツ（結果表示）
   ========================== -->
-  <main class="flex justify-center items-center min-h-[calc(100vh-100px)] relative z-10 px-4">
+  <main class="result-main flex justify-center items-center relative z-10 px-4">
     <div class="relative w-full max-w-[90vw] max-h-[90vh] p-4">
 
       <!-- 結果コンテナ（正方形） -->
-      <div id="resultContainer" class="relative bg-gray-100 rounded-lg shadow-lg flex justify-center items-center overflow-hidden mx-auto">
+      <div id="resultContainer" class="result-shell relative bg-gray-100 rounded-lg shadow-lg flex justify-center items-center overflow-hidden mx-auto">
         <img id="resultImg" src="" alt="" class="w-full h-full object-contain" />
 
         <!-- 下部テキスト群 -->
         <div class="bottom-third flex flex-col justify-center items-center px-2">
-          <span id="wordText" class="font-bold text-white drop-shadow-lg text-center"></span>
-          <span id="scoreText" class="font-bold text-white drop-shadow-lg mt-2 text-center text-xl"></span>
+          <span id="wordText" class="result-word font-bold text-white drop-shadow-lg text-center"></span>
+          <span id="scoreText" class="result-score font-bold text-white drop-shadow-lg mt-2 text-center text-xl"></span>
           <span id="hitPercentText" class="font-semibold text-white drop-shadow-lg mt-1 text-center"></span>
         </div>
       </div>
@@ -74,14 +74,14 @@
         固定ボタン群（共通デザイン）
   ========================== -->
   <div
-    class="fixed bottom-20 left-1/2 transform -translate-x-1/2 
+    class="action-bar fixed left-1/2 transform -translate-x-1/2
            button-grid grid justify-center gap-3 z-30
            sm:flex sm:flex-nowrap sm:justify-center"
   >
     <!-- ホームボタン -->
     <a
       href="index.html"
-      class="inline-flex items-center justify-center px-6 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg
+      class="touch-button inline-flex items-center justify-center px-6 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg
              hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm
              w-auto min-w-fit"
     >
@@ -91,7 +91,7 @@
     <!-- ゲーム再挑戦ボタン -->
     <a
       href="game.html"
-      class="inline-flex items-center justify-center px-6 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg
+      class="touch-button inline-flex items-center justify-center px-6 py-2 bg-red-500/80 text-white font-semibold rounded-lg shadow-lg
              hover:bg-red-600/80 transition duration-200 backdrop-blur-sm
              w-auto min-w-fit"
     >
@@ -101,7 +101,7 @@
     <!-- 結果シェアボタン -->
     <button
       id="shareButton"
-      class="px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg 
+      class="touch-button px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg
              hover:bg-green-600/80 transition duration-200 backdrop-blur-sm
              w-auto min-w-fit"
     >
