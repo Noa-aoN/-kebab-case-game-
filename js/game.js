@@ -48,6 +48,14 @@ let skewerLeft = 0;
 let flying = false;
 let gameEnded = false;
 
+function getRandomItem(items) {
+  return items[Math.floor(Math.random() * items.length)];
+}
+
+function getRandomRange(min, range) {
+  return min + Math.random() * range;
+}
+
 // -------------------------------------
 // 串の初期位置設定（右端に配置）
 // -------------------------------------
@@ -68,10 +76,10 @@ function createWord() {
 
   const word = document.createElement("div");
   word.classList.add("word");
-  word.textContent = words[Math.floor(Math.random() * words.length)];
+  word.textContent = getRandomItem(words);
 
   // フォントサイズ（1.5〜2.5rem）
-  const fontSize = WORD_MIN_FONT_SIZE_REM + Math.random() * WORD_RANDOM_FONT_SIZE_REM;
+  const fontSize = getRandomRange(WORD_MIN_FONT_SIZE_REM, WORD_RANDOM_FONT_SIZE_REM);
   word.style.fontSize = fontSize + "rem";
 
   gameArea.appendChild(word);
@@ -79,10 +87,10 @@ function createWord() {
   // ランダムな左右位置と落下速度
   const wordWidth = word.offsetWidth;
   const maxLeft = Math.max(WORD_MIN_LEFT, skewerLeft - wordWidth - WORD_SIDE_MARGIN);
-  const randomLeft = WORD_MIN_LEFT + Math.random() * (maxLeft - WORD_MIN_LEFT);
+  const randomLeft = getRandomRange(WORD_MIN_LEFT, maxLeft - WORD_MIN_LEFT);
   word.style.left = randomLeft + "px";
   word.style.top = "0px";
-  word.dataset.speed = WORD_MIN_SPEED + Math.random() * WORD_RANDOM_SPEED;
+  word.dataset.speed = getRandomRange(WORD_MIN_SPEED, WORD_RANDOM_SPEED);
 
   wordElements.push(word);
 }
