@@ -15,7 +15,8 @@ body {
   min-height: 0;
   justify-content: safe center;
   overflow-y: auto;
-  padding-block: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 0;
 }
 
 .text-accent {
