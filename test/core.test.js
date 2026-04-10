@@ -38,12 +38,12 @@ test("result core builds kebab results by hit position", () => {
   const centerHit = core.buildResult("chicken meat", 50);
   const lowHit = core.buildResult("chicken meat", 90);
 
-  assert.equal(centerHit.image, "image/perfect_kebab.png");
+  assert.equal(centerHit.image, "image/perfect_kebab.webp");
   assert.equal(centerHit.wordText, "chicken-meat");
   assert.equal(centerHit.score, 100);
   assert.equal(centerHit.rank.label, "Perfect!");
 
-  assert.equal(lowHit.image, "image/kebab_snake.png");
+  assert.equal(lowHit.image, "image/kebab_snake.webp");
   assert.equal(lowHit.wordText, "chicken_meat");
   assert.equal(lowHit.scoreText, "下から 10% 地点に刺さった！");
 });
