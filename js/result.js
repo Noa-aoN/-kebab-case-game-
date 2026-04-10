@@ -4,11 +4,26 @@ const wordText = document.getElementById("wordText");
 const hitPercentText = document.getElementById("hitPercentText");
 const scoreText = document.getElementById("scoreText");
 const shareButton = document.getElementById("shareButton");
+const MAX_WORD_LENGTH = 80;
 
 const params = new URLSearchParams(window.location.search);
-const word = params.get("word") || "不明";
-const hitPercent = parseFloat(params.get("hitPercent")) || 0;
+const word = sanitizeWord(params.get("word"));
+const hitPercent = sanitizeHitPercent(params.get("hitPercent"));
 const result = KebabResultCore.buildResult(word, hitPercent);
+
+function sanitizeWord(value) {
+  if (!value) return "不明";
+
+  return value.trim().slice(0, MAX_WORD_LENGTH) || "不明";
+}
+
+function sanitizeHitPercent(value) {
+  const parsedValue = Number.parseFloat(value);
+
+  if (!Number.isFinite(parsedValue)) return 0;
+
+  return Math.min(Math.max(parsedValue, 0), 100);
+}
 
 function renderResult(result) {
   resultImg.src = result.image;
@@ -47,7 +62,7 @@ function shareResult() {
   const pageUrl = window.location.origin + "/-kebab-case-game-/";
   const tweetUrl = KebabResultCore.makeXUrl(text, pageUrl);
 
-  window.open(tweetUrl, "_blank");
+  window.open(tweetUrl, "_blank", "noopener,noreferrer");
 }
 
 renderResult(result);
