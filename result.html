@@ -215,13 +215,14 @@
       { regex: /^[A-Z][a-z0-9]+([A-Z][a-z0-9]*)+$/, img: "image/upper_camel.png", label: "アッパーキャメルケース" },
       { regex: /^[a-z0-9]+(_[a-z0-9]+)+$/, img: "image/snake.png", label: "スネークケース" },
       { regex: /^[A-Z0-9]+(_[A-Z0-9]+)+$/, img: "image/upper_snake.png", label: "アッパースネークケース" },
-      { regex: /^[a-z0-9]+( [a-z0-9]+)+$/, img: "image/ok_kebab.png", label: "ケバブケース" },
-      { regex: /^[A-Z][a-z0-9]+( [A-Z][a-z0-9]+)+$/, img: "image/ok_kebab.png", label: "アッパーケバブケース" },
+      { regex: /^[a-z0-9]+( [a-z0-9]+)+$/, img: "image/ok_kebab.png", label: "ケバブケース", isKebabTarget: true },
+      { regex: /^[A-Z][a-z0-9]+( [A-Z][a-z0-9]+)+$/, img: "image/ok_kebab.png", label: "アッパーケバブケース", isKebabTarget: true },
       { regex: /^[a-z0-9]+(\.[a-z0-9]+)+$/, img: "image/dot.png", label: "ドット記法" },
     ];
 
     // === マッチングと結果画像設定 ===
     const matched = patterns.find(p => p.regex.test(word)) || { img: "image/miss_kebab.png", label: "不明" };
+    const isKebabTarget = Boolean(matched.isKebabTarget);
     resultImg.src = matched.img;
     resultImg.alt = matched.label;
 
@@ -236,7 +237,7 @@
 
     // === ランク判定関数 ===
     const getRank = score => {
-      if (["ケバブケース", "アッパーケバブケース"].includes(matched.label)) {
+      if (isKebabTarget) {
         if (score >= 100) return { label: "Perfect!", color: "text-orange-300" };
         if (score >= 90)  return { label: "Great!", color: "text-yellow-300" };
         if (score >= 75)  return { label: "Good!", color: "text-green-300" };
@@ -252,7 +253,7 @@
     const rank = getRank(score);
 
     // === ケバブ専用画像分岐 ===
-    if (["ケバブケース", "アッパーケバブケース"].includes(matched.label)) {
+    if (isKebabTarget) {
       if (hitPercent >= 85) {
         resultImg.src = "image/kebab_snake.png";
         wordText.textContent = word.replace(" ", "_");
@@ -266,7 +267,7 @@
     }
 
     // === スコアテキスト設定 ===
-    if (["ケバブケース", "アッパーケバブケース"].includes(matched.label)) {
+    if (isKebabTarget) {
       scoreText.textContent =
         hitPercent >= 85
           ? `下から ${Math.round(100 - hitPercent)}% 地点に刺さった！`
@@ -300,19 +301,17 @@
 
     // === X（旧Twitter）シェア機能 ===
     document.getElementById("shareButton").addEventListener("click", () => {
-      const baseUrl = "https://twitter.com/intent/tweet";
-      const gameTitle = "🥙-ケバブ-ケース-ゲーム-🥙";
       const borderLine = "-------------------------------\n"
-      const wordDisplay = ["ケバブケース", "アッパーケバブケース"].includes(matched.label)
+      const wordDisplay = isKebabTarget
         ? word.replace("-", " ").replace("_", " ")
         : word.replace("-", " ");
-      const resultCase = (["ケバブケース", "アッパーケバブケース"].includes(matched.label) && hitPercent >= 85)
+      const resultCase = (isKebabTarget && hitPercent >= 85)
         ? "新スネークケース"
         : matched.label;
-      const rankText = ["ケバブケース", "アッパーケバブケース"].includes(matched.label)
+      const rankText = isKebabTarget
         ? rank.label
         : "判定不能！";
-      const resultSkewer = (["ケバブケース", "アッパーケバブケース"].includes(matched.label))
+      const resultSkewer = isKebabTarget
         ? ""
         : "串";
       const text = `🥙 #ケバブケースゲーム 🥙\n${borderLine}🍖素材：「${wordDisplay}」を串刺し！\n🥙仕上がり：${resultCase}${resultSkewer}\n💯スコア：${score}点\n🎯評価：${rankText}\n${borderLine}`;
