@@ -274,12 +274,9 @@
       const wordWidth = word.offsetWidth;
       const margin = 10;
       const minLeft = 10;
-      const maxLeft = skewerLeft - wordWidth - margin;
-      if (window.innerWidth <= 640) { // 少しスマホ対応
-        word.style.left = minLeft + Math.random() * (maxLeft - minLeft) - 100 + "px";
-      } else {
-        word.style.left = minLeft + Math.random() * (maxLeft - minLeft) + "px";
-      }
+      const maxLeft = Math.max(minLeft, skewerLeft - wordWidth - margin);
+      const randomLeft = minLeft + Math.random() * (maxLeft - minLeft);
+      word.style.left = randomLeft + "px";
       word.style.top = "0px";
       word.dataset.speed = 0.5 + Math.random() * 1.5;
 
