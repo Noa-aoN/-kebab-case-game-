@@ -4,16 +4,24 @@ const moveButton = document.getElementById("moveButton");
 const gameState = KebabGameCore.createInitialState();
 const gameSettings = KebabGameCore.SETTINGS;
 
+function getSkewerRightOffset() {
+  const value = getComputedStyle(document.body)
+    .getPropertyValue("--skewer-right-offset");
+
+  return Number.parseFloat(value) || 0;
+}
+
 function setSkewerInitialPosition() {
   const gameAreaWidth = gameArea.getBoundingClientRect().width;
   const skewerWidth = skewer.getBoundingClientRect().width || skewer.offsetWidth;
+  const skewerRightOffset = getSkewerRightOffset();
 
-  gameState.skewerLeft = KebabGameCore.getInitialSkewerLeft(
-    gameAreaWidth,
-    skewerWidth,
+  gameState.skewerLeft = Math.max(
+    0,
+    KebabGameCore.getInitialSkewerLeft(gameAreaWidth, skewerWidth) - skewerRightOffset,
   );
   skewer.style.left = "auto";
-  skewer.style.right = "0";
+  skewer.style.right = `${skewerRightOffset}px`;
   skewer.style.display = "block";
 }
 
