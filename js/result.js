@@ -50,6 +50,47 @@ const getRank = score => {
   }
 };
 
+// === ケバブ用結果画像判定関数 ===
+const getKebabResultImage = score => {
+  if (score >= 100) return "image/perfect_kebab.png";
+  if (score >= 90) return "image/great_kebab.png";
+  if (score >= 75) return "image/good_kebab.png";
+  if (score >= 50) return "image/ok_kebab.png";
+  return "image/miss_kebab.png";
+};
+
+// === スコア表示文言生成関数 ===
+const getScoreText = (score, rank) => {
+  if (!isKebabTarget) return rank.label;
+
+  return hitPercent >= 85
+    ? `下から ${Math.round(100 - hitPercent)}% 地点に刺さった！`
+    : `${rank.label}　${score}点`;
+};
+
+// === Xシェア文言生成関数 ===
+const getShareText = (score, rank) => {
+  const borderLine = "-------------------------------\n";
+  const wordDisplay = isKebabTarget
+    ? word.replace("-", " ").replace("_", " ")
+    : word.replace("-", " ");
+  const resultCase = (isKebabTarget && hitPercent >= 85)
+    ? "新スネークケース"
+    : matched.label;
+  const rankText = isKebabTarget
+    ? rank.label
+    : "判定不能！";
+  const resultSkewer = isKebabTarget
+    ? ""
+    : "串";
+
+  return `🥙 #ケバブケースゲーム 🥙\n${borderLine}🍖素材：「${wordDisplay}」を串刺し！\n🥙仕上がり：${resultCase}${resultSkewer}\n💯スコア：${score}点\n🎯評価：${rankText}\n${borderLine}`;
+};
+
+const makeXUrl = (text, url) => {
+  return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+};
+
 // === スコア・ランク判定 ===
 const score = calcScore(hitPercent);
 const rank = getRank(score);
@@ -60,23 +101,12 @@ if (isKebabTarget) {
     resultImg.src = "image/kebab_snake.png";
     wordText.textContent = word.replace(" ", "_");
   } else {
-    if (score >= 100) resultImg.src = "image/perfect_kebab.png";
-    else if (score >= 90) resultImg.src = "image/great_kebab.png";
-    else if (score >= 75) resultImg.src = "image/good_kebab.png";
-    else if (score >= 50) resultImg.src = "image/ok_kebab.png";
-    else resultImg.src = "image/miss_kebab.png";
+    resultImg.src = getKebabResultImage(score);
   }
 }
 
 // === スコアテキスト設定 ===
-if (isKebabTarget) {
-  scoreText.textContent =
-    hitPercent >= 85
-      ? `下から ${Math.round(100 - hitPercent)}% 地点に刺さった！`
-      : `${rank.label}　${score}点`;
-} else {
-  scoreText.textContent = rank.label;
-}
+scoreText.textContent = getScoreText(score, rank);
 scoreText.className = `font-bold ${rank.color} mt-2 text-center text-xl animate-pulse`;
 
 // === 高スコア時の光エフェクト ===
@@ -103,25 +133,8 @@ window.addEventListener('load', resizeContainer);
 
 // === X（旧Twitter）シェア機能 ===
 document.getElementById("shareButton").addEventListener("click", () => {
-  const borderLine = "-------------------------------\n"
-  const wordDisplay = isKebabTarget
-    ? word.replace("-", " ").replace("_", " ")
-    : word.replace("-", " ");
-  const resultCase = (isKebabTarget && hitPercent >= 85)
-    ? "新スネークケース"
-    : matched.label;
-  const rankText = isKebabTarget
-    ? rank.label
-    : "判定不能！";
-  const resultSkewer = isKebabTarget
-    ? ""
-    : "串";
-  const text = `🥙 #ケバブケースゲーム 🥙\n${borderLine}🍖素材：「${wordDisplay}」を串刺し！\n🥙仕上がり：${resultCase}${resultSkewer}\n💯スコア：${score}点\n🎯評価：${rankText}\n${borderLine}`;
+  const text = getShareText(score, rank);
   const pageUrl = window.location.origin + "/-kebab-case-game-/";
-
-  function makeXUrl(text, url) {
-    return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-  }
   const tweetUrl = makeXUrl(text, pageUrl);
   window.open(tweetUrl, "_blank");
 });
