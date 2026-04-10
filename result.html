@@ -53,52 +53,7 @@
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   </noscript>
-
-  <!-- ================================
-       カスタムスタイル
-  ================================= -->
-  <style>
-    body {
-      font-family: 'Quicksand', 'M PLUS Rounded 1c','Zen Maru Gothic', 'Meiryo', sans-serif;
-    }
-
-    /* 落下単語・結果表示用フォント */
-    .word,
-    #wordText,
-    #hitPercentText,
-    #scoreText {
-      font-family: 'Quicksand', 'M PLUS Rounded 1c','Zen Maru Gothic', 'Meiryo', sans-serif;
-      font-weight: 700;
-    }
-
-    /* スコア表示デザイン */
-    #scoreText {
-      background: rgba(255, 255, 255, 0.7);
-      color: red;
-      padding: 0.3em 0.8em;
-      border-radius: 0.5em;
-      text-shadow: 0 2px 4px rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(4px);
-      display: inline-block;
-    }
-
-    /* 下1/3に配置 */
-    .bottom-third {
-      position: absolute;
-      bottom: 25%;
-      left: 50%;
-      transform: translateX(-50%) translateY(50%);
-      text-align: center;
-      width: 100%;
-    }
-
-    @media screen and (max-width: 640px) {
-      /* ボタン全体を少し下に移動 */
-      .fixed.bottom-20 {
-        bottom: 3rem !important; /* ← 通常は5rem相当、ここでは約6.4remに下げる */
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body class="bg-gray-200 relative min-h-screen w-screen bg-[url('image/many_kebab.png')] bg-center bg-cover">
