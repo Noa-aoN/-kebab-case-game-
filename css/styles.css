@@ -7,6 +7,18 @@ body {
   overflow: hidden;
 }
 
+.text-accent {
+  color: red;
+}
+
+.game-area {
+  height: calc(100vh - 60px - 60px);
+}
+
+.button-grid {
+  grid-template-columns: repeat(2, max-content);
+}
+
 .word,
 #wordText,
 #hitPercentText,
