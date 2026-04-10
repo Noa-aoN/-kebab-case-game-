@@ -162,14 +162,14 @@ body {
 
 .result-main {
   min-height: calc(100dvh - 48px);
-  padding-block: 0.75rem calc(9rem + env(safe-area-inset-bottom));
+  padding-block: 0.75rem calc(7rem + env(safe-area-inset-bottom));
 }
 
 .result-shell {
-  width: min(100%, 88vw, calc(100dvh - 180px), 640px);
+  width: min(100%, 88vw, 72dvh, 640px);
   aspect-ratio: 1 / 1;
-  min-width: min(260px, 100%);
-  min-height: min(260px, 100%);
+  min-width: min(320px, 100%);
+  min-height: min(320px, 100%);
 }
 
 .result-word {
@@ -209,8 +209,8 @@ body {
   }
 
   .result-shell {
-    width: min(100%, 92vw, calc(100dvh - 230px));
-    min-width: min(240px, 100%);
-    min-height: min(240px, 100%);
+    width: min(100%, 92vw, 70dvh);
+    min-width: min(320px, 100%);
+    min-height: min(320px, 100%);
   }
 }
