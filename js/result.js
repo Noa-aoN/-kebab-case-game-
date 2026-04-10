@@ -38,7 +38,7 @@ const calcScore = hitPercent => {
 };
 
 // === ランク判定関数 ===
-const getRank = score => {
+const getRank = (score, matched, isKebabTarget) => {
   if (isKebabTarget) {
     if (score >= 100) return { label: "Perfect!", color: "text-orange-300" };
     if (score >= 90) return { label: "Great!", color: "text-yellow-300" };
@@ -60,7 +60,7 @@ const getKebabResultImage = score => {
 };
 
 // === スコア表示文言生成関数 ===
-const getScoreText = (score, rank) => {
+const getScoreText = (score, rank, isKebabTarget, hitPercent) => {
   if (!isKebabTarget) return rank.label;
 
   return hitPercent >= 85
@@ -69,7 +69,7 @@ const getScoreText = (score, rank) => {
 };
 
 // === Xシェア文言生成関数 ===
-const getShareText = (score, rank) => {
+const getShareText = ({ word, score, rank, matched, isKebabTarget, hitPercent }) => {
   const borderLine = "-------------------------------\n";
   const wordDisplay = isKebabTarget
     ? word.replace("-", " ").replace("_", " ")
@@ -93,7 +93,7 @@ const makeXUrl = (text, url) => {
 
 // === スコア・ランク判定 ===
 const score = calcScore(hitPercent);
-const rank = getRank(score);
+const rank = getRank(score, matched, isKebabTarget);
 
 // === ケバブ専用画像分岐 ===
 if (isKebabTarget) {
@@ -106,7 +106,7 @@ if (isKebabTarget) {
 }
 
 // === スコアテキスト設定 ===
-scoreText.textContent = getScoreText(score, rank);
+scoreText.textContent = getScoreText(score, rank, isKebabTarget, hitPercent);
 scoreText.className = `font-bold ${rank.color} mt-2 text-center text-xl animate-pulse`;
 
 // === 高スコア時の光エフェクト ===
@@ -133,7 +133,7 @@ window.addEventListener('load', resizeContainer);
 
 // === X（旧Twitter）シェア機能 ===
 document.getElementById("shareButton").addEventListener("click", () => {
-  const text = getShareText(score, rank);
+  const text = getShareText({ word, score, rank, matched, isKebabTarget, hitPercent });
   const pageUrl = window.location.origin + "/-kebab-case-game-/";
   const tweetUrl = makeXUrl(text, pageUrl);
   window.open(tweetUrl, "_blank");
