@@ -7,6 +7,11 @@ body {
   overflow: hidden;
 }
 
+.home-main {
+  min-height: calc(100dvh - 100px);
+  padding-block: 1rem 6rem;
+}
+
 .text-accent {
   color: red;
 }
@@ -156,8 +161,8 @@ body {
 }
 
 .result-main {
-  min-height: calc(100dvh - 120px);
-  padding-block: 1rem 8rem;
+  min-height: calc(100dvh - 48px);
+  padding-block: 0.75rem calc(9rem + env(safe-area-inset-bottom));
 }
 
 .result-shell {
@@ -184,6 +189,12 @@ body {
     min-height: 320px;
   }
 
+  .home-main {
+    justify-content: flex-start;
+    min-height: calc(100dvh - 96px);
+    padding-block: 1rem 6.5rem;
+  }
+
   .word {
     font-size: 1.5rem !important;
   }
@@ -198,7 +209,7 @@ body {
   }
 
   .result-shell {
-    width: min(92vw, calc(100dvh - 210px));
+    width: min(92vw, calc(100dvh - 230px));
     min-width: 240px;
     min-height: 240px;
   }

@@ -60,6 +60,7 @@ function shareResult() {
 }
 
 renderResult(result);
+updateTextSizes();
 
 window.addEventListener("resize", updateTextSizes);
 window.addEventListener("load", updateTextSizes);
