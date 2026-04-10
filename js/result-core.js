@@ -31,7 +31,7 @@ const KebabResultCore = (() => {
   }
 
   function getKebabResultImage(score, hitPercent) {
-    if (hitPercent >= 85) return "image/kebab_snake.png";
+    if (hitPercent >= 85) return "image/kebab_snake.webp";
 
     return KebabResultData.kebabResultImages.find(result => score >= result.minScore).img;
   }
