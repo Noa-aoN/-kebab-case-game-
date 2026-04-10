@@ -26,6 +26,20 @@ const words = [
 
 const wordElements = [];
 
+const DEFAULT_SKEWER_WIDTH = 150;
+const WORD_MIN_FONT_SIZE_REM = 1.5;
+const WORD_RANDOM_FONT_SIZE_REM = 1;
+const WORD_SIDE_MARGIN = 10;
+const WORD_MIN_LEFT = 10;
+const WORD_MIN_SPEED = 0.5;
+const WORD_RANDOM_SPEED = 1.5;
+const HIT_TOLERANCE = 5;
+const SKEWER_FLY_SPEED = 40;
+const SKEWER_RESET_DELAY_MS = 300;
+const RESULT_TRANSITION_DELAY_MS = 100;
+const WORD_SPAWN_PROBABILITY = 0.03;
+const GAME_LOOP_INTERVAL_MS = 16;
+
 const gameArea = document.getElementById("gameArea");
 const skewer = document.getElementById("skewer");
 const moveButton = document.getElementById("moveButton");
@@ -34,11 +48,46 @@ let skewerLeft = 0;
 let flying = false;
 let gameEnded = false;
 
+function getRandomItem(items) {
+  return items[Math.floor(Math.random() * items.length)];
+}
+
+function getRandomRange(min, range) {
+  return min + Math.random() * range;
+}
+
+function getResultUrl(wordText, hitPercent) {
+  return `result.html?word=${encodeURIComponent(wordText)}&hitPercent=${hitPercent}`;
+}
+
+function getHitPercent(skewerRect, wordRect) {
+  const skewerCenterY = skewerRect.top + skewerRect.height / 2;
+  const hitPercent = ((skewerCenterY - wordRect.top) / wordRect.height) * 100;
+
+  return Math.min(Math.max(hitPercent, 0), 100).toFixed(1);
+}
+
+function removeWord(word, index) {
+  word.remove();
+  wordElements.splice(index, 1);
+}
+
+function moveToResult(wordText, hitPercent) {
+  setTimeout(() => {
+    window.location.href = getResultUrl(wordText, hitPercent);
+  }, RESULT_TRANSITION_DELAY_MS);
+}
+
+function moveWordDown(word) {
+  const speed = parseFloat(word.dataset.speed);
+  word.style.top = parseFloat(word.style.top) + speed + "px";
+}
+
 // -------------------------------------
 // 串の初期位置設定（右端に配置）
 // -------------------------------------
 function setSkewerInitialPosition() {
-  const skewerWidth = skewer.offsetWidth || 150;
+  const skewerWidth = skewer.offsetWidth || DEFAULT_SKEWER_WIDTH;
   skewerLeft = window.innerWidth - skewerWidth;
   skewer.style.left = skewerLeft + "px";
   skewer.style.display = "block";
@@ -54,23 +103,21 @@ function createWord() {
 
   const word = document.createElement("div");
   word.classList.add("word");
-  word.textContent = words[Math.floor(Math.random() * words.length)];
+  word.textContent = getRandomItem(words);
 
   // フォントサイズ（1.5〜2.5rem）
-  const fontSize = 1.5 + Math.random();
+  const fontSize = getRandomRange(WORD_MIN_FONT_SIZE_REM, WORD_RANDOM_FONT_SIZE_REM);
   word.style.fontSize = fontSize + "rem";
 
   gameArea.appendChild(word);
 
   // ランダムな左右位置と落下速度
   const wordWidth = word.offsetWidth;
-  const margin = 10;
-  const minLeft = 10;
-  const maxLeft = Math.max(minLeft, skewerLeft - wordWidth - margin);
-  const randomLeft = minLeft + Math.random() * (maxLeft - minLeft);
+  const maxLeft = Math.max(WORD_MIN_LEFT, skewerLeft - wordWidth - WORD_SIDE_MARGIN);
+  const randomLeft = getRandomRange(WORD_MIN_LEFT, maxLeft - WORD_MIN_LEFT);
   word.style.left = randomLeft + "px";
   word.style.top = "0px";
-  word.dataset.speed = 0.5 + Math.random() * 1.5;
+  word.dataset.speed = getRandomRange(WORD_MIN_SPEED, WORD_RANDOM_SPEED);
 
   wordElements.push(word);
 }
@@ -79,14 +126,13 @@ function createWord() {
 // 衝突判定
 // -------------------------------------
 function hitCheckSkewer(skewerRect, wordRect) {
-  const tolerance = 5;
   const skewerLeftX = skewerRect.left;
   const skewerRightX = skewerRect.right;
   const skewerCenterY = skewerRect.top + skewerRect.height / 2;
 
   const horizontalHit =
-    skewerLeftX <= wordRect.right + tolerance &&
-    skewerRightX >= wordRect.right - tolerance;
+    skewerLeftX <= wordRect.right + HIT_TOLERANCE &&
+    skewerRightX >= wordRect.right - HIT_TOLERANCE;
 
   const verticalHit =
     skewerCenterY >= wordRect.top &&
@@ -104,8 +150,7 @@ function updateWords() {
   wordElements.forEach((word, index) => {
     if (gameEnded) return;
 
-    const speed = parseFloat(word.dataset.speed);
-    word.style.top = parseFloat(word.style.top) + speed + "px";
+    moveWordDown(word);
 
     const wordRect = word.getBoundingClientRect();
     const skewerRect = skewer.getBoundingClientRect();
@@ -116,22 +161,15 @@ function updateWords() {
       moveButton.disabled = true;
 
       const wordText = word.textContent || "";
-      const skewerCenterY = skewerRect.top + skewerRect.height / 2;
-      const hitPercent = ((skewerCenterY - wordRect.top) / wordRect.height) * 100;
-      const clampedHitPercent = Math.min(Math.max(hitPercent, 0), 100).toFixed(1);
+      const hitPercent = getHitPercent(skewerRect, wordRect);
 
-      word.remove();
-      wordElements.splice(index, 1);
-
-      setTimeout(() => {
-        window.location.href = `result.html?word=${encodeURIComponent(wordText)}&hitPercent=${clampedHitPercent}`;
-      }, 100);
+      removeWord(word, index);
+      moveToResult(wordText, hitPercent);
     }
 
     // 画面外に落下したら削除
     if (parseFloat(word.style.top) > window.innerHeight) {
-      word.remove();
-      wordElements.splice(index, 1);
+      removeWord(word, index);
     }
   });
 }
@@ -142,10 +180,9 @@ function updateWords() {
 moveButton.addEventListener("click", () => {
   if (flying || gameEnded) return;
   flying = true;
-  const speed = 40;
 
   function fly() {
-    skewerLeft -= speed;
+    skewerLeft -= SKEWER_FLY_SPEED;
     if (skewerLeft < 0) skewerLeft = 0;
     skewer.style.left = skewerLeft + "px";
 
@@ -156,7 +193,7 @@ moveButton.addEventListener("click", () => {
       setTimeout(() => {
         setSkewerInitialPosition();
         flying = false;
-      }, 300);
+      }, SKEWER_RESET_DELAY_MS);
     }
   }
 
@@ -178,6 +215,6 @@ window.addEventListener('resize', () => {
 setInterval(() => {
   if (gameEnded) return;
 
-  if (Math.random() < 0.03) createWord();
+  if (Math.random() < WORD_SPAWN_PROBABILITY) createWord();
   updateWords();
-}, 16);
+}, GAME_LOOP_INTERVAL_MS);
