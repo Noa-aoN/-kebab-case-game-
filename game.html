@@ -240,9 +240,11 @@
 
     const gameArea = document.getElementById("gameArea");
     const skewer = document.getElementById("skewer");
+    const moveButton = document.getElementById("moveButton");
 
     let skewerLeft = 0;
     let flying = false;
+    let gameEnded = false;
 
     // -------------------------------------
     // 串の初期位置設定（右端に配置）
@@ -260,6 +262,8 @@
     // 単語生成（ランダムサイズ・速度・位置）
     // -------------------------------------
     function createWord() {
+      if (gameEnded) return;
+
       const word = document.createElement("div");
       word.classList.add("word");
       word.textContent = words[Math.floor(Math.random() * words.length)];
@@ -307,7 +311,11 @@
     // 単語の落下・衝突検出
     // -------------------------------------
     function updateWords() {
+      if (gameEnded) return;
+
       wordElements.forEach((word, index) => {
+        if (gameEnded) return;
+
         const speed = parseFloat(word.dataset.speed);
         word.style.top = parseFloat(word.style.top) + speed + "px";
 
@@ -316,6 +324,9 @@
 
         // 衝突時の処理
         if (hitCheckSkewer(skewerRect, wordRect)) {
+          gameEnded = true;
+          moveButton.disabled = true;
+
           const wordText = word.textContent || "";
           const skewerCenterY = skewerRect.top + skewerRect.height / 2;
           const hitPercent = ((skewerCenterY - wordRect.top) / wordRect.height) * 100;
@@ -343,8 +354,8 @@
     // -------------------------------------
     // 串の移動処理
     // -------------------------------------
-    document.getElementById("moveButton").addEventListener("click", () => {
-      if (flying) return;
+    moveButton.addEventListener("click", () => {
+      if (flying || gameEnded) return;
       flying = true;
       const speed = 40;
 
@@ -371,7 +382,7 @@
     // ウィンドウサイズ変更時に串を再配置
     // -------------------------------------
     window.addEventListener('resize', () => {
-      if (!flying) {
+      if (!flying && !gameEnded) {
         setSkewerInitialPosition();
       }
     });
@@ -380,6 +391,8 @@
     // ゲームループ
     // -------------------------------------
     setInterval(() => {
+      if (gameEnded) return;
+
       if (Math.random() < 0.03) createWord();
       updateWords();
     }, 16);
