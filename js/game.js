@@ -78,6 +78,11 @@ function moveToResult(wordText, hitPercent) {
   }, RESULT_TRANSITION_DELAY_MS);
 }
 
+function moveWordDown(word) {
+  const speed = parseFloat(word.dataset.speed);
+  word.style.top = parseFloat(word.style.top) + speed + "px";
+}
+
 // -------------------------------------
 // 串の初期位置設定（右端に配置）
 // -------------------------------------
@@ -145,8 +150,7 @@ function updateWords() {
   wordElements.forEach((word, index) => {
     if (gameEnded) return;
 
-    const speed = parseFloat(word.dataset.speed);
-    word.style.top = parseFloat(word.style.top) + speed + "px";
+    moveWordDown(word);
 
     const wordRect = word.getBoundingClientRect();
     const skewerRect = skewer.getBoundingClientRect();
