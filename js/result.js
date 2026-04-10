@@ -68,6 +68,29 @@ const getScoreText = (score, rank) => {
     : `${rank.label}　${score}点`;
 };
 
+// === Xシェア文言生成関数 ===
+const getShareText = (score, rank) => {
+  const borderLine = "-------------------------------\n";
+  const wordDisplay = isKebabTarget
+    ? word.replace("-", " ").replace("_", " ")
+    : word.replace("-", " ");
+  const resultCase = (isKebabTarget && hitPercent >= 85)
+    ? "新スネークケース"
+    : matched.label;
+  const rankText = isKebabTarget
+    ? rank.label
+    : "判定不能！";
+  const resultSkewer = isKebabTarget
+    ? ""
+    : "串";
+
+  return `🥙 #ケバブケースゲーム 🥙\n${borderLine}🍖素材：「${wordDisplay}」を串刺し！\n🥙仕上がり：${resultCase}${resultSkewer}\n💯スコア：${score}点\n🎯評価：${rankText}\n${borderLine}`;
+};
+
+const makeXUrl = (text, url) => {
+  return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+};
+
 // === スコア・ランク判定 ===
 const score = calcScore(hitPercent);
 const rank = getRank(score);
@@ -110,25 +133,8 @@ window.addEventListener('load', resizeContainer);
 
 // === X（旧Twitter）シェア機能 ===
 document.getElementById("shareButton").addEventListener("click", () => {
-  const borderLine = "-------------------------------\n"
-  const wordDisplay = isKebabTarget
-    ? word.replace("-", " ").replace("_", " ")
-    : word.replace("-", " ");
-  const resultCase = (isKebabTarget && hitPercent >= 85)
-    ? "新スネークケース"
-    : matched.label;
-  const rankText = isKebabTarget
-    ? rank.label
-    : "判定不能！";
-  const resultSkewer = isKebabTarget
-    ? ""
-    : "串";
-  const text = `🥙 #ケバブケースゲーム 🥙\n${borderLine}🍖素材：「${wordDisplay}」を串刺し！\n🥙仕上がり：${resultCase}${resultSkewer}\n💯スコア：${score}点\n🎯評価：${rankText}\n${borderLine}`;
+  const text = getShareText(score, rank);
   const pageUrl = window.location.origin + "/-kebab-case-game-/";
-
-  function makeXUrl(text, url) {
-    return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-  }
   const tweetUrl = makeXUrl(text, pageUrl);
   window.open(tweetUrl, "_blank");
 });
