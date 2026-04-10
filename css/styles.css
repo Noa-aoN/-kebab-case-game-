@@ -166,7 +166,7 @@ body {
 }
 
 .result-shell {
-  width: min(100%, 88vw, 760px);
+  width: min(100%, 88vw, 860px);
   aspect-ratio: 1 / 1;
   min-width: min(320px, 100%);
   min-height: min(320px, 100%);
