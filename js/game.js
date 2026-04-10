@@ -60,6 +60,24 @@ function getResultUrl(wordText, hitPercent) {
   return `result.html?word=${encodeURIComponent(wordText)}&hitPercent=${hitPercent}`;
 }
 
+function getHitPercent(skewerRect, wordRect) {
+  const skewerCenterY = skewerRect.top + skewerRect.height / 2;
+  const hitPercent = ((skewerCenterY - wordRect.top) / wordRect.height) * 100;
+
+  return Math.min(Math.max(hitPercent, 0), 100).toFixed(1);
+}
+
+function removeWord(word, index) {
+  word.remove();
+  wordElements.splice(index, 1);
+}
+
+function moveToResult(wordText, hitPercent) {
+  setTimeout(() => {
+    window.location.href = getResultUrl(wordText, hitPercent);
+  }, RESULT_TRANSITION_DELAY_MS);
+}
+
 // -------------------------------------
 // 串の初期位置設定（右端に配置）
 // -------------------------------------
@@ -139,22 +157,15 @@ function updateWords() {
       moveButton.disabled = true;
 
       const wordText = word.textContent || "";
-      const skewerCenterY = skewerRect.top + skewerRect.height / 2;
-      const hitPercent = ((skewerCenterY - wordRect.top) / wordRect.height) * 100;
-      const clampedHitPercent = Math.min(Math.max(hitPercent, 0), 100).toFixed(1);
+      const hitPercent = getHitPercent(skewerRect, wordRect);
 
-      word.remove();
-      wordElements.splice(index, 1);
-
-      setTimeout(() => {
-        window.location.href = getResultUrl(wordText, clampedHitPercent);
-      }, RESULT_TRANSITION_DELAY_MS);
+      removeWord(word, index);
+      moveToResult(wordText, hitPercent);
     }
 
     // 画面外に落下したら削除
     if (parseFloat(word.style.top) > window.innerHeight) {
-      word.remove();
-      wordElements.splice(index, 1);
+      removeWord(word, index);
     }
   });
 }
