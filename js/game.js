@@ -5,9 +5,12 @@ const gameState = KebabGameCore.createInitialState();
 const gameSettings = KebabGameCore.SETTINGS;
 
 function setSkewerInitialPosition() {
+  const gameAreaWidth = gameArea.getBoundingClientRect().width;
+  const skewerWidth = skewer.getBoundingClientRect().width || skewer.offsetWidth;
+
   gameState.skewerLeft = KebabGameCore.getInitialSkewerLeft(
-    window.innerWidth,
-    skewer.offsetWidth,
+    gameAreaWidth,
+    skewerWidth,
   );
   skewer.style.left = `${gameState.skewerLeft}px`;
   skewer.style.display = "block";
@@ -136,7 +139,16 @@ function updateGame() {
   updateWords();
 }
 
-setSkewerInitialPosition();
+function startGame() {
+  setSkewerInitialPosition();
+  setInterval(updateGame, gameSettings.gameLoopIntervalMs);
+}
+
 moveButton.addEventListener("click", shootSkewer);
 window.addEventListener("resize", handleResize);
-setInterval(updateGame, gameSettings.gameLoopIntervalMs);
+
+if (skewer.complete) {
+  startGame();
+} else {
+  skewer.addEventListener("load", startGame, { once: true });
+}

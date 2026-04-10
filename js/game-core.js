@@ -37,7 +37,7 @@ const KebabGameCore = (() => {
   }
 
   function getInitialSkewerLeft(viewportWidth, skewerWidth) {
-    return viewportWidth - (skewerWidth || SETTINGS.defaultSkewerWidth);
+    return Math.max(0, viewportWidth - (skewerWidth || SETTINGS.defaultSkewerWidth));
   }
 
   function createWordDraft() {
