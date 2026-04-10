@@ -25,7 +25,6 @@ const words = [
 ];
 
 const wordElements = [];
-const results = [];
 
 const gameArea = document.getElementById("gameArea");
 const skewer = document.getElementById("skewer");
@@ -120,9 +119,6 @@ function updateWords() {
       const skewerCenterY = skewerRect.top + skewerRect.height / 2;
       const hitPercent = ((skewerCenterY - wordRect.top) / wordRect.height) * 100;
       const clampedHitPercent = Math.min(Math.max(hitPercent, 0), 100).toFixed(1);
-
-      results.push({ word: wordText, hitPercent: clampedHitPercent });
-      console.log("衝突しました:", wordText, clampedHitPercent);
 
       word.remove();
       wordElements.splice(index, 1);
