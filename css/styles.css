@@ -11,7 +11,7 @@ body {
 }
 
 .home-main {
-  height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
+  height: calc(100dvh - var(--site-header-height));
   min-height: 0;
   justify-content: safe center;
   overflow-y: auto;
