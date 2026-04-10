@@ -11,8 +11,11 @@ body {
 }
 
 .home-main {
-  min-height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
-  padding-block: 1rem calc(var(--site-footer-height) + 1rem);
+  height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
+  min-height: 0;
+  justify-content: safe center;
+  overflow-y: auto;
+  padding-block: 1rem;
 }
 
 .text-accent {
@@ -164,8 +167,11 @@ body {
 }
 
 .result-main {
-  min-height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
-  padding-block: 0.75rem calc(var(--action-area-height) + 0.75rem);
+  height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
+  min-height: 0;
+  justify-content: safe center;
+  overflow: hidden;
+  padding-block: 0.75rem;
 }
 
 .result-shell {
@@ -177,8 +183,8 @@ body {
   );
   max-height: 100%;
   aspect-ratio: 1 / 1;
-  min-width: min(320px, 100%);
-  min-height: min(320px, 100%);
+  min-width: 0;
+  min-height: 0;
 }
 
 .result-actions {
@@ -210,8 +216,6 @@ body {
 
   .home-main {
     justify-content: flex-start;
-    min-height: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
-    padding-block: 1rem calc(var(--site-footer-height) + 1rem);
   }
 
   .word {
@@ -233,7 +237,5 @@ body {
       92vw,
       calc(100dvh - var(--site-header-height) - var(--site-footer-height) - var(--action-area-height) - 1.5rem)
     );
-    min-width: min(320px, 100%);
-    min-height: min(320px, 100%);
   }
 }
