@@ -64,7 +64,7 @@
   <!-- ===========================
         メインコンテンツ
   ============================ -->
-  <main id="gameArea" class="relative w-full" style="height: calc(100vh - 60px - 60px);">
+  <main id="gameArea" class="game-area relative w-full">
 
     <!-- 串画像 -->
     <img id="skewer" src="image/skewer_sm.png" alt="skewer">
@@ -74,39 +74,38 @@
     ============================ -->
     <div
       class="fixed bottom-20 left-1/2 transform -translate-x-1/2 
-             grid justify-center gap-3 z-30
+             button-grid grid justify-center gap-3 z-30
              sm:flex sm:flex-nowrap sm:justify-center"
-      style="grid-template-columns: repeat(2, max-content);"
     >
       <!-- ホームボタン -->
-      <button
-        class="px-6 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg 
+      <a
+        href="index.html"
+        class="inline-flex items-center justify-center px-6 py-2 bg-blue-500/80 text-white font-semibold rounded-lg shadow-lg
                hover:bg-blue-600/80 transition duration-200 backdrop-blur-sm
                w-auto min-w-fit"
-        onclick="location.href='index.html'"
       >
         ホーム
-      </button>
+      </a>
 
       <!-- 操作説明 -->
-      <button
-        class="px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg 
+      <a
+        href="rules.html"
+        class="inline-flex items-center justify-center px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg
                hover:bg-green-600/80 transition duration-200 backdrop-blur-sm
                w-auto min-w-fit"
-        onclick="location.href='rules.html'"
       >
         操作説明
-      </button>
+      </a>
 
       <!-- 用語解説 -->
-      <button
-        class="px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg 
+      <a
+        href="glossary.html"
+        class="inline-flex items-center justify-center px-6 py-2 bg-green-500/80 text-white font-semibold rounded-lg shadow-lg
                hover:bg-green-600/80 transition duration-200 backdrop-blur-sm
                w-auto min-w-fit"
-        onclick="location.href='glossary.html'"
       >
         用語解説
-      </button>
+      </a>
 
       <!-- 串を飛ばすボタン -->
       <button
