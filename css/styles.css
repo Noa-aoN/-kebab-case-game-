@@ -166,10 +166,10 @@ body {
 }
 
 .result-shell {
-  width: min(88vw, calc(100dvh - 180px), 640px);
+  width: min(100%, 88vw, calc(100dvh - 180px), 640px);
   aspect-ratio: 1 / 1;
-  min-width: 260px;
-  min-height: 260px;
+  min-width: min(260px, 100%);
+  min-height: min(260px, 100%);
 }
 
 .result-word {
@@ -209,8 +209,8 @@ body {
   }
 
   .result-shell {
-    width: min(92vw, calc(100dvh - 230px));
-    min-width: 240px;
-    min-height: 240px;
+    width: min(100%, 92vw, calc(100dvh - 230px));
+    min-width: min(240px, 100%);
+    min-height: min(240px, 100%);
   }
 }
