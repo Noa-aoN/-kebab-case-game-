@@ -50,6 +50,15 @@ const getRank = score => {
   }
 };
 
+// === ケバブ用結果画像判定関数 ===
+const getKebabResultImage = score => {
+  if (score >= 100) return "image/perfect_kebab.png";
+  if (score >= 90) return "image/great_kebab.png";
+  if (score >= 75) return "image/good_kebab.png";
+  if (score >= 50) return "image/ok_kebab.png";
+  return "image/miss_kebab.png";
+};
+
 // === スコア・ランク判定 ===
 const score = calcScore(hitPercent);
 const rank = getRank(score);
@@ -60,11 +69,7 @@ if (isKebabTarget) {
     resultImg.src = "image/kebab_snake.png";
     wordText.textContent = word.replace(" ", "_");
   } else {
-    if (score >= 100) resultImg.src = "image/perfect_kebab.png";
-    else if (score >= 90) resultImg.src = "image/great_kebab.png";
-    else if (score >= 75) resultImg.src = "image/good_kebab.png";
-    else if (score >= 50) resultImg.src = "image/ok_kebab.png";
-    else resultImg.src = "image/miss_kebab.png";
+    resultImg.src = getKebabResultImage(score);
   }
 }
 
