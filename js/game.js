@@ -56,6 +56,10 @@ function getRandomRange(min, range) {
   return min + Math.random() * range;
 }
 
+function getResultUrl(wordText, hitPercent) {
+  return `result.html?word=${encodeURIComponent(wordText)}&hitPercent=${hitPercent}`;
+}
+
 // -------------------------------------
 // 串の初期位置設定（右端に配置）
 // -------------------------------------
@@ -143,7 +147,7 @@ function updateWords() {
       wordElements.splice(index, 1);
 
       setTimeout(() => {
-        window.location.href = `result.html?word=${encodeURIComponent(wordText)}&hitPercent=${clampedHitPercent}`;
+        window.location.href = getResultUrl(wordText, clampedHitPercent);
       }, RESULT_TRANSITION_DELAY_MS);
     }
 
