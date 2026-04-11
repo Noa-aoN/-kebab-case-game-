@@ -64,7 +64,7 @@ function shareResult() {
     matchedCase: result.matchedCase,
     hitPercent: result.hitPercent,
   });
-  const pageUrl = window.location.origin + "/-kebab-case-game-/";
+  const pageUrl = new URL("./", window.location.href).href;
   const tweetUrl = KebabResultCore.makeXUrl(text, pageUrl);
 
   window.open(tweetUrl, "_blank", "noopener,noreferrer");

@@ -2,23 +2,18 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 const sharp = require("sharp");
 
-const images = [
-  "image/camel.png",
-  "image/dot.png",
-  "image/good_kebab.png",
-  "image/great_kebab.png",
-  "image/hungarian.png",
-  "image/kebab_snake.png",
-  "image/many_kebab.png",
-  "image/miss_kebab.png",
-  "image/ok_kebab.png",
-  "image/perfect_kebab.png",
-  "image/skewer_sm.png",
-  "image/snake.png",
-  "image/target_cut4.png",
-  "image/upper_camel.png",
-  "image/upper_snake.png",
-];
+const IMAGE_DIR = "image";
+const EXCLUDED_IMAGES = new Set(["ogp.png"]);
+
+async function findSourceImages() {
+  const fileNames = await fs.readdir(IMAGE_DIR);
+
+  return fileNames
+    .filter(fileName => path.extname(fileName) === ".png")
+    .filter(fileName => !EXCLUDED_IMAGES.has(fileName))
+    .sort((left, right) => left.localeCompare(right))
+    .map(fileName => path.join(IMAGE_DIR, fileName));
+}
 
 async function optimizeImage(sourcePath) {
   const targetPath = sourcePath.replace(/\.png$/, ".webp");
@@ -43,6 +38,7 @@ async function optimizeImage(sourcePath) {
 }
 
 async function main() {
+  const images = await findSourceImages();
   const results = await Promise.all(images.map(optimizeImage));
 
   for (const result of results) {

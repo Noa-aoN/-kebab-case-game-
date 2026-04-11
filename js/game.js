@@ -81,6 +81,12 @@ function updateWordMeasurement(wordState) {
   wordState.height = measurement.height;
 }
 
+function updateAllWordMeasurements() {
+  for (const wordState of gameState.wordStates) {
+    updateWordMeasurement(wordState);
+  }
+}
+
 function renderWordPosition(wordState) {
   wordState.element.style.left = `${wordState.left}px`;
   wordState.element.style.top = `${wordState.top}px`;
@@ -120,17 +126,17 @@ function createWord() {
   gameState.wordStates.push(wordState);
 }
 
+function moveToResult(wordText, hitPercent) {
+  setTimeout(() => {
+    window.location.href = KebabGameCore.getResultUrl(wordText, hitPercent);
+  }, gameSettings.resultTransitionDelayMs);
+}
+
 function removeWord(index) {
   const word = gameState.wordStates[index];
 
   word.element.remove();
   gameState.wordStates.splice(index, 1);
-}
-
-function moveToResult(wordText, hitPercent) {
-  setTimeout(() => {
-    window.location.href = KebabGameCore.getResultUrl(wordText, hitPercent);
-  }, gameSettings.resultTransitionDelayMs);
 }
 
 function moveWordDown(wordState) {
@@ -176,6 +182,11 @@ function updateWords() {
   }
 }
 
+function resetSkewerAfterFlight() {
+  setSkewerInitialPosition();
+  gameState.flying = false;
+}
+
 function flySkewer() {
   gameState.skewerLeft = KebabGameCore.getNextSkewerLeft(gameState.skewerLeft);
   renderSkewerPosition({
@@ -194,10 +205,7 @@ function flySkewer() {
     right: "auto",
     display: "none",
   });
-  setTimeout(() => {
-    setSkewerInitialPosition();
-    gameState.flying = false;
-  }, gameSettings.skewerResetDelayMs);
+  setTimeout(resetSkewerAfterFlight, gameSettings.skewerResetDelayMs);
 }
 
 function shootSkewer() {
@@ -212,16 +220,18 @@ function shootSkewer() {
   requestAnimationFrame(flySkewer);
 }
 
-function handleResize() {
+function refreshLayoutAfterResize() {
   refreshGameLayout();
 
   if (!gameState.flying && !gameState.ended) {
     setSkewerInitialPosition();
   }
 
-  for (const wordState of gameState.wordStates) {
-    updateWordMeasurement(wordState);
-  }
+  updateAllWordMeasurements();
+}
+
+function handleResize() {
+  refreshLayoutAfterResize();
 }
 
 function updateGame() {
@@ -262,11 +272,20 @@ function startGame() {
   requestAnimationFrame(runGameLoop);
 }
 
-moveButton.addEventListener("click", shootSkewer);
-window.addEventListener("resize", handleResize);
+function bindEvents() {
+  moveButton.addEventListener("click", shootSkewer);
+  window.addEventListener("resize", handleResize);
+}
 
-if (skewer.complete) {
-  startGame();
-} else {
+function initializeGame() {
+  bindEvents();
+
+  if (skewer.complete) {
+    startGame();
+    return;
+  }
+
   skewer.addEventListener("load", startGame, { once: true });
 }
+
+initializeGame();
