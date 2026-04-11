@@ -15,7 +15,7 @@ const images = [
   "image/perfect_kebab.png",
   "image/skewer_sm.png",
   "image/snake.png",
-  "image/target_cut2.png",
+  "image/target_cut4.png",
   "image/upper_camel.png",
   "image/upper_snake.png",
 ];

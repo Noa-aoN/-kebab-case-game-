@@ -5,6 +5,7 @@ const hitPercentText = document.getElementById("hitPercentText");
 const scoreText = document.getElementById("scoreText");
 const shareButton = document.getElementById("shareButton");
 const MAX_WORD_LENGTH = 80;
+let resizeFrameRequested = false;
 
 const params = new URLSearchParams(window.location.search);
 const word = sanitizeWord(params.get("word"));
@@ -45,6 +46,16 @@ function updateTextSizes() {
   hitPercentText.style.fontSize = `${Math.max(12, size * 0.03)}px`;
 }
 
+function scheduleTextSizeUpdate() {
+  if (resizeFrameRequested) return;
+
+  resizeFrameRequested = true;
+  requestAnimationFrame(() => {
+    resizeFrameRequested = false;
+    updateTextSizes();
+  });
+}
+
 function shareResult() {
   const text = KebabResultCore.getShareText({
     word: result.word,
@@ -62,6 +73,6 @@ function shareResult() {
 renderResult(result);
 updateTextSizes();
 
-window.addEventListener("resize", updateTextSizes);
-window.addEventListener("load", updateTextSizes);
+window.addEventListener("resize", scheduleTextSizeUpdate);
+window.addEventListener("load", scheduleTextSizeUpdate);
 shareButton.addEventListener("click", shareResult);

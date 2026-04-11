@@ -1,4 +1,8 @@
 const KebabResultCore = (() => {
+  function replaceAll(value, searchValue, replaceValue) {
+    return value.split(searchValue).join(replaceValue);
+  }
+
   function detectCase(word) {
     return KebabResultData.casePatterns.find(pattern => pattern.regex.test(word)) ||
       KebabResultData.unknownCase;
@@ -6,10 +10,10 @@ const KebabResultCore = (() => {
 
   function formatResultWord(word, isKebabTarget, hitPercent) {
     if (isKebabTarget && hitPercent >= 85) {
-      return word.replace(" ", "_");
+      return replaceAll(word, " ", "_");
     }
 
-    return word.replace(" ", "-");
+    return replaceAll(word, " ", "-");
   }
 
   function calcScore(hitPercent) {
@@ -55,8 +59,8 @@ const KebabResultCore = (() => {
   function getShareText({ word, score, rank, matchedCase, hitPercent }) {
     const borderLine = "-------------------------------\n";
     const wordDisplay = matchedCase.isKebabTarget
-      ? word.replace("-", " ").replace("_", " ")
-      : word.replace("-", " ");
+      ? replaceAll(replaceAll(word, "-", " "), "_", " ")
+      : replaceAll(word, "-", " ");
     const resultCase = (matchedCase.isKebabTarget && hitPercent >= 85)
       ? "新スネークケース"
       : matchedCase.label;

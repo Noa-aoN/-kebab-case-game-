@@ -48,6 +48,21 @@ test("result core builds kebab results by hit position", () => {
   assert.equal(lowHit.scoreText, "下から 10% 地点に刺さった！");
 });
 
+test("result core formats multiple spaces consistently", () => {
+  const core = loadGlobal(["js/result-data.js", "js/result-core.js"], "KebabResultCore");
+  const result = core.buildResult("fried chicken meat", 50);
+  const shareText = core.getShareText({
+    word: result.wordText,
+    score: result.score,
+    rank: result.rank,
+    matchedCase: result.matchedCase,
+    hitPercent: result.hitPercent,
+  });
+
+  assert.equal(result.wordText, "fried-chicken-meat");
+  assert.match(shareText, /「fried chicken meat」/);
+});
+
 test("result core detects non-kebab naming styles", () => {
   const core = loadGlobal(["js/result-data.js", "js/result-core.js"], "KebabResultCore");
 
