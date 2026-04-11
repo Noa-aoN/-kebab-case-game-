@@ -63,6 +63,28 @@ function measureWord(word) {
   };
 }
 
+function updateWordMeasurement(wordState) {
+  const measurement = measureWord(wordState.element);
+
+  wordState.width = measurement.width;
+  wordState.height = measurement.height;
+}
+
+function createWordState(element) {
+  const wordState = {
+    element,
+    width: 0,
+    height: 0,
+    left: 0,
+    top: 0,
+    speed: 0,
+  };
+
+  updateWordMeasurement(wordState);
+
+  return wordState;
+}
+
 function placeWordElement(wordState) {
   const placement = KebabGameCore.createWordPlacement(
     gameState.skewerLeft,
@@ -82,25 +104,17 @@ function createWord() {
   const word = createWordElement();
 
   gameArea.appendChild(word);
-  const measurement = measureWord(word);
-  const wordState = {
-    element: word,
-    width: measurement.width,
-    height: measurement.height,
-    left: 0,
-    top: 0,
-    speed: 0,
-  };
+  const wordState = createWordState(word);
 
   placeWordElement(wordState);
-  gameState.wordElements.push(wordState);
+  gameState.wordStates.push(wordState);
 }
 
 function removeWord(index) {
-  const word = gameState.wordElements[index];
+  const word = gameState.wordStates[index];
 
   word.element.remove();
-  gameState.wordElements.splice(index, 1);
+  gameState.wordStates.splice(index, 1);
 }
 
 function moveToResult(wordText, hitPercent) {
@@ -145,8 +159,8 @@ function updateWords() {
   const gameAreaHeight = gameLayout.areaHeight;
   const skewerRect = skewer.getBoundingClientRect();
 
-  for (let index = gameState.wordElements.length - 1; index >= 0; index -= 1) {
-    const wordState = gameState.wordElements[index];
+  for (let index = gameState.wordStates.length - 1; index >= 0; index -= 1) {
+    const wordState = gameState.wordStates[index];
     const nextTop = moveWordDown(wordState);
     const wordRect = wordState.element.getBoundingClientRect();
 
@@ -194,11 +208,8 @@ function handleResize() {
     setSkewerInitialPosition();
   }
 
-  for (const wordState of gameState.wordElements) {
-    const measurement = measureWord(wordState.element);
-
-    wordState.width = measurement.width;
-    wordState.height = measurement.height;
+  for (const wordState of gameState.wordStates) {
+    updateWordMeasurement(wordState);
   }
 }
 

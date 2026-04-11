@@ -20,7 +20,7 @@ const KebabGameCore = (() => {
       skewerLeft: 0,
       flying: false,
       ended: false,
-      wordElements: [],
+      wordStates: [],
     };
   }
 
@@ -41,8 +41,10 @@ const KebabGameCore = (() => {
   }
 
   function createWordDraft() {
+    const wordEntry = getRandomItem(KebabGameData.words);
+
     return {
-      text: getRandomItem(KebabGameData.words),
+      text: wordEntry.text,
       fontSizeRem: getRandomRange(SETTINGS.wordMinFontSizeRem, SETTINGS.wordRandomFontSizeRem),
     };
   }
