@@ -9,85 +9,71 @@
   <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
   <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 
-  <!-- Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M4H2XHF2LC"></script>
-  <script src="js/analytics.js"></script>
-
   <!-- Styles -->
   <link rel="stylesheet" href="tailwind.css">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap"
-    rel="stylesheet"
-    media="print"
-    onload="this.media='all'"
-  >
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-    media="print"
-    onload="this.media='all'"
-  >
-  <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-  </noscript>
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Analytics -->
+  <script src="js/analytics.js"></script>
 </head>
 
-<body class="bg-[url('image/many_kebab.webp')] bg-repeat bg-center bg-cover min-h-screen">
+<body class="info-page relative h-screen bg-gray-100 bg-[url('image/many_kebab.webp')] bg-center bg-cover">
     
   <!-- ================================
        ヘッダー
   ================================= -->
-  <header class="site-header site-header--soft site-header--regular site-header--sticky">
-    <h1 class="text-center text-xl font-bold text-yellow-800">🥙 プライバシーポリシー 🥙</h1>
+  <header class="site-header site-header--strong site-header--compact site-header--fixed">
+    <h1 class="text-center text-lg font-bold m-2 text-yellow-800">🥙 プライバシーポリシー 🥙</h1>
   </header>
 
   <!-- ================================
        メインコンテンツ
   ================================= -->
-  <main class="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] sm:min-h-auto w-full px-4 sm:px-8 lg:px-16 space-y-6 mt-4">
+  <main class="info-main">
+    <div class="info-content flex flex-col items-center justify-start w-full px-4 sm:px-8 lg:px-16">
 
-    <!-- --------------------------------
-         プライバシーポリシーカード
-    --------------------------------- -->
-    <section class="w-full max-w-3xl bg-amber-300/90 rounded-3xl shadow-xl p-6 sm:p-12 text-center text-lg leading-8 backdrop-blur-sm">
-      <h2 class="text-2xl font-bold text-yellow-800 mb-4">🔒 プライバシーポリシーについて</h2>
-      <p>
-        このサイトでは、より快適に遊んでもらうために<br>
-        <b>Google アナリティクス</b>を利用しています。
-      </p>
-      <br>
-      <p>
-        Google アナリティクスは Cookie を使用し<br>
-        個人を特定しない形でアクセス状況を収集します。
-      </p>
-      <p>
-        収集されたデータは Google 社の<br>
-        <a href="https://policies.google.com/privacy?hl=ja" target="_blank" rel="noopener noreferrer" class="text-accent">
-          <b>プライバシーポリシー</b>
-        </a>
-        に基づいて管理されます。
-      </p>
-      <br>
-      <p>
-        このサイトを利用することで<br>
-        上記に同意したものとみなします。
-      </p>
-      <br>
-      <p>
-        安心してゲームをお楽しみください 🎮✨
-      </p>
-    </section>
+      <!-- --------------------------------
+           プライバシーポリシーカード
+      --------------------------------- -->
+      <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-center text-lg leading-8">
+        <h2 class="text-2xl font-bold text-yellow-800 mb-4">🔒 プライバシーポリシーについて</h2>
+        <p>
+          このサイトでは、より快適に遊んでもらうために<br>
+          <b>Google アナリティクス</b>を利用しています。
+        </p>
+        <br>
+        <p>
+          Google アナリティクスは Cookie などを使用し、
+          <span class="block sm:inline">アクセス状況を収集します。</span>
+        </p>
+        <p>
+          収集される情報には、
+          <span class="block sm:inline">ブラウザ・端末情報、利用状況、概算の地域情報などが含まれる場合があります。</span>
+          <span class="block mt-2 sm:mt-0">これらの情報は、個人を直接特定しない範囲で扱われます。</span>
+        </p>
+        <p>
+          詳しくは Google 社の
+          <span class="block sm:inline">
+          <a href="https://policies.google.com/privacy?hl=ja" target="_blank" rel="noopener noreferrer" class="text-accent">
+            <b>プライバシーポリシー</b>
+          </a>
+          </span>
+          <span class="block sm:inline">および Google アナリティクスの案内をご確認ください。</span>
+        </p>
+        <br>
+        <p>
+          Google アナリティクスによる情報収集を望まない場合は、
+          <span class="block sm:inline">ブラウザの設定で Cookie を無効にするか、</span>
+          <span class="block sm:inline">Google が提供するオプトアウト手段をご利用ください。</span>
+        </p>
+        <br>
+        <p>
+          安心してゲームをお楽しみください 🎮✨
+        </p>
+      </section>
 
-    <!-- フッターとの余白確保 -->
-    <div class="h-20"></div>
+    </div>
   </main>
 
   <!-- ==============================
@@ -109,7 +95,7 @@
     <div class="flex flex-col sm:flex-row items-center justify-center relative">
       <!-- 左/中央部分 -->
       <p class="text-center m-1 text-sm text-yellow-800 sm:text-yellow-900 sm:text-base">
-        -kebab-case-game-@NOA
+        -kebab-case-game- by NOA
       </p>
       <!-- スマホで少しスペース -->
       <span class="hidden sm:inline mx-2"></span>

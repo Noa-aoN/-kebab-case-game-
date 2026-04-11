@@ -9,35 +9,13 @@
   <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
   <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 
-  <!-- Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M4H2XHF2LC"></script>
-  <script src="js/analytics.js"></script>
-
   <!-- Styles -->
   <link rel="stylesheet" href="tailwind.css">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap"
-    rel="stylesheet"
-    media="print"
-    onload="this.media='all'"
-  >
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-    media="print"
-    onload="this.media='all'"
-  >
-  <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-  </noscript>
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Analytics -->
+  <script src="js/analytics.js"></script>
 </head>
 
 <body class="info-page relative h-screen bg-gray-100 bg-[url('image/many_kebab.webp')] bg-center bg-cover">
@@ -113,7 +91,7 @@
       <!-- ケバブケース -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">🥙 ケバブケース（kebab-case）</h2>
-        別名：ローワーケバブケース（lower-kebab-case） / リスプケース（lisp-case）<br>
+        別名：ローワーケバブケース（lower-kebab-case） / リスプケース（lisp-case） / チェインケース（chain-case）<br>
         ＝すべての単語を小文字で書き、単語の区切りにハイフン <code>-</code> を使う。<br>
         <span class="text-gray-700 italic">
           例：kebab-case, user-name, get-element-by-id<br>
@@ -126,6 +104,7 @@
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">🥙🥙 アッパーケバブケース（Upper-Kebab-Case）</h2>
         別名：トレインケース（Train-Case）<br>
+        ※ 一般的には「トレインケース」として紹介されることが多い表現です。<br>
         ＝各単語の先頭を大文字にし、単語の間をハイフン <code>-</code> で区切る。<br>
         <span class="text-gray-700 italic">
           例：Train-Case, Hello-World, User-Profile<br>
@@ -137,9 +116,11 @@
       <!-- ハンガリアン記法 -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">🇭🇺 ハンガリアン記法（Hungarian Notation）</h2>
-        ＝変数名の先頭に、その型や用途を表す短い接頭辞（prefix）を付ける。<br>
+        ＝変数名の先頭に、その型や意味・用途を表す短い接頭辞（prefix）を付ける、<span class="text-accent"><b>キャメルケースやスネークケースとは別軸</b></span>のルール。<br>
+        ＝見た目はキャメルケース風が多いが、本質は接頭辞の付け方にあり、他の記法と組み合わせて使われることもある。<br>
         <span class="text-gray-700 italic">
-          例：strName（文字列）、nCount（数値）、btnSubmit（ボタン要素）<br>
+          例：strName、nCount、btnSubmit<br>
+          prefix例：str（文字列）, n（数値）, btn（ボタン要素）, sz（文字列長）<br>
           由来：発案者のチャールズ・シモニーがハンガリー出身だったため。<br>
           使用言語：C, C++, Visual Basic など
         </span>
@@ -148,11 +129,11 @@
       <!-- ドットケース -->
       <section class="w-full max-w-3xl bg-amber-300/80 backdrop-blur-sm rounded-3xl shadow-md p-8 sm:p-12 mb-6 text-lg leading-8">
         <h2 class="text-xl font-bold text-yellow-800 mb-4">⚪️ ドットケース（dot.case）</h2>
-        ＝単語をピリオド <code>.</code> で区切る命名方法。<br>
+        ＝単語をピリオド <code>.</code> で区切る表記。<br>
         <span class="text-gray-700 italic">
           例：config.file.name, user.profile.image<br>
           由来：見たまんま「ドット（.）で区切る」書き方。<br>
-          使用言語：ファイル名、設定ファイル（JSON・YAML・プロパティ形式）、名前空間など
+          使用場面：ファイル名、設定キー、設定ファイル（JSON・YAML・プロパティ形式）、名前空間など
         </span>
       </section>
 
@@ -165,6 +146,7 @@
         共通点を整理してざっくりまとめたものです。<br><br>
 
         🚨 サイトや資料や地域によって内容や呼び方が異なる場合もあります。<br>
+        🚨 一部には、比較的マイナーな呼び方や補足的な表現も含みます。<br>
         🚨 「ハンガリアン記法」のように、意味づけを含む命名方法も一緒に紹介しています。  
         一部はわかりやすさを優先して簡略化していますのでご了承ください。<br><br>
 
@@ -189,12 +171,12 @@
 
         よく挙げられる命名規則の主なメリットも以下にまとめておきます。<br>
         <div class="bg-gray-100/90 rounded-3xl px-6 py-4 m-2 text-left text-lg leading-relaxed shadow-inner">
-          <p>・コードの可読性（読みやすさ）が上がる</p>
-          <p>・保守性・再利用性が高まる</p>
-          <p>・バグの削減につながる</p>
-          <p>・チーム開発が円滑になる</p>
-          <p>・自動化ツール・補完機能と相性が良くなる</p>
-          <p>・プロジェクト全体の信頼性・美しさが向上する</p>
+          <p>・コードの意図や役割を読み取りやすくなる</p>
+          <p>・命名の揺れが減り、検索や置換がしやすくなる</p>
+          <p>・保守やレビューを進めやすくなる</p>
+          <p>・バグの混入や見落としを減らしやすくなる</p>
+          <p>・チーム開発で共通理解を持ちやすくなる</p>
+          <p>・自動化ツールや補完機能と相性が良くなる</p>
         </div>
 
         <p class="mt-4 text-center font-semibold text-yellow-900">
@@ -225,7 +207,7 @@
     <div class="flex flex-col sm:flex-row items-center justify-center relative">
       <!-- 左/中央部分 -->
       <p class="text-center m-1 text-sm text-yellow-800 sm:text-yellow-900 sm:text-base">
-        -kebab-case-game-@NOA
+        -kebab-case-game- by NOA
       </p>
       <!-- スマホで少しスペース -->
       <span class="hidden sm:inline mx-2"></span>
