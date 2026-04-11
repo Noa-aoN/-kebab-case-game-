@@ -62,6 +62,40 @@ const KebabGameCore = (() => {
     };
   }
 
+  function createWordState(element, width, height) {
+    return {
+      element,
+      width,
+      height,
+      left: 0,
+      top: 0,
+      speed: 0,
+    };
+  }
+
+  function applyWordPlacement(wordState, placement) {
+    return {
+      ...wordState,
+      left: placement.left,
+      top: placement.top,
+      speed: placement.speed,
+    };
+  }
+
+  function getNextWordTop(wordState) {
+    return wordState.top + wordState.speed;
+  }
+
+  function getWordRect(wordState, gameAreaRect) {
+    return {
+      left: gameAreaRect.left + wordState.left,
+      right: gameAreaRect.left + wordState.left + wordState.width,
+      top: gameAreaRect.top + wordState.top,
+      bottom: gameAreaRect.top + wordState.top + wordState.height,
+      height: wordState.height,
+    };
+  }
+
   function getHitPercent(skewerRect, wordRect) {
     const skewerCenterY = skewerRect.top + skewerRect.height / 2;
     const hitPercent = ((skewerCenterY - wordRect.top) / wordRect.height) * 100;
@@ -99,13 +133,17 @@ const KebabGameCore = (() => {
 
   return {
     SETTINGS,
+    applyWordPlacement,
     createInitialState,
     createWordDraft,
     createWordPlacement,
+    createWordState,
     getHitPercent,
     getInitialSkewerLeft,
     getNextSkewerLeft,
+    getNextWordTop,
     getResultUrl,
+    getWordRect,
     hitCheckSkewer,
     isWordOutOfBounds,
     shouldSpawnWord,

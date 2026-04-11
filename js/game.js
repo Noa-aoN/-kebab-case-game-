@@ -23,13 +23,22 @@ function getSkewerRightOffset() {
 
 function refreshGameLayout() {
   const gameAreaRect = gameArea.getBoundingClientRect();
+  const nextLayout = {
+    areaLeft: gameAreaRect.left,
+    areaTop: gameAreaRect.top,
+    areaWidth: gameAreaRect.width,
+    areaHeight: gameAreaRect.height,
+    skewerWidth: skewer.offsetWidth,
+    skewerHeight: skewer.offsetHeight,
+  };
 
-  gameLayout.areaLeft = gameAreaRect.left;
-  gameLayout.areaTop = gameAreaRect.top;
-  gameLayout.areaWidth = gameAreaRect.width;
-  gameLayout.areaHeight = gameAreaRect.height;
-  gameLayout.skewerWidth = skewer.offsetWidth;
-  gameLayout.skewerHeight = skewer.offsetHeight;
+  Object.assign(gameLayout, nextLayout);
+}
+
+function renderSkewerPosition({ left, right, display }) {
+  skewer.style.left = left;
+  skewer.style.right = right;
+  skewer.style.display = display;
 }
 
 function setSkewerInitialPosition() {
@@ -40,9 +49,11 @@ function setSkewerInitialPosition() {
     0,
     KebabGameCore.getInitialSkewerLeft(gameLayout.areaWidth, gameLayout.skewerWidth) - skewerRightOffset,
   );
-  skewer.style.left = "auto";
-  skewer.style.right = `${skewerRightOffset}px`;
-  skewer.style.display = "block";
+  renderSkewerPosition({
+    left: "auto",
+    right: `${skewerRightOffset}px`,
+    display: "block",
+  });
 }
 
 function createWordElement() {
@@ -70,15 +81,13 @@ function updateWordMeasurement(wordState) {
   wordState.height = measurement.height;
 }
 
+function renderWordPosition(wordState) {
+  wordState.element.style.left = `${wordState.left}px`;
+  wordState.element.style.top = `${wordState.top}px`;
+}
+
 function createWordState(element) {
-  const wordState = {
-    element,
-    width: 0,
-    height: 0,
-    left: 0,
-    top: 0,
-    speed: 0,
-  };
+  const wordState = KebabGameCore.createWordState(element, 0, 0);
 
   updateWordMeasurement(wordState);
 
@@ -91,11 +100,12 @@ function placeWordElement(wordState) {
     wordState.width,
   );
 
-  wordState.left = placement.left;
-  wordState.top = placement.top;
-  wordState.speed = placement.speed;
-  wordState.element.style.left = `${placement.left}px`;
-  wordState.element.style.top = `${placement.top}px`;
+  const placedWordState = KebabGameCore.applyWordPlacement(wordState, placement);
+
+  wordState.left = placedWordState.left;
+  wordState.top = placedWordState.top;
+  wordState.speed = placedWordState.speed;
+  renderWordPosition(wordState);
 }
 
 function createWord() {
@@ -124,22 +134,12 @@ function moveToResult(wordText, hitPercent) {
 }
 
 function moveWordDown(wordState) {
-  const nextTop = wordState.top + wordState.speed;
+  const nextTop = KebabGameCore.getNextWordTop(wordState);
 
   wordState.top = nextTop;
-  wordState.element.style.top = `${nextTop}px`;
+  renderWordPosition(wordState);
 
   return nextTop;
-}
-
-function getWordRect(wordState, gameAreaRect) {
-  return {
-    left: gameAreaRect.left + wordState.left,
-    right: gameAreaRect.left + wordState.left + wordState.width,
-    top: gameAreaRect.top + wordState.top,
-    bottom: gameAreaRect.top + wordState.top + wordState.height,
-    height: wordState.height,
-  };
 }
 
 function finishGame(wordState, skewerRect, wordRect) {
@@ -178,14 +178,22 @@ function updateWords() {
 
 function flySkewer() {
   gameState.skewerLeft = KebabGameCore.getNextSkewerLeft(gameState.skewerLeft);
-  skewer.style.left = `${gameState.skewerLeft}px`;
+  renderSkewerPosition({
+    left: `${gameState.skewerLeft}px`,
+    right: "auto",
+    display: "block",
+  });
 
   if (gameState.skewerLeft > 0) {
     requestAnimationFrame(flySkewer);
     return;
   }
 
-  skewer.style.display = "none";
+  renderSkewerPosition({
+    left: `${gameState.skewerLeft}px`,
+    right: "auto",
+    display: "none",
+  });
   setTimeout(() => {
     setSkewerInitialPosition();
     gameState.flying = false;
@@ -195,8 +203,11 @@ function flySkewer() {
 function shootSkewer() {
   if (gameState.flying || gameState.ended) return;
 
-  skewer.style.right = "auto";
-  skewer.style.left = `${gameState.skewerLeft}px`;
+  renderSkewerPosition({
+    left: `${gameState.skewerLeft}px`,
+    right: "auto",
+    display: "block",
+  });
   gameState.flying = true;
   requestAnimationFrame(flySkewer);
 }

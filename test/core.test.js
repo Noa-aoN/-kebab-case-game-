@@ -33,6 +33,25 @@ test("game core creates word drafts from configured word data", () => {
   );
 });
 
+test("game core creates and updates word state without DOM assumptions", () => {
+  const core = loadGlobal(["js/game-data.js", "js/game-core.js"], "KebabGameCore");
+  const baseState = core.createWordState({ id: "word" }, 80, 24);
+  const placement = { left: 120, top: 0, speed: 1.25 };
+  const placedState = core.applyWordPlacement(baseState, placement);
+  const nextTop = core.getNextWordTop(placedState);
+  const wordRect = core.getWordRect(placedState, { left: 10, top: 20 });
+
+  assert.equal(baseState.left, 0);
+  assert.equal(placedState.left, 120);
+  assert.equal(placedState.speed, 1.25);
+  assert.equal(nextTop, 1.25);
+  assert.equal(wordRect.left, 130);
+  assert.equal(wordRect.right, 210);
+  assert.equal(wordRect.top, 20);
+  assert.equal(wordRect.bottom, 44);
+  assert.equal(wordRect.height, 24);
+});
+
 test("result core builds kebab results by hit position", () => {
   const core = loadGlobal(["js/result-data.js", "js/result-core.js"], "KebabResultCore");
   const centerHit = core.buildResult("chicken meat", 50);
