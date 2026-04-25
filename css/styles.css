@@ -57,6 +57,14 @@ body {
   width: 100%;
 }
 
+.privacy-page .info-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: safe center;
+  min-height: 100%;
+}
+
 .info-content > :last-child {
   margin-bottom: 0;
 }
