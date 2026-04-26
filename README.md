@@ -64,5 +64,5 @@ npm test
 ---
 
 ## 🔗 リンク
-**ゲーム**  
+
 🥙 [-kebab-case-game-](https://noa-aon.github.io/-kebab-case-game-/index.html)
