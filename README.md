@@ -63,6 +63,6 @@ npm test
 - [ ] デプロイ先の選択肢を広げる
 ---
 
-## 👦 作者
-**NOA**  
-📘 [GitHub: Noa-aoN](https://github.com/Noa-aoN)
+## 🔗 リンク
+**ゲーム**  
+🥙 [-kebab-case-game-](https://noa-aon.github.io/-kebab-case-game-/index.html)
